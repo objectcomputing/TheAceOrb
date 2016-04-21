@@ -5,4 +5,6 @@
 #define ACE_MAJOR_VERSION 6
 #define ACE_MINOR_VERSION 3
 #define ACE_BETA_VERSION 3
-#define ACE_VERSION "6.3.3"
+#define ACE_VERSION "6.3a_pre"
+#define ACE_OCI_PATCHLEVEL 0
+#define ACE_OCI_REV a

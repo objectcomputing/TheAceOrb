@@ -9,6 +9,7 @@
 #include "ace/OS_NS_Thread.h"
 #include "ace/Service_Config.h"
 #include "tao/Invocation_Utils.h"
+#include "tao/IIOP_Endpoint.h"
 
 #if !defined (TAO_ALLOW_ZIOP_NO_SERVER_POLICIES_DEFAULT)
 # define TAO_ALLOW_ZIOP_NO_SERVER_POLICIES_DEFAULT false
@@ -40,8 +41,8 @@ TAO_ORB_Parameters::TAO_ORB_Parameters (void)
   , sched_policy_ (THR_SCHED_DEFAULT)
   , scope_policy_ (THR_SCOPE_PROCESS)
   , single_read_optimization_ (1)
-  , shared_profile_ (0)
-  , use_parallel_connects_ (false)
+  , shared_profile_ (1)
+  , use_parallel_connects_ (true)
   , parallel_connect_delay_ (0)
   , pref_network_ ()
   , disable_rt_collocation_resolver_ (false)
@@ -312,6 +313,7 @@ TAO_ORB_Parameters::enforce_pref_interfaces (void) const
 void
 TAO_ORB_Parameters::prefer_ipv6_interfaces (bool p)
 {
+  TAO_IIOP_Endpoint::try_ipv4_first_ = !p;
   this->prefer_ipv6_interfaces_ = p;
 }
 

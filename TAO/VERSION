@@ -1,4 +1,43 @@
-This is TAO version 2.3.3, released Thu Sep 17 08:51:30 CEST 2015
+This is TAO version 2.3a_pre, _not_yet_released_
+
+This is a modified version of the TAO originally released by the DOC group.
+It contains additional fixes and optimizations. An overview of OCI's version
+of ACE and TAO is available in the $ACE_ROOT/OCIReleaseNotes.html file. Many
+of the the changes have been included in the current versions of TAO released
+by the DOC group.
+
+Since TAO is open source and free of licensing fees, we do not derive any
+revenue other than through our services and support. Therefore we are unable
+to provide free support.
+
+For more details, and information on opening a support contract
+please see http://www.theaceorb.com/support/index.html or contact
+sales@ociweb.com
+
+Other sources of information you may want to consider using are:
+
+OCI TAO 2.3a source code, release notes, and other downloads:
+  http://github.org/objectcomputing/OCITAO
+
+OCI TAO 2.2a (supports 2.3a too)  Developer's guide ebook:
+  http://www.theaceorb.com/buy
+
+The TAO FAQ:
+  http://www.theaceorb.com/faq
+
+OCI CORBA and TAO training courses:
+  http://www.theaceorb.com/training
+
+OCI Middleware News Brief articles:
+  http://www.ociweb.com/mnb/index.html
+
+ACE and TAO mailing lists:
+  http://www.cs.wustl.edu/~schmidt/TAO-mail.html
+
+Thank you for your interest in ACE+TAO.
+---------------------------------------------------------------------
+If you do not have a support contract with OCI, "best effort" support
+is available from the TAO mailing list:
 
 If you have any problems with or questions about TAO, please send
 e-mail to the TAO mailing list (tao-bugs@list.isis.vanderbilt.edu),

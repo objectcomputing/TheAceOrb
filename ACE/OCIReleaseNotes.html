@@ -1,0 +1,698 @@
+<!DOCTYPE HTML PUBLIC "HTML 4.01 Transitional">
+<HTML>
+   <HEAD>
+      <TITLE>OCI TAO 2.3a Release Notes - INCOMPLETE - </TITLE>
+   </HEAD>
+   <BODY LANG="en-US" BGCOLOR="#eeeeee" DIR="ltr">
+      <H1 ALIGN="center"><A NAME="top"></A>Release Notes for OCI's Distribution of TAO
+         2.3a<BR>
+         Copyright 2016 by Object Computing, Inc.
+      </H1>
+      <HR>
+      <P ALIGN="center" STYLE="MARGIN-BOTTOM: 0in">
+         NOTE: &nbsp; These release notes can be found in the distribution at <TT>ACE/OCIReleaseNotes.html (or ACE_wrappers/OCIReleaseNotes.html for "classic" deployments)</TT>.
+      </P>
+      <P STYLE="PADDING-RIGHT: 0in; PADDING-LEFT: 0in; PADDING-BOTTOM: 0.02in; BORDER-TOP-STYLE: none; PADDING-TOP: 0in; BORDER-BOTTOM: #808080 1.1pt double; BORDER-RIGHT-STYLE: none; BORDER-LEFT-STYLE: none">
+         <!--========================= Table of Contents ========================--><BR>
+         <BR>
+      </P>
+      <P>Table of Contents</P>
+      <OL>
+         <LI>
+            <P STYLE="MARGIN-BOTTOM: 0in"><A HREF="#general_notes">General Notes</A>
+            </P>
+         <LI>
+            <P STYLE="MARGIN-BOTTOM: 0in"><A HREF="#updates">New Features Since TAO 2.2a including patch levels</A>
+            </P>
+         <LI>
+            <P STYLE="MARGIN-BOTTOM: 0in"><A HREF="#porting_to_22a">Porting Applications from TAO 2.2a to TAO 2.3a</A>
+            </P>
+         <LI>
+            <P STYLE="MARGIN-BOTTOM: 0in">Platforms that this release was tested on:
+            </P>
+            <UL>
+               <LI>
+                  <P STYLE="MARGIN-BOTTOM: 0in"><A HREF="#AIX">AIX</A>
+                  </P>
+               <LI>
+                  <P STYLE="MARGIN-BOTTOM: 0in"><A HREF="#HP-UX">HP-UX</A>
+                  </P>
+               <LI>
+                  <P STYLE="MARGIN-BOTTOM: 0in"><A HREF="#Linux">Linux</A>
+                  </P>
+               <LI>
+                  <P STYLE="MARGIN-BOTTOM: 0in"><A HREF="#MACOSX">Mac OS X</A>
+                  </P>
+               <LI>
+                  <P STYLE="MARGIN-BOTTOM: 0in"><A HREF="#RealTimeOS">Real Time OS's</A>
+                  </P>
+               <LI>
+                  <P STYLE="MARGIN-BOTTOM: 0in"><A HREF="#Solaris">Solaris</A>
+                  </P>
+               <LI>
+                  <P STYLE="MARGIN-BOTTOM: 0in"><A HREF="#Windows">Windows</A>
+                  </P>
+               </LI>
+            </UL>
+      </OL>
+      <P STYLE="MARGIN-BOTTOM: 0in"><A NAME="general_notes"></A>
+         <!--========================= General Notes ========================--><BR>
+      </P>
+      <TABLE WIDTH="100%" BORDER="0" CELLPADDING="0" CELLSPACING="0">
+         <TR>
+            <TD COLSPAN="2" BGCOLOR="#aaaaff">
+               <H2 ALIGN="center">General Notes</H2>
+            </TD>
+         </TR>
+         <TR VALIGN="top">
+            <TD>
+               <OL>
+                  <LI>
+                     <P>Heritage -- Relationship to DOC Releases </P>
+                     <P>OCI TAO 2.3a derives from the DOC TAO 2.3.3, git commit ba11421. OCITAO repository
+                       available at github.com/objectcomputing/OCITAO tracks the DOC Group master branch,
+                       OCI TAO 2.3a is managed within the tao_2_3a branch off master. Patch releases will
+                       be tagged against the tao_2_3a branch.</p>
+                  </LI>
+                  <LI>
+                     <P>Platforms
+                     </P>
+                     <P STYLE="MARGIN-BOTTOM: 0in">As the initial release of this stable series, the
+                        platform set was limited to those described below. Support for additional
+                        platforms will be added in subsequent patch levels.
+                     </P>
+                  </LI>
+                  <LI>
+                     <P>Tests
+                     </P>
+                     <P STYLE="MARGIN-BOTTOM: 0in">The great majority of ACE/TAO tests are passing on
+                        the current set of platforms. We will report more detailed test results for the
+                        individual platforms in subsequent patch releases.
+                     </P>
+                  </LI>
+                  <LI>
+                     <P>Make Project Creator
+                     </P>
+                     <P STYLE="MARGIN-BOTTOM: 0in">All of ACE/TAO was built using MakeProjectCreator
+                        (MPC). This tool is included with this distribution and may be used for your
+                        own projects as well. MPC will generate GNU make files, Windows project files
+                        for VC++ 7.1/8/9/10, and others. It can be extended to
+                        other make systems as well. MPC documentation is available in the distribution
+                        at <CODE>MPC/docs/README</CODE> or online at
+                        <A HREF="http://downloads.ociweb.com/MPC">http://downloads.ociweb.com/MPC</A>.
+                     </P>
+                  </LI>
+                  <LI>
+                     <P>GNU Make on Unix
+                     </P>
+                     <P>With the exception of Windows operating systems, ACE and TAO are built with
+                        GNU Make. While one can use other tools to build applications using ACE &amp;
+                        TAO, using GNU Make permits the leveraging of the existing build system
+                        distributed with ACE &amp; TAO. Use <a href="http://ftp.gnu.org/pub/gnu/make/">gmake</a>
+                        version 3.80 (or better), as previous versions have caused build problems on
+                        Mac OS and AIX.
+                     </P>
+                  </LI>
+                  <LI>
+                     <P>Compiler restrictions
+                     </P>
+                     <P>Specific compilers that TAO supports are listed in the platform sections below.
+                       In general, TAO 2.3a requires C++ compilers that support the C++03 standard.
+                     </P>
+                  </LI>
+               </OL>
+            </TD>
+            <TD></TD>
+         </TR>
+      </TABLE>
+      <P STYLE="MARGIN-BOTTOM: 0in"><A NAME="updates"></A>
+        <A HREF="#top">[Top]<!--========================= New Features ========================--></A>
+      </P>
+      <TABLE WIDTH="100%" BORDER="0" CELLPADDING="0" CELLSPACING="0">
+         <TR>
+            <TD colspan="2" BGCOLOR="#aaaaff">
+               <H2 ALIGN="center">New Features</H2>
+            </TD>
+            <TD VALIGN="top"></TD>
+         </TR>
+         <TR VALIGN="top">
+            <TD>
+               <P>Many important new features and bug fixes have been introduced in TAO 2.3a.
+                  They are described below.
+               </P>
+               <P>
+                 For a detailed description of the motivation for and implementation of a
+                 particular change,
+                  file in the TAO 2.3a source code distribution, such as <code>ACE_wrappers/OCIChangeLog</code>,
+                  <code>ACE_wrappers/TAO/OCIChangeLog</code>
+                  Some ChangeLog entries may include a "ticket"
+                  number (e.g., <code>[RT 12345]</code>), to help customers track specific changes they have sponsored.
+               </P>
+               <OL>
+                 <LI>
+                   <h3><!--========================= PATCH 9 ======================= -->
+                     Features added and bugs/fixes in TAO 2.3a_p9</h3>
+                   <UL>
+                     <LI>Fixed a significant issue with FaultTolerant Naming service, which
+                       turned out to be not as tolerant first though. The problem was identified
+                       on RedHat Linux distributions using Perstent storage on an NFS mounted
+                       file system.</LI>
+                     <LI>Improvements for the tao_imr include
+                       <UL>
+                         <LI>Detachment of child processes is now optional, See
+                             $TAO_ROOT/orbsvcs/ImplRepo_Service/README for details </LI>
+                         <LI>Fix some cases where servers were very slow to terminate and triggered
+                           the ImR Locator to become unresponsive regarding that service</LI>
+                         <LI>
+                       </UL>
+                     </LI>
+                     <LI>add a new command line argument to the logWalker utility to enable
+                       the production of finer-grained output files when multiple files for
+                       output is requested. See $TAO_ROOT/utils/logWalker/readme for info
+                       on the -dd option as descriped in the README file.</LI>
+                     <LI>Fixed a variety of build dependency issues and other minor bugs
+                         in some MPC files.<LI>
+                   </UL>
+                 </LI>
+                 <LI>
+                   <h3><!--========================= PATCH 8 ======================= -->
+                     Features added and bugs/fixes in TAO 2.3a_p8</h3>
+                   <UL>
+                     <LI>Improve support for wchar-native platforms.</LI>
+                     <LI>Fix ZIOP sending very large messages.</LI>
+                     <LI>Default for -ORBUseParallelConnects is now 1, enabled.</LI>
+                     <LI>Added support for VxWorks 7</LI>
+                     <LI>Added ACE configuration for FACE safety profiles (see config-face-safety.h), note that TAO can't be built in this configuration but OpenDDS can.</LI>
+                     <LI>ACE uses new netdb.h functions (getaddrinfo/getnameinfo) if they are available in place of deprecated functions (gethostbyname/addr).</LI>
+                     <LI>Improvements for the tao_imr include
+                       <UL>
+                         <LI>Fix tao_imr truncating very long command lines in verbose server lists.</LI>
+                         <LI>Add new operation to force the removal of a running server.</LI>
+                         <LI>Improve the activator's ability to shut down processes on windows.</LI>
+                         <LI>ImplRepo now builds with uses_wchar=1.</LI>
+                       </UL>
+                     </LI>
+                     <LI>Improve support for IPv6 with SSL.</LI>
+
+                   </UL>
+                 </LI>
+                 <LI>
+                   <h3><!--========================= PATCH 7 ======================= -->
+                     Features added and bugs/fixes in TAO 2.3a_p7</h3>
+                   <UL>
+                     <LI>Restore support for building on Solaris without Posix thread semantics</LI>
+                     <LI>New SSLIOP Factory option -SSLPassword facilitates distributing password protected private keys.</LI>
+                     <LI>New SSLIOP Factory option -SSLVersionList constrains the list of cipher versions allowed.</LI>
+                     <LI>New SSLIOP Factory option -SSLCheckHost adds a second layer of authentication by comparing the sending hostname to the name or names in the supplied certificate</LI>
+                     <LI>TAO IDL compiler now supports the Fixed type</LI>
+                     <LI>The logWalker debug analysis tool does a better job with pre-TAO 2.2a log files</LI>
+                     <LI>Incremental improvements in the ImR Activator</LI>
+                     <LI>Improved performance of FT ImR state synchronization under heavy load.</LI>
+                     <LI>New IOR Table feature refreshes endpoint lists in IORs</LI>
+                   </UL>
+                 </LI>
+                 <LI>
+                   <h3><!--========================= PATCH 6 ======================= -->
+                     Features added and bugs/fixes in TAO 2.3a_p6</h3>
+                   <UL>
+                     <LI>Fix a memory leak in ImR that occurred in the backup locator</LI>
+                     <LI>Setting -ORBPreferIPv6Interfaces 0 now causes Address resolution to try IPv4 before trying IPv6.</LI>
+                   </UL>
+                 </LI>
+                 <LI>
+                   <h3><!--========================= PATCH 5 ======================= -->
+                     Features added and bugs/fixes in TAO 2.3a_p5</h3>
+                   <UL>
+                     <LI>Build compatibility with newer patches of OpenSSL 0.9.8.</LI>
+                     <LI>Fix building static libraries on Solaris.</LI>
+                     <LI>Fix an ImR crash that occurred attempting to kill a server via a dead activator.</LI>
+                     <LI>Fix the connection cleanup strategy used with the Wait on Read client strategy.</LI>
+                   </UL>
+                 </LI>
+                 <LI>
+                   <h3><!--========================= PATCH 4 ======================= -->
+                     Features added and bugs/fixes in TAO 2.3a_p4</h3>
+                   <UL>
+                     <LI>Build support for MacOSX Mavericks</LI>
+                     <LI>Improved performance of SSLIOP</LI>
+                     <LI>Fix a vulnerability arising from a malformed string in a GIOP payload </LI>
+                     <LI>Fix Thread_Per_Connection strategy holding on to purged connections.</LI>
+                     <LI>Fix the ImR’s MANUAL start mode to insure a crashed/killed server is not automatically restarted.</LI>
+                     <LI>Reimplemented the ImR’s start count feature to limit restart attempts.</li>
+                   </UL>
+                 </LI>
+                 <LI>
+                   <h3><!--========================= PATCH 3 ======================= -->
+                     Features added and bugs/fixes in TAO 2.3a_p3</h3>
+                   <UL>
+                     <LI>Improved the performance of the load balancing feature of the tao_ft_naming service.
+                       Now a global load balancing strategy may be set via the command line using the new
+                       -l ["random"|"round_robin"] argument. The newly implemented random strategy is lockless.
+                     </LI>
+                     <LI>Fixed active server detection when switching from the primary ImR locator to the backup.
+                       This allows clients to request servers via either locator. The ImR activator now ensures that
+                       non PER-CLIENT server instances are unique - no more than one will be running at any time.
+                     </LI>
+                     <LI>An interface change between the ImR locator and activator requires both be updated together.
+                     </LI>
+                   </UL>
+                 </LI>
+                 <LI>
+                   <h3><!--========================= PATCH 2 ======================= -->
+                     Features added and bugs/fixes in TAO 2.3a_p2</h3>
+                   <UL>
+                     <LI>Added optional socket connection optimization for Windows.</LI>
+                     <LI>Fix bug with mt_noupcall that allowed upcalls while waiting for a new connection.</LI>
+                     <LI>Improved the performance of dynamic thread pool when activating new threads</LI>
+                     <LI>Improved the performance of the SYNC_WITH_SERVER oneway synchronization when used in conjunction with the CSD framework and POA thread pools.</LI>
+                     <LI>Fix support for long double types when used with dynamic Anys.</LI>
+                     <LI>Fix the ImplRepo to tolerate the case where the database of server info changes size while a list -a operation is being serviced.</LI>
+                   </UL>
+                 </LI>
+                  <LI>
+                   <h3><!--========================= PATCH 1 ======================= -->
+                     Features added and bugs/fixes in TAO 2.3a_p1</h3>
+                   <UL>
+                     <LI>Fix VxWorks build problem.</LI>
+                     <LI>Fix IPv6 related issues that affect performance on newer Windows platforms</LI>
+                     <LI>Improvments to the Implementation Repository</LI>
+                     <UL>
+                       <LI>New tao_imr kill command to signal an otherwise unresponsive server.</LI>
+                       <LI>New tao_imr link command to identify groups of POAs that share a server.</LI>
+                       <LI>ImR is better able to avoid errantly starting multiple server instances</LI>
+                       <LI>Addressed several memory leaks and other assorted defects</LI>
+                     </UL>
+                     <LI>Added a new Client Strategy Factory option, -ORBDefaultSyncScope which
+                       takes the label "None", "Transport", "Server", or "Target" to define the
+                       sync scope to be used when a Messaging SyncScopePolicy is not in use.</LI>
+                     <LI>Fix for extra CDR padding bytes following a request header when there are no
+                       IN or INOUT arguments in the request. This happened when a request had at least
+                       one OUT argument, and also had a service context that ended off a CDR alignment
+                       boundary. While this is not a problem for TAO-TAO messaging, some non-TAO
+                       servers will reject such requests with a MARSHAL exception. See bug 4141 for more
+                       information.</LI>
+                     <LI>Improved recursive typecode handling in the IDL compiler</LI>
+                     <LI>Support for using StringValue types in IDL</LI>
+
+                   </UL>
+                 </LI>
+
+                  <LI>
+                     <h3>Features added since TAO 2.2a</h3>
+                     <P>Many features have been added to ACE and TAO since the release of TAO 2.2a. A comprehensive listing is
+                       available in the NEWS files of each of the major package root directories. See in particular summaries
+                       from the top of the file down to the ACE-6.0.4, TAO-2.0.4, or CIAO-1.0.4 releases. </P>
+                     <P>The following list provides some highlights.</P>
+                     <UL>
+                        <LI>Many performance improvements to the ACE/TAO core libraries.
+                          <UL>
+                            <LI>Generated skeleton code presents a smaller footprint, saving between 10 and 60% depending on use.</LI>
+                            <LI>There is now a TIME_POLICY strategy manager allowing for dynamic selection of either system time or highres time</LI>
+                            <LI>ZIOP compressed data performance is improved</LI>
+                            <LI>Generated ValueType OBV_* classes now provide a _copy_value() hook method for better duplication support.</LI>
+                            <LI>Multiple retries on invocation failures is now configurable. This works in conjunction with fault tolerant services to allow for transparent selection of the backup server if the primary fails</LI>
+                            <LI>Improved MIOP implementation to support message fragmentation.</LI>
+                            <LI>Added OpenSSL configuration options SSLCipherList and SSLServerCipherOrder to the SSLIOP_Factory. This allows the SSL/TLS BEAST exploit to be mitigated.</LI>
+                            <LI>Extended CosNotifyFilter::FilterFactory to allow removal of filters created by the factory.</LI>
+                          </UL>
+                        </LI>
+                        <LI>A new Dynamic Thread Pool is available for non-RT ORBs and POAs. This allows for automatic spawning of threads at runtime to some configured maximum as well as the destruction of spawned threads as load is reduced. Multiple thread pool definitions can be supplied via service configuration directives, then used by the ORB or POA. POAs may also be supplied dynamic thread pool configuration through new policy objects. Dynamic thread pools may be configured with a minimum and maximum thread counts, and an idle timeout. WHen the configured ORB or POA is activated, the minimum number of threads are spawned. The thread pool grows to the maximum count as load increases, then shrinks back to the minimum as threads sit idle. POA thread pools also accept a configurable message queue limit, above which requests are rejected.</LI>
+                        <LI>The Naming Service and Implementation repository are now Fult Tolerant, supporting a dual-redundant configuration which provides replication and seamless failover between primary and back up servers.</LI>
+                        <LI>Fault Tolerance is available for Naming and Implementation Repository services. This makes use of shared persistent state and communication between a primary and backup instance. Clients make use of automatic retry to switch from a failed primary to a back up server without application intervention.</LI>
+                        <LI>Implementation Repository now uses asynchronous messaging to improve efficiency under heavy use conditions.</LI>
+                        <LI>Implementation Repository is now able to register and launch JacORB servers. Requires JacORB 3.3 or later</LI>
+                        <LI>New ORB initialization arguments:
+                          <UL>
+                            <LI>-ORBForwardOn<I>Exception</I>Limit <I>count</I> supercedes -ORBForwardOnceOn<I>Exception</I> to accept a count of retries. <I>Exception</I> in this case is CommFail, Transient, ObjectNotExist, InvObjref, ReplyClosed</LI>
+                            <LI>-ORBForwardDelay <I>msecs</I></LI>
+                            <LI>-ORBDynamicThreadPoolName <I>name</I></LI>
+                          </UL>
+                        </LI>
+                        <LI>New Client Strategy Factory options:
+                          <UL>
+                            <LI>Client strategies -ORBWaitStrategy RW and -ORBTransportMuxStrategy Exclusive now work with AMI</LI>
+                            <LI>-ORBCollocationStrategy best selects the best available strategy.</LI>
+                          </UL>
+                        </LI>
+                        <LI>Other factory options
+                          <UL>
+                            <LI>UIPMC transport -ORBPreferredInterfaces, -ORBListenOnAll</LI>
+                            <LI>MIOP transport -ORBSendThrottling and -ORBEagerDequeueing</LI>
+                          </UL>
+                          See TAO/docs/options.html or the TAO Developer's Guide 2.3a for details about these new options.</LI>
+                        <LI>IDL Compiler Improvments:
+                          <UL>
+                            <LI>Fixed a bug related to component initialization.</LI>
+                            <LI>Fixed a bug related to processing multiple files in a single execution.</LI>
+                          </UL>
+                        </LI>
+                     </UL>
+                  <LI>
+                     <H3>Important bug fixes since TAO 2.2a</H3>
+                     <P>Many bugs have been fixed or work-arounds provided since TAO 2.2a. For more
+                        details, see the release announcements for the intervening DOC group beta kits
+                        (from 2.0.4 to 2.2.0), the ChangeLogs, and the DOC group Bugzilla bug database
+                        found at <A HREF="http://bugzilla.dre.vanderbilt.edu">http://bugzilla.dre.vanderbilt.edu</A>.  A summary and selection of the more important fixes are listed below.
+                     </P>
+                     <UL>
+                       <LI>Fixed ACE bugs:
+                         <UL>
+                         </UL>
+                       </LI>
+                       <LI>Fixed TAO bugs
+                         <UL>
+                         </UL>
+                       </LI>
+                     </UL>
+                  </LI>
+               </OL>
+            </TD>
+         </TR>
+      </TABLE>
+
+      <P STYLE="MARGIN-BOTTOM: 0in"><A NAME="porting_to_22a"></A><A HREF="#top">[Top]<!--================= Porting Applications from TAO 2.2a to TAO 2.3a ================--></A>
+      </P>
+      <TABLE WIDTH="100%" BORDER="0" CELLPADDING="0" CELLSPACING="0">
+         <TR>
+            <TD colspan="2" BGCOLOR="#aaaaff">
+               <H2 ALIGN="center">Porting Applications from TAO 2.2a to TAO 2.3a</H2>
+            </TD>
+            <TD VALIGN="top"></TD>
+         </TR>
+         <TR VALIGN="top">
+            <TD>
+              <H3>MPC</H3>
+              <UL>
+                <LI>No major porting issues.
+              </UL>
+            </TD>
+         </TR>
+         <TR VALIGN="top">
+            <TD>
+              <H3>ACE</H3>
+              <UL>
+                <LI>No major porting issues.
+              </UL>
+            </TD>
+         </TR>
+         <TR VALIGN="top">
+            <TD>
+              <H3>TAO</H3>
+              <UL>
+                <LI>No major porting issues.
+              </UL>
+            </TD>
+         </TR>
+      </TABLE>
+      <a href="#top">[Top]</a>
+
+      <!--============================ AIX ===============================-->
+      <A NAME="AIX"></A>
+      <TABLE WIDTH="100%" BORDER="0" CELLPADDING="0" CELLSPACING="0">
+         <TR>
+            <TD COLSPAN="2" BGCOLOR="#00cccc">
+               <H2 ALIGN="center">AIX</H2>
+            </TD>
+         </TR>
+         <TR>
+            <TD VALIGN="top">
+               <P>The AIX builds use the <CODE>platform_macros.GNU</CODE> and <CODE>config.h</CODE>
+                  files already set up for the AIX platform and compiler.</P>
+               <P>When using GNU Make that is part of <A HREF="http://www-03.ibm.com/servers/aix/products/aixos/linux/download.html">
+                     AIX toolbox for Linux applications</A>, it may be necessary to modify the
+                  file access permissions of the make executable to ensure the <CODE>LIBPATH</CODE>
+                  environment variable is propagated to make system properly. This can be done as
+                  follows:
+               </P>
+               <PRE>chmod 755 /opt/freeware/bin/make</PRE>
+               <P>
+                  See this <A HREF="http://mail.gnu.org/archive/html/bug-make/2001-10/msg00009.html">
+                     message</A> for further information. Use version 3.80, or newer.
+               </P>
+               <STRONG>Files Used for AIX Builds</STRONG>
+               <table border="1" width="70%">
+                  <TR>
+                     <TH>Build</TH><TH>platform_macros.GNU</TH><TH>config.h</TH>
+                  </TR>
+                  <TR>
+                     <TD>AIX 5.3 with VA C++ 8</TD><TD>platform_aix_ibm.GNU with templates=manual</TD><TD>config-aix-5.x.h</TD>
+                  </TR>
+               </table>
+            </TD>
+         </TR>
+      </TABLE>
+      <P STYLE="MARGIN-BOTTOM: 0in">
+      <A HREF="#top">[Top]</A>
+      <!--============================ HP-UX ===============================-->
+      <A NAME="HP-UX"></A>
+      </P>
+      <TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0" width="100%">
+         <TR>
+            <TD COLSPAN="2" BGCOLOR="#00cccc">
+               <H2 ALIGN="center">HP-UX</H2>
+            </TD>
+         </TR>
+         <TR>
+            <TD valign="top">
+               <P>The HP-UX builds use the <CODE>platform_macros.GNU</CODE> and <CODE>config.h</CODE> files
+                  already set up for the HP-UX platform and compiler.
+               </P>
+               <P><STRONG>Files Used for HP-UX Builds</STRONG>
+               </P>
+               <table border="1" width="70%">
+                  <TR>
+                     <TH>Build</TH><TH>platform_macros.GNU</TH><TH>config.h</TH>
+                  </TR>
+                  <TR>
+                     <TD>HP-UX 11.31 with aCC 6.20 for ia64 (itanium)</TD><TD>platform_hpux_aCC.GNU</TD><TD>config-hpux-11.00.h</TD>
+                  </TR>
+               </table>
+            </TD>
+         </TR>
+      </TABLE>
+      <P STYLE="MARGIN-BOTTOM: 0in">
+      <A HREF="#top">[Top]</A>
+      <!--============================ Linux ===============================-->
+      <A NAME="Linux"></A>
+      </P>
+      <TABLE WIDTH="100%" BORDER="0" CELLPADDING="0" CELLSPACING="0">
+         <TR>
+            <TD COLSPAN="2" BGCOLOR="#00cccc">
+               <H2 ALIGN="center">Linux</H2>
+            </TD>
+         </TR>
+         <TR>
+            <TD valign="top">
+               <P>The Linux builds use the <CODE>platform_macros.GNU</CODE> and <CODE>config.h</CODE> files
+                  already set up for the Linux platform and compiler.
+               </P>
+               <STRONG>Files Used for Linux Builds</STRONG>
+               <table width="70%" border="1">
+                  <TR>
+                     <TH>Build</TH><TH>platform_macros.GNU</TH><TH>config.h</TH>
+                  </TR>
+                  <TR>
+                     <TD>Fedora 12 with GCC 4.4.4</TD><TD>platform_linux.GNU</TD><TD>config-linux.h</TD>
+                  </TR>
+                  <TR>
+                     <TD>Ubuntu 10.04 2 LTS with GCC 4.4.3 (Ubuntu 4.4.3-4ubuntu5)</TD><TD>platform_linux.GNU</TD><TD>config-linux.h</TD>
+                  </TR>
+                  <TR>
+                     <TD>Ubuntu 12.04.2 LTS with GCC 4.6.3 (Ubuntu 4.6.3-1ubuntu5</TD><TD>platform_linux.GNU</TD><TD>config-linux.h</TD>
+                  </TR>
+                  <TR>
+                     <TD>Red Hat Enterprise Server 5 with g++ 4.1.1 (Red Hat 4.1.1-52) for x86_64</TD><TD>platform_linux.GNU</TD><TD>config-linux.h</TD>
+                  </TR>
+                  <TR>
+                     <TD>Red Hat Enterprise Server 6.2, 6.3 with g++ 4.4.6 for x86_64</TD><TD>platform_linux.GNU</TD><TD>config-linux.h</TD>
+                  </TR>
+               </table>
+               <hr>
+            </TD>
+         </TR>
+      </TABLE>
+      <A HREF="#top">[Top]</A>
+      <!--============================ MacOSX ===============================-->
+      <A NAME="MACOSX"></A>
+      </P>
+      <TABLE WIDTH="100%" BORDER="0" CELLPADDING="0" CELLSPACING="0">
+         <TR>
+            <TD COLSPAN="2" BGCOLOR="#00cccc">
+               <H2 ALIGN="center">MacOSX</H2>
+            </TD>
+         </TR>
+         <TR>
+            <TD valign="top">
+               <P>The MacOSX builds use the <CODE>platform_macros.GNU</CODE> and <CODE>config.h</CODE> files
+                  already set up for the MacOSX platform and compiler.
+               </P>
+               <STRONG>Files Used for MacOS Builds</STRONG>
+               <table width="70%" border="1">
+                  <TR>
+                     <TH>Build</TH><TH>platform_macros.GNU</TH><TH>config.h</TH>
+                  </TR>
+                  <TR>
+                     <TD>OS X Lion with clang++ 3.0 (tags/Apple/clang-211.12) (based on LLVM 3.0svn)</TD><TD>platform_macosx_lion.GNU</TD><TD>config-macosx-lion.h</TD>
+                  </TR>
+                  <TR>
+                     <TD>OS X Mavericks with clang++ 6.0 (tags/Apple/clang-600.0.51) (based on LLVM 3.5svn)</TD><TD>platform_macosx_mavericks.GNU</TD><TD>config-macosx-mavericks.h</TD>
+                  </TR>
+
+               </table>
+               <hr>
+            </TD>
+         </TR>
+      </TABLE>
+      <A HREF="#top">[Top]</A>
+      <!--============================ RealTime OS's ===============================-->
+      <A NAME="RealTimeOS"></A>
+      <TABLE WIDTH="100%" BORDER="0" CELLPADDING="0" CELLSPACING="0">
+         <TR>
+            <TD COLSPAN="2" BGCOLOR="#00cccc">
+               <H2 ALIGN="center">Real Time OS's</H2>
+            </TD>
+         </TR>
+         <TR>
+            <TD valign="top">
+               <P>The Real Time OS builds use the <CODE>platform_macros.GNU</CODE> and <CODE>config.h</CODE> files developed for the specific platform and compiler.              </P>
+               <STRONG>Files Used for Real Time OS Builds</STRONG>
+               <table width="70%" border="1">
+                  <TR>
+                     <TH>Build</TH><TH>platform_macros.GNU</TH><TH>config.h</TH>
+                  </TR>
+                  <TR>
+                     <TD>LynxOS 5.0.0 with g++ 3.4.3</TD><TD>platform_lynxos.GNU</TD><TD>config-lynxos.h</TD>
+                  </TR>
+                  <TR>
+                     <TD>QNX 6.3.2 with g++ 3.3.5 (qnx-nto)</TD><TD>platform_qnx_rtp_gcc.GNU</TD><TD>config-qnx-rtp.h</TD>
+                  </TR>
+                  <TR>
+                     <TD>VxWorks 6.9 with g++ 4.3.3</TD><TD>platform_vxworks.GNU</TD><TD>config-vxworks.h</TD>
+                  </TR>
+               </table>
+               <HR>
+            </TD>
+         </TR>
+      </TABLE>
+      <A HREF="#top">[Top]</A>
+      <!--============================ Solaris ===============================-->
+      <A NAME="Solaris"></A>
+      <TABLE WIDTH="100%" BORDER="0" CELLPADDING="0" CELLSPACING="0">
+         <TR>
+            <TD COLSPAN="2" BGCOLOR="#00cccc">
+               <H2 ALIGN="center">Solaris</H2>
+            </TD>
+         </TR>
+         <TR>
+            <TD valign="top">
+               <P>The Solaris builds use the <CODE>platform_macros.GNU</CODE> and <CODE>config.h</CODE>
+                  files already set up for the SunOS platform and compiler.
+               </P>
+               <STRONG>Files Used for SunOS Builds</STRONG>
+               <table border="1" width="70%">
+                  <TR>
+                     <TH>Build</TH><TH>platform_macros.GNU</TH><TH>config.h</TH>
+                  </TR>
+                  <TR>
+                     <TD>Solaris 10 with Sun C++ 5.9 Patch 124863-01 for sparc</TD><TD>platform_sunos5_sunc++.GNU</TD><TD>config-sunos5.10.h</TD>
+                  </TR>
+                  <TR>
+                     <TD>Solaris 11 with Sun C++ 5.10 Patch 128229-02 for x86</TD><TD>platform_sunos5_sunc++.GNU</TD><TD>config-sunos5.11.h</TD>
+                  </TR>
+               </table>
+               <HR>
+               <STRONG>Sun C++ Notes</STRONG>
+               <P>Due to the way that static construction works, it may be necessary to set the
+                  LD_BIND_NOW environment variable to a non-null value. If you are getting
+                  strange results during process startup, try setting this environment variable
+                  and running the process again.
+               </P>
+               <P>Use the fast=1 instead of optimize=1 for optimizing with Sun compilers because
+                  it selects a combination of compilation options for optimum execution speed.
+                  Other optimization levels may reduce the footprint, but do not have a
+                  corresponding flag in ACE/TAO.
+               </P>
+               <P>When using a Sun compiler greater than SunCC 5.5, that is, Sun
+                  Studio 9 or greater, on Sun OS 5.8, then certain OS patches
+                  are required.  The patches and levels used at OCI are
+                  109147-37 (-21 is probably adequate), 108434-18 and
+                  108435-18 (earlier versions are not adequate).
+               </P>
+            </TD>
+         </TR>
+      </TABLE>
+      <A HREF="#top">[Top]</A>
+      <!--============================ Windows ===============================-->
+      <A NAME="Windows"></A>
+      <TABLE WIDTH="100%" BORDER="0" CELLPADDING="0" CELLSPACING="0">
+         <TR>
+            <TD COLSPAN="2" BGCOLOR="#00cccc">
+               <H2 ALIGN="center">Windows</H2>
+            </TD>
+         </TR>
+         <TR>
+            <TD valign="top">
+               <P>The Windows builds use the <CODE>config.h</CODE> file as shown below.
+               </P>
+               <STRONG>Files Used for Windows Builds</STRONG>
+               <table width="70%" border="1">
+                  <TR>
+                     <TH>Build</TH><TH>config.h</TH>
+                  </TR>
+                  <TR>
+                     <TD>Windows XP x64 with Visual C++ 2008 VC9</TD><TD>config-win32.h</TD>
+                  </TR>
+                  <TR>
+                     <TD>Windows 7 x64 with Visual C++ 2008 VC9</TD><TD>config-win32.h</TD>
+                  </TR>
+                  <TR>
+                     <TD>Windows Server 2003 with Visual C++ 2003 (VC7.1)</TD><TD>config-win32.h</TD>
+                  </TR>
+                  <TR>
+                     <TD>Windows Server 2008R2 with Visual C++ 2010 (VC10)</TD><TD>config-win32.h</TD>
+                  </TR>
+               </table>
+               <P>The following <CODE>config.h</CODE> file is used for all Windows nightly
+                  builds.
+               </P>
+               <PRE>// contents of config.h
+#define ACE_DISABLE_WIN32_ERROR_WINDOWS
+#define ACE_DISABLE_WIN32_INCREASE_PRIORITY
+#include "config-win32.h"</PRE>
+               <P>
+                  The first line disables the popup of error windows when running the automated
+                  tests. It is not normally needed for ordinary user programs. It would only be
+                  used if an automated build was being done.
+               </P>
+               <P>The <CODE>platform_macros.GNU</CODE> file is not used for Windows platforms.
+               </P>
+               <HR>
+               <P><STRONG>Windows Compile Notes</STRONG>
+               </P>
+               <UL>
+                  <LI>
+                     <P STYLE="MARGIN-BOTTOM: 0in">There are some warnings when compiling using Visual
+                        Studio 2005 - 2008 (VC8 - VC9).
+                     </P>
+                  <LI>
+                     <P>If using MPC to generate build files, then by default qos and ssl, and any
+                        projects that depend on these libraries will not be generated. To enable these
+                        features, simply create a text file called <TT>ACE_wrappers\bin\MakeProjectCreator\config\default.features</TT>
+                        with the following contents.
+                     </P>
+                     <PRE>ssl = 1
+qos = 1</PRE>
+                  <LI>
+                     <P>(VC 7.1 / .NET 2003 only) When building static libraries you may have to build twice. The first time will
+                        compile the IDL, and compile everything that didn't rely on IDL-generated files
+                        that don't exist. The second time will finish building files now that the
+                        IDL-generated files exist.
+                     </P>
+                  </LI>
+               </UL>
+            </TD>
+         </TR>
+      </TABLE>
+      <P><A HREF="#top">[Top]</A></P>
+   </BODY>
+</HTML>

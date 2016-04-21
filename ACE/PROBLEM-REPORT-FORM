@@ -1,29 +1,17 @@
-[Please use the PRF form below to submit bug reports, problem reports,
- etc., to the ACE developers and interested users.  Send it to
- ace-bugs@list.isis.vanderbilt.edu, you must be subscribed to the list
- in order to be able to post to it. If you are using OCI, PrismTech, or
- Riverace's versions of ACE do not send bugs to this mailing list, but
- instead contact those companies for support.  Please also send your
- PRF as plain ASCII text, _not_ uuencoded or as an attachment.
+[Please use the PROBLEM-REPORT-FORM (PRF) form below to submit bug reports,
+ problem reports, etc., to OCI for support. Since OCI does not require
+ license fees for use of the software, they do require a contract in order
+ to provide support services. Contact sales@ociweb.com or info@ociweb.com
+ to ask about acquiring a support contract.
 
- We prefer that all bug reports be submitted through our bug tracking
- system.  See $ACE_ROOT/docs/usage-bugzilla.html for more information
- about how to do this.  If you are unsure as to whether your problem
- is a real bug or not then please submit your question to the mailing
- list using the following form.  Not using the problem report form
- will make it harder or impossible to identify the problem, and in
- many cases we will be unable to help at all.  Also please try to
- browse bugzilla and the ChangeLog files to find out if your problem
- has been solved in a more recent version of ACE.
+ If you do not have a current support contract with OCI, send the form
+ anyway. OCI will contact you about establishing one, but in the mean
+ time an OCI engineer will be able to review your information and be
+ ready to serve as soon as the contract is in place.
 
- To subscribe to the list see
-  http://www.dre.vanderbilt.edu/~schmidt/ACE-mail.html
-
- Replace/remove all the explanatory text in brackets before mailing.
-
- Please send this form as ASCII text only.  Do _not_ send it as an
- attachment, or as tar'ed, compressed and/or uuencoded text.  And
- limit line lengths to less than 80 characters.
+ Send the completed PRF to support@ociweb.com. This will create a new
+ ticket in their request tracking system. Please be sure to use plain
+ ASCII encoding for the PRF and supporting material as much as possible.
 
  PLEASE make your Subject: line as descriptive as possible.
  Subjects like "ACE bug" or "bug report" are not helpful!
@@ -35,30 +23,29 @@
  to the platform-specific file, simply state which one - DO NOT
  include an entire platform-specific configuration file in the form.
 
+
+cut here - Please do not send the text above this cut line.
 8<----------8<----------8<----------8<----------8<----------8<----------8<----
 
-To: ace-bugs@list.isis.vanderbilt.edu
-Subject: [area]: [synopsis]
-
-    ACE VERSION: 6.3.3
+    ACE VERSION: 6.3a_pre
 
     HOST MACHINE and OPERATING SYSTEM:
-        If on Windows based OS's, which version of WINSOCK do you
-        use?:
 
     TARGET MACHINE and OPERATING SYSTEM, if different from HOST:
     COMPILER NAME AND VERSION (AND PATCHLEVEL):
 
-    THE $ACE_ROOT/ace/config.h FILE [if you use a link to a platform-
+    CONTENTS OF $ACE_ROOT/ace/config.h [if you use a link to a platform-
     specific file, simply state which one]:
 
-    THE $ACE_ROOT/include/makeinclude/platform_macros.GNU FILE [if you
+    CONTENTS OF $ACE_ROOT/include/makeinclude/platform_macros.GNU [if you
     use a link to a platform-specific file, simply state which one
     (unless this isn't used in this case, e.g., with Microsoft Visual
     C++)]:
 
     CONTENTS OF $ACE_ROOT/bin/MakeProjectCreator/config/default.features
     (used by MPC when you generate your own makefiles):
+
+    LEVEL OF URGENCY (LOW, MEDIUM, or HIGH):
 
     AREA/CLASS/EXAMPLE AFFECTED:
 [What example failed?  What module failed to compile?]
@@ -70,6 +57,14 @@ Subject: [area]: [synopsis]
         EXECUTION?
         OTHER (please specify)?
 [Please indicate whether ACE, your application, or both are affected.]
+
+
+    IF THIS IS AN EXECUTION PROBEM, WHAT IS THE APPLICATION COMMAND LINE?
+
+    (TAO-SPECIFIC) WHAT, IF ANY, ARGUMENTS ARE PASSED to ORB_INIT?
+
+    WHAT, IF ANY, SVC.CONF SETTINGS ARE USE?
+
 
     SYNOPSIS:
 [Brief description of the problem]

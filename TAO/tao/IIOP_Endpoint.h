@@ -166,6 +166,15 @@ public:
                                          const ACE_CString& csvPreferred,
                                          ACE_Vector<ACE_CString>& preferred);
 
+  /// There are situations where peer is advertised using a hostname, and the DNS
+  /// entry for that name contains both an IPv4 and IPv6 entry. Even though the
+  /// local TAO build is enabled for IPv6 support, there can be a reason to go with
+  /// the IPv4 binding. Since address resolution may occur inside hash() which does
+  /// not have access to an ORB Core, this flag must be made static. The ORB option
+  /// -ORBPreferIPV6Interfaces will set this value. The default is false to be
+  /// backwards compatible but can be compiled true by defining TAO_IPV6_PREFER_IPV4
+  static bool try_ipv4_first_;
+
 private:
   TAO_IIOP_Endpoint *next_filtered_i (TAO_IIOP_Endpoint *root,
                                       bool ipv6_only,

@@ -1,4 +1,43 @@
-This is ACE version 6.3.3, released Thu Sep 17 08:51:30 CEST 2015
+This is OCIACE version 6.3a_pre, _not yet released_
+
+This is a modified version of the ACE originally released by the
+DOC group.  It contains additional fixes and optimizations.
+An overview of OCI's version of ACE is available in the
+ACE_wrappers/OCIReleaseNotes.html file.
+
+Many of the the changes have been included in the current versions
+of ACE released by the DOC group.
+
+Since ACE is open source and free of licensing fees, we do not
+derive any revenue other than through our services and support.
+So, unfortunately, we are unable to provide free support.
+
+For more details, and information on opening a support contract
+please see http://www.theaceorb.com/support/index.html or contact
+sales@ociweb.com
+
+Other sources of information you may want to consider using are:
+
+OCI TAO 2.3a source code, release notes, and other downloads:
+  http://github.com/objectcomputing/OCITAO
+
+OCI TAO 2.2a (supports 2.3a too)  Developer's guide ebook:
+  http://www.theaceorb.com/buy
+
+OCI training courses:
+  http://www.theaceorb.com/training
+
+OCI Middleware News Brief articles:
+  http://www.ociweb.com/cnb/index.html
+
+ACE and TAO mailing lists:
+  http://www.cs.wustl.edu/~schmidt/TAO-mail.html
+
+Thank you for your interest in ACE.
+
+-----------------------------------------------------------------------
+If you do not have a support contract with OCI, "best effort" support
+is available from the ACE mailing list:
 
 If you have any problems with or questions about ACE, please send
 e-mail to the ACE mailing list (ace-bugs@list.isis.vanderbilt.edu),

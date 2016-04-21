@@ -35,6 +35,12 @@
 
 TAO_BEGIN_VERSIONED_NAMESPACE_DECL
 
+#if defined (TAO_IPV6_PREFER_IPV4)
+bool TAO_IIOP_Endpoint::try_ipv4_first_ = true;
+#else
+bool TAO_IIOP_Endpoint::try_ipv4_first_ = false;
+#endif /* TAO_IPV6_PREFER_IPV4 */
+
 //@@ TAO_ENDPOINT_SPL_COPY_HOOK_START
 TAO_IIOP_Endpoint::TAO_IIOP_Endpoint (const ACE_INET_Addr &addr,
                                       int use_dotted_decimal_addresses)
@@ -287,13 +293,13 @@ TAO_IIOP_Endpoint::next_filtered_i (TAO_IIOP_Endpoint *root,
         !addr.is_ipv4_mapped_ipv6();
 
       return allowed ? candidate :
-        candidate->next_filtered_i(root, ipv6_only, prefer_ipv6, true);
+        candidate->next_filtered_i (root, ipv6_only, prefer_ipv6, true);
     }
   if (prefer_ipv6)
     {
       if (candidate == 0)
         return !want_ipv6 ? candidate :
-          root->next_filtered_i(0, ipv6_only, prefer_ipv6, false);
+          root->next_filtered_i (0, ipv6_only, prefer_ipv6, false);
 
       if (want_ipv6 == candidate->is_ipv6_decimal())
         return candidate;
@@ -302,7 +308,7 @@ TAO_IIOP_Endpoint::next_filtered_i (TAO_IIOP_Endpoint *root,
       bool really_ipv6 = addr.get_type () == AF_INET6 &&
                          !addr.is_ipv4_mapped_ipv6();
       return (want_ipv6 == really_ipv6) ? candidate :
-        candidate->next_filtered_i(root, ipv6_only, prefer_ipv6, want_ipv6);
+        candidate->next_filtered_i (root, ipv6_only, prefer_ipv6, want_ipv6);
     }
 #else
   ACE_UNUSED_ARG (want_ipv6);
@@ -343,7 +349,7 @@ TAO_IIOP_Endpoint::object_addr (void) const
 
       if (!this->object_addr_set_)
         {
-          (void) this->object_addr_i ();
+          this->object_addr_i ();
         }
     }
 
@@ -353,14 +359,39 @@ TAO_IIOP_Endpoint::object_addr (void) const
 void
 TAO_IIOP_Endpoint::object_addr_i (void) const
 {
-  // We should have already held the lock
-
 #if defined (ACE_HAS_IPV6)
   bool is_ipv4_decimal_ = false;
   if (!this->is_ipv6_decimal_)
     is_ipv4_decimal_ =
       ACE_OS::strspn (this->host_.in (), ".0123456789") ==
                               ACE_OS::strlen (this->host_.in ());
+  if (TAO_IIOP_Endpoint::try_ipv4_first_)
+    {
+      if (this->object_addr_.set (this->port_,
+                                  this->host_.in (),
+                                  1,
+                                  AF_INET) != -1)
+        {
+          this->object_addr_set_ = true;
+        }
+      else
+        {
+          if (is_ipv4_decimal_ ||
+              (!ACE::ipv6_enabled () ||
+               this->object_addr_.set (this->port_,
+                                       this->host_.in (),
+                                       1,
+                                       AF_INET6) == -1))
+            {
+              this->object_addr_.set_type (-1);
+            }
+          else
+            {
+              this->object_addr_set_ = true;
+            }
+        }
+      return;
+    }
 
   // If this is *not* an IPv4 decimal address at first try to
   // resolve the address as an IPv6 address; if that fails
@@ -380,7 +411,7 @@ TAO_IIOP_Endpoint::object_addr_i (void) const
 #else
     if (this->object_addr_.set (this->port_,
                                 this->host_.in ()) == -1)
-#endif
+#endif /* ACE_HAS_IPV6 */
     {
       // If this call fails, it most likely due a hostname
       // lookup failure caused by a DNS misconfiguration.  If
@@ -602,16 +633,11 @@ TAO_IIOP_Endpoint::hash (void)
                       guard,
                       this->addr_lookup_lock_,
                       this->hash_val_);
-    // .. DCL
     if (this->hash_val_ != 0)
       return this->hash_val_;
 
-    // A few comments about this optimization. The call below will
-    // deadlock if the object_addr_set is false. If you don't belive
-
     if (!this->object_addr_set_)
       {
-        // Set the object_addr first
         (void) this->object_addr_i ();
       }
 
