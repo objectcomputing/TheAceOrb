@@ -27,26 +27,7 @@ The ACE ORB (TAO) is an open source C++ implementation of the Object Management 
 {% if releases != null %}
     {% assign sorted_rel = site.github.releases | sort: "created_at" | reverse %}
     {% assign latest_rel = sorted_rel | first %}
- 
-### Current Release: [{{latest_rel.name}}]({{latest_rel.html_url}})
-  
-{{latest_rel.body}}
-{% if latest_rel.assets != null %}
-    {% assign assets = latest_rel.assets | sort: "name" | reverse %}
-    {% for a in assets %}{% capture tn %}Open{{latest_rel.tag_name}}{% endcapture %}
-        {% assign ext = a.name | remove: tn %}
-        {% if ext == '.zip' %}
-           {% assign note = 'Windows' %}
-        {% else %}
-            {% assign note = 'Linux/Solaris/MacOSX' %}
-        {% endif %}
-        [Download {{a.name}}]({{a.browser_download_url}}) ({{note}})
-    {% endfor %}
-{% endif %}
-{% else %}
-### Releases is null...
-{% endif %}
 
 ### Vintage OCI TAO - 2.2a and older
 
- Older OCI TAO releases are available through the [OCI Download Portal](http://localhost:9090/ociProduct/show/3)
+TAO 2.2a and older releases are available for download via the "Download links" menu shown above.
