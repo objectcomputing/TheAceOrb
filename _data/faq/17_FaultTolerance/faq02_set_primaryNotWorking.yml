@@ -1,0 +1,5 @@
+Q: Why doesn't <code>set_primary()</code> work even though a "primary server" is up-and-running?
+
+A: >
+ Make sure Fault Tolerance features have been enabled in the ORB.  See LINK:EnableFaultTolerance:
+ 

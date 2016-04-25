@@ -1,0 +1,14 @@
+Q: Why is the TAOd.dll library I install from OCI's CD so large?
+
+A: >
+ The DLLs
+ on the CD include all the information you need to debug TAO applications.
+  This information is normally stored by Visual C++ in .pdb files.  Our builds
+ store them in the .dll in a location independent manner (using the C7 compatible
+ option for the debug information).  This allows you to step into TAO code
+ in the Visual C++ debugger. <p> If you desire a smaller set of libraries, either install the release
+ versions of the CD or rebuild the debug libraries with the default debug
+ configuration.<br>
+ <br>
+ 
+ 

@@ -1,0 +1,20 @@
+Q: What IDL compiler options help reduce the footprint?
+
+A: >
+ Footprint Reduction in Generated Code
+ <p align="center">IDL Compiler Command Line Options</p>
+ 
+ <table border="0">
+   <tr valign="top" align="left"><td width="35"> -Sa </td><td>     Suppresses generation of Any insertion/extraction operators, and generates certain portable interceptor operations that use Anys as dummies</td></tr>
+   <tr><td> -St </td><td>     Suppresses type code generation. Since Anys depend on type codes, this options also does what -Sa does.</td></tr> 
+   <tr> <td> -Gt </td> <td>     Generate optimized typecodes. All the string names in a type code except the repository id will be null with this option. This optimization is allowed by the, CORBA spec, but it may cause problems when trying to determine type code equivalence.</td></tr>
+   <tr><td> -Sc </td> <td>     Suppresses tie class generation.</td></tr>
+   <tr><td> -Sp </td> <td>     Suppresses the generation of thru-POA collocated stub code.</td></tr>
+   <tr><td> -Sd </td> <td>     Suppresses the generation of direct collocated stub code. Direct collocation stub code generation is disabled by default, but the option is included for completeness.</td></tr>
+   <tr><td> -Sv </td> <td>     Suppresses code generation for valuetypes. Code generation for valuetypes is disabled by default, but the option is included for completeness.</td></tr>
+ </table>
+ <p align="center">C++ Compiler Options</p>
+ 
+ <p>If both TAO and the application are compiled with TAO_HAS_INTERCEPTORS defined to be 0 (either by passing to the C++ compiler or by redefining the macro in ACE_ROOT/TAO/tao/orbconf.h) not only will the TAO library be smaller, but also the application object code, since the C++ preprocessor will skip the generated interceptor classes and parts of the code generated for each IDL operation.</p>
+ 
+ 

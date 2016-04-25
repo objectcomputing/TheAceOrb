@@ -1,0 +1,11 @@
+Q: "On VxWorks 6.2 upon execution I see the following error message \"ERROR: input in scanner failed \"?"
+A: >
+ This message indicates that the service configurator failed to read the configuration file for some reason. On
+    VxWorks 6.2 we have seen this message because of a bug in the NFS V2 driver wherein the driver returns
+    a corrupt file handle when opening a non-existent file. If a config file hasn't been specified, the
+    service configurator tries to open the default config file 'svc.conf'. Trying then to read in from the
+    returned corrupt file handle results in the above message.
+ 
+    <p>This issue is documented in defect #55808. A fix for this is documented this whcih requires a kernel
+    rebuild. A quick work around is to create a dummy svc.conf file. Another workaround is LINK:disregard_default_svc_conf:.
+ 

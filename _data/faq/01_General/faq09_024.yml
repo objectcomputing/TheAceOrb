@@ -1,0 +1,14 @@
+Q: Why doesn't TAO support the BOA?
+
+A: >
+ The short answer is that the BOA (Basic Object Adapter) is no longer part of the CORBA specification.<br>
+  The BOA was removed because of its lack of portability and underspecification
+ among various other shortcomings.  The main argument for adding BOA support
+ to TAO is migration of existing CORBA applications.  Because the BOA is implemented
+ differently by each vendor, porting to a TAO BOA would probably be the same
+ amount of work as porting to the POA (which provides true cross-vendor  portability).
+  All in all, applications are probably better off making the transition to
+ the POA.<br>
+ <br>
+ 
+ 

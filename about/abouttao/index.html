@@ -1,0 +1,67 @@
+---
+layout: page
+title: TAO Product Information
+categories: [ocitao]
+tags: []
+order: 20
+redirect_from: /about/abouttao.html
+---
+
+<div id="contenttext">
+    <div class="bodytext" align="justify">
+        <span class="headertext">Overview of TAO</span>
+
+
+        <h3 class="link">&nbsp;&nbsp; <a name="architecture">Building a Standard in Performance</a></h3>
+        <p>The 2.2a version of the ACE ORB (TAO), pronounced "dow", is a CORBA <a href="/compliance/index.html">V3.0 compliant</a>, C++, object request broker. It is a second generation ORB developed with a highly extensible architecture as a result of its use of what might be termed a pattern framework, more commonly known as the ACE library. (ACE is an acronym for ADAPTIVE Communication Environment, ADAPTIVE is another acronym and stands for A Dynamically Assembled Protocol, Transformation And Validation Environment!). A more detailed discussion of this design approach can be found <strong><a href="/about/aboutace.html" target="_self">here</a></strong>. Although designed to meet the demanding requirements of hard real time systems, TAO can be easily used "out of the box" for general purpose CORBA middleware applications. Its design to meet exacting real time needs, which can be described as Quality of Service (QoS) requirements, has resulted in superior predictability, complete end to end determinism, high performance, and a scaleable implementation.</p>
+        <p>TAO supports IIOP 1.2 enabling a high degree of interoperability with other conforming ORBs. By means of TAO's support for pluggable protocols new transport technologies can be introduced without disruption to higher level code and systems. Networking technology migrations are made easier. </p>
+        <p align="center"><img src="/images/ataofig.gif" border="0" /></p>
+        <p><strong>Client:&nbsp; </strong>This program entity performs application tasks by obtaining object references to servants and invoking operations on the servants. Servants can be local or remote, relative to the client. The client is unaware of how the CORBA object is implemented. The operations that the client can invoke are those defined in the object's interface as expressed in the OMG Interface Definition Language (IDL). </p>
+        <p><strong>Servant:&nbsp; </strong>This component implements the operations defined by an OMG Interface Definition Language interface. For OO programming languages, servants are implemented as one or more objects. For non-OO languages, such as C, servants are implemented via wrappers or other special groupings of functions and structures. The wrappers are effectively adapters to server applications and they encapsulate the calls to library routines or some other code that is being reused.</p>
+        <p><strong>IDL Stubs and Skeletons:&nbsp; </strong>TAO's IDL stubs and skeletons efficiently marshal and demarshal operation parameters respectively. Stubs provide a strongly typed, static invocation interface (SII) that marshal application data into a common packet level representation. Conversely, skeletons demarshal the packet level data back into typed data that is meaningful to an application. Skeletons provide a static skeleton Interface (SSI). TAO's IDL compiler can provide specialized stubs that optimize operation invocations when the target object is collocated with (<em>i.e., </em>in the same address space as) the client.</p>
+        <p>In addition to the SII and SSI models described above, TAO also supports the Dynamic Invocation Interface (DII) and the Dynamic Skeleton Interface (DSI) as defined by the CORBA specification.</p>
+        <p><strong>Portable Object Adapter:&nbsp; </strong>The POA specification of CORBA 2.2 replaces the incomplete and under-specified BOA. An Object Adapter associates servants with the ORB and demultiplexes incoming requests to servants. TAO's Portable Object Adapter (POA), by default, uses perfect hashing and active demultiplexing optimizations to dispatch servant operations on constant <em>0</em>(1) time, regardless of the number of active connections, servants, and operations defined in IDL interfaces. Alternative look-up strategies are configurable, such as linear search, binary search, and dynamic hashing. TAO fully implements the POA specification and thus supports multiple nested POAs per ORB, (along with recursive deletes.) This enables improved scaleability. Additionally V2.2 conforming ORBs can now support various types of servants that possess similar characteristics. This architecture results in a small and simple ORB that can still support a wide range of object granularities, lifetimes, policies, implementation styles and other properties. Portability is achieved by standardizing the skeletons classes produced by the IDL compiler, as well as the interactions between the servants and the Object Adapter.</p>
+        <p>The characteristics of each POA (other than the root POA) can be customized at POA creation time using different policies. The TAO real time POA supports the following policies: </p>
+        <ul>
+        <li><strong>Threading</strong>:- either single threaded, or ORB controlled.</li>
+        <li><strong>Lifespan</strong> :- specifying whether objects are transient or persistent.</li>
+        <li><strong>ObjectId Uniqueness</strong>:- whether unique or multiple identities are implemented.</li>
+        <li><strong>Servant Retention</strong>:- either associations between servants and CORBA objects are retained, or new associations are established for each incoming request.</li>
+        <li><strong>Request Processing</strong>:- specifies as to how requests should be processed by the POA. (Combining retention with request processing results in a high degree of flexibility.)</li>
+        <li><strong>Implicit activation</strong>:- using this a C++ server can register the servant and create an object reference in a single operation.</li>
+        </ul>
+        <p><strong><em>NOTE</em></strong>: for predictable real time performance it is necessary to avoid calling external unpredictable events. Therefore when using TAO the following POA features may be disabled:-</p><ul>
+        <p><strong>Servant Managers</strong>: - If this feature is not used then all servants should register, directly with the POA, ahead of time.</p>
+        <p><strong>Adapter Activators</strong>: - If this feature is not used, all POAs are created at the beginning of execution.</p>
+        <p><strong>POA Managers</strong>: - This feature can be disabled because extra levels of queuing can lead to priority inversion and excessive locking.</p></ul>
+        <p><strong>CORBAservices Support</strong> -- TAO implements many of the OMG CORBAservices specifications, as follows: </p>
+        <ol>
+        <li><strong>Concurrency Control Service</strong> -- Mediates concurrent access to an object such that the consistency of the object is not compromised when accessed by concurrently executing computations.</li>
+        <li><strong>Logging Service</strong> -- Provides applications with distributed logging and log record querying capabilities. Four separate logging services are provided in TAO, differentiated by their log message distribution mechanism: Basic Logging Service, Event Logging Service, Notify Logging Service, and RTEvent Logging Service.</li>
+        <li><strong>Notification Service</strong> -- Extends the OMG Event Service adding structured events, filtering, offers and subscriptions, discovery, QoS, and an optional event type repository.</li>
+        <li><strong>Audio/Video Streaming Service</strong> -- Standard interfaces that control and manage audio and video stream exchanges with Quality of Service (QoS) constraints.</li>
+        <li><strong>Event Service</strong> -- Defines an event data delivery model that allows decoupled communication between suppliers and consumers of events.</li>
+        <li><strong>Lifecycle Service</strong> -- Provides a standard means to locate, move, copy, and remove objects. </li>
+        <li><strong>Naming Service</strong> -- Provides a way to associate objects with names. The Naming Service is the principal mechanism by which most clients locate objects they intend to use.</li>
+        <li><strong>Property Service</strong> -- Allows applications to associate properties with objects dynamically. </li>
+        <li><strong>Time Service</strong> -- Provides globally synchronized time among a system of distributed objects. </li>
+        <li><strong>Trading Service</strong> -- Implements a mapping between attribute constraints and sequences of object references that match those constraints.</li>
+        <li><strong>Security Service</strong> -- Provides a security reference model, implementation architecture, and interfaces that allow object systems, applications, and administrators to participate in security at any of three levels: security unaware, security policy controlling, and security policy enforcing.</li>
+        <li><strong>Persistent State Service (PSS)</strong> -- Provides a way of making a CORBA service persistent. The fact that PSS is being used by a service is known only to the server and not to clients of the service. PSS presents persistent information as storage objects stored in storage homes. Storage homes are the datastores where the persistent data are saved.</li>
+        <li><strong>Load Balancing Service</strong> -- Based on the revised joint submission to the OMG's proposed "Load Balancing and Monitoring for CORBA-based Applications" RFP (OMG Document mars/02-10-14). TAO's implementation features random, round-robin, and least-loaded load balancing strategies.</li></ol>
+        <p>Other CORBA features that TAO supports include: </p><ol>
+        <li><strong>CORBA Messaging</strong> -- Asynchronous Method Invocation (callback model), QoS Framework and messaging QoS.</li>
+        <li><strong>Portable Interceptors</strong> -- Portable Interceptors are objects that the ORB invokes at predefined points during the request and reply paths (request interceptors) or during thegeneration of IORs (IOR interceptors).</li>
+        <li><strong>Interface Repository</strong> -- Provides for the storage, distribution and management of a collection of related object's interface definitions and the relationship of their modules, operations and interfaces etc.</li>
+        <li><strong>Implementation Repository</strong> -- Enables indirect binding of client requests with server implementations to fulfill those requests. Optionally provides for automatic start up of servers when a client invocation occurs.</li>
+        <li><strong>Bi-Directional GIOP</strong> -- Enables requests and replies to travel bi-directionally across a single connection between two processes, both of which are sending and receiving requests and replies across that connection. This capability helps address the issue of invoking callbacks on clients located behind firewalls.</li>
+        <li><strong>Object by Value</strong> -- Partially implements the CORBA Objects by Value (OBV) specification, which combines the semantics of structures and interfaces, thereby allowing objects (value types) to be passed by value (i.e., copied) across IDL interfaces as long as the implementation exists locally on the receiving side.</li>
+        <li><strong>Object Reference Template (ORT)</strong> -- TAO implements the Object Reference Template (ORT) specification from CORBA 3.0 Core specification for defining an interface for object reference construction by object adapters.</li></ol>
+        <p>In addition, TAO also complies with Real-Time CORBA version 1.1 and provides the following services/features which serve to demonstrate TAO's capabilities in various deterministic and statistical real-time environments: </p><ol>
+        <li><strong>TAO Real-Time Event Service </strong>-- Augments the standard CORBA Event Service model by providing source and type-based filtering, event correlations, and real-time dispatching.</li>
+        <li><strong>Pluggable Protocols</strong> -- Enables developers to "plug in" custom transports under GIOP without disturbing application level code. IIOP (GIOP over TCP), UIOP (GIOP over UNIX domain sockets), SHMIOP (GIOP over shared memory), DIOP (a limited implementation of GIOP over UDP), Unreliable Multicast Inter-ORB Protocol (MIOP), and SSLIOP (IIOP over SSL) are built in.</li>
+        </ol>
+        <p><strong>ORB Core:&nbsp; </strong>The ORB Core delivers client requests to the Object Adapter and returns responses (if any) to clients. TAO's real-time ORB Core uses a multi-threaded, preemptive, priority-based connection and concurrency architecture to provide an efficient and predictable CORBA IIOP protocol engine.</p>
+        <p><strong>ACE: </strong>TAO is implemented on top of ACE. This is the lower level middleware that implements the core concurrency and distribution patterns for communication software. ACE provides the reusable C++ wrapper facades and framework components that support the QoS requirements of high-performance, real-time applications. ACE is multi-platform and spans both regular and real-time operating systems. A more detailed description can be found <strong><a href="/about/aboutace.html" target="_self">here</a></strong>.</p>
+    </div>
+</div>

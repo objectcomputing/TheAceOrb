@@ -1,0 +1,52 @@
+Q: Is the TAO Naming Service interoperable with the JDK 1.4 beta 3 ORB?
+
+A: >
+ JDK 1.4 supports Interoperable Object References (IORs).  To use
+ the JDK 1.4 ORB with the TAO Naming Service server:
+ 
+ <p>
+ Start TAO Naming Service server:
+ <pre>
+   $ $TAO_ROOT/orbsvcs/Naming_Service/Naming_Service -ORBListenEndpoints iiop://host:port
+ </pre>
+ </p>
+ 
+ <p>
+ Then, run the JDK 1.4 client as follows to use the TAO Naming Service:
+ <pre>
+   $ java MessengerClient \
+       -ORBInitRef NameService=corbaloc:iiop:host:port/NameService
+ </pre>
+ </p>
+ 
+ <p>
+ Here is a sample Java client: 
+ <pre>
+ public class MessengerClient
+ {
+   public static void main( String[] args )
+   {
+     try {
+         
+       org.omg.CORBA.ORB orb = org.omg.CORBA.ORB.init(args, null);
+       // resolve the naming service 
+       org.omg.CORBA.Object obj =
+         orb.resolve_initial_references("NameService");
+       NamingContext rootContext = NamingContextHelper.narrow( obj );
+       // create sample  name(sever binding)
+       NameComponent[] name = { new NameComponent( "example", "" ),
+                                new NameComponent( "Messenger", "" ) };
+       // resolve the server reference
+       obj = rootContext.resolve(name);
+       Messenger msgr = MessengerHelper.narrow(obj);
+       ..............
+       ...........
+     } catch ( Exception e ) {
+        System.err.println( "ERROR: " + e );
+         e.printStackTrace( System.err );
+     }
+   }
+ }
+ </pre>
+ </p>
+ 

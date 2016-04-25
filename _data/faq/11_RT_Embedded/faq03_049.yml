@@ -1,0 +1,18 @@
+Q: My platform doesn't have a filesystem; how can I use service configurator directives?
+
+A: >
+ Many embedded
+ systems don't have filesystems, which really puts a cramp in using the <code>svc.conf</code>
+ file and its directives (e.g., for the <code>Resource_Factory</code>). <p> However, you can pass Service Configurator directives on the "command
+ line" using the <code>-ORBSvcConfDirective</code> (Section 7.4 in the <em>TAO Developer's
+ Guide</em>). </p><p>
+ For example, you might put code like the following in your main():<br>
+ </p><pre>
+   ACE_ARGV orb_args(
+     "-ORBSvcConfDirective "
+     "\"static Resource_Factory '-ORBResources tss'\"");
+   CORBA::ORB_var orb = CORBA::ORB_init(orb_args->argc(),
+                                        orb_args->argv());
+ </pre>
+ <br>
+ 

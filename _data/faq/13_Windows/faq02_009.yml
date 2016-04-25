@@ -1,0 +1,28 @@
+Q: Why do I encounter linking errors when building Debug applications in Windows with Visual C++?
+
+A: >
+ If you're linking debug versions of an executable or DLL and have unresolved symbols, there are several possible reasons:<br>
+ <ol>
+ <li> Is your library path correct?<br>
+      (Check Tools|Options|Directories|Libraries or your project settings.)<br>
+ <li> Are you linking in the ACE, TAO, and possibly orbsvcs libraries?<br>
+      (Check Build|Settings|Link)<br>
+ <li> Are you linking with the right library names?<br>
+      If you are building your application against a Debug configuration
+      of ACE+TAO, the names of the libraries will have the letter "d"
+      in them (e.g., aced.lib, TAOd.lib, CosNamingd.lib).  If you are
+      using a Release configuration of ACE+TAO, the "d" will not be
+      present in the library names.<br>
+ <li> Have you installed or built the Debug configuration of ACE+TAO?<br>
+      If you have only installed the non-Debug version of TAO, you will not
+      be able to build Debug executables.  To check this, do one of the
+      following:<ol>
+        <li> Build the Release configuration of the executable; or
+        <li> Remove _DEBUG from the list of preprocessor definitions.
+      </ol>
+      If the build succeeds, then you probably have a non-Debug version of
+      TAO.<br>
+ </ol>
+ <br>
+ 
+ 

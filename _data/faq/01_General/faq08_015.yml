@@ -1,0 +1,24 @@
+Q: How can I help extend TAO's functionality and add new features?
+
+A: >
+ TAO is open source and the development group welcomes code contributions.
+ Active participation by users ensures a robust implementation.  Please refer to
+ the terms and conditions relating to software submissions in
+ the ACE, TAO, CIAO, and CoSMIC copyright and licensing
+ information:
+ <a
+ href="http://www.cs.wustl.edu/%7Eschmidt/ACE-copying.html">http://www.cs.wustl.edu/~schmidt/ACE-copying.html</a>.
+ In general, incorporation of your code into TAO results in it becoming "open" and the user
+ community being protected by the ACE/TAO copyright and terms.
+ <p>
+ OCI can also provide consulting and software engineering resources to help you
+ add new functionality into TAO or to span additional platforms.  We can also
+ manage the inclusion of such code into the supported releases of new open
+ source versions of TAO.  We can provide anonymity if you wish to avoid exposing
+ your technical strategies in public forums, where your competition may be
+ watching.  Contact <a href="mailto:sales@ociweb.com?subject=TAO%20FAQ%20%28maintained%20by%20OCI%20for%20the%20TAO%20Community%29">sales@ociweb.com</a> to discuss your project.
+ </p><p> Open source software can add immeasurably to the development of a
+ rich infrastructure, and the provision of a high degree of application
+             interoperability, from which we all may derive benefit.  Read
+ more about the benefits of open source at <a href="{{site.baseurl}}/product/benefit.html">{{site.baseurl}}/product/benefit.html</a>.
+ <br>

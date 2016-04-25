@@ -1,0 +1,445 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<!-- $Id: relnotes.html,v 1.6 2000/11/16 18:02:55 cleeland Exp $ -->
+<html>
+  <head>
+    <title>Release Notes for OCI's Distribution of TAO 1.1a</title>
+    <style>
+<!--
+      h1 { font-family: Arial,Helvetica; font-size: 24pt; }
+      pre { margin-left: 0.5in }
+      dt { font-style: italic; }
+      div.out { font-family: fixed; margin-bottom: 2em; font-size: 12pt;}
+      .l1 { font-weight: bold; font-family: Arial,Helvetica; font-size: 24pt;}
+      .l2 { font-weight: bold; font-family: Arial,Helvetica; font-size: 18pt;}
+      .l3 { font-weight: bold; font-family: Arial,Helvetica; font-size: 14pt;}
+-->
+    </style>
+  </head>
+
+  <body>
+    <h1 align="center">
+      Release Notes for OCI's Distribution of TAO 1.1a<br>
+      Copyright 2000 by Object Computing, Inc.
+    </h1>
+
+    <hr>
+    <center>
+    <table width="75%">
+      <tr>
+	<th align="left" valign="top">NOTE:</th>
+	<td>&nbsp;</td>
+	<td>
+	  These release notes are current as of TAO 1.1a (which corresponds to OCI part
+	  number 021-01).  The latest version of these release notes
+	  can be viewed or downloaded from OCI's web site at <a
+	  href="{{site.baseurl}}/releasenotes">{{site.baseurl}}/releasenotes</a>.
+	</td>
+      </tr>
+    </table>
+    </center>
+    <hr>
+
+    <!-- Table of Contents -->
+
+    <p class="l1">Table of Contents</p>
+    <ol type="1">
+      <li><a href="#general_notes">General Notes</a>
+	<ol type="a">
+	  <li><a href="#heritage">Heritage--Relationship to DOC Releases</a>
+	  <li><a href="#cdformat">CD Format Notes</a>
+	  <li><a href="#gnumake">Building Requires GNU Make</a>
+	  <li><a href="#install_nt_on_nt">Installing on Windows vs. UNIX</a>
+          <li><a href="#event_svc_clarification">Clarification of Event Service Installation Nomenclature</a>
+	</ol>
+      <li><a href="#updates">New Features Since TAO 1.0a</a>
+	<ol type="a">
+	  <li><a href="#giop">GIOP 1.2</a>
+	  <li><a href="#services">New Services (Concurrency, Logging, Notification, Load Balancing)</a>
+	  <li><a href="#corba23">Compliance directed towards CORBA 2.3</a>
+	  <li><a href="#ins">Interoperable Naming Service</a>
+	  <li><a href="#messaging">CORBA Messaging</a>
+	  <li><a href="#rtcorba">Real-time CORBA Support</a>
+	</ol>
+      <li><a href="#platform_notes">Platform-specific Notes</a>
+        <ol type="a">
+          <li><a href="version_info.html">Version Information</a>
+          <li><a href="#known_problems">Known Problems</a>
+        </ol>
+      <li><a href="#building_apps">Quickstart for Building with TAO</a>
+        <ol type="a">
+	  <li><a href="#building_unix">TAO on UNIX</a>
+	  <li><a href="#building_nt">TAO on Win32 with Visual C++</a>
+        </ol>
+      <li><a href="#sample_app">Sample Application</a>
+    </ol>
+
+    <hr width="50%">
+
+    <ol type="1">
+      <li class="l1"><a name="general_notes"></a><span class="l1">General Notes</span>
+        <p>
+	<ol type="a">
+	  <li class="l2"><a name="heritage"></a><span class="l2">Heritage--Relationship to
+	  DOC Releases</span>
+	    <p>
+	      TAO 1.1a derives from the DOC 1.1.4 beta kit with bugfix-related patches
+	      selectively applied to enhance stability.  A record of applied patches can
+	      be found in <a
+	      href="{{site.baseurl}}/11a/changelog/OCIChangeLog">OCIChangeLog</a> files
+	      installed with the distribution.  At the time of this release, the current
+	      DOC beta kit is 1.1.10.
+	    <p>
+
+	  <li class="l2"><a name="cdformat"></a><span class="l2">CD Format</span>
+	    <p>
+	      This CD's format is ISO-9660 with Rock Ridge and Joliet extensions.  Thus, it
+	      should be readable on nearly every Unix platform (Rock Ridge extensions) as
+	      well as Windows (Joliet extensions).  We mastered it using the freely-available <a
+	      href="http://www.ps.ucl.ac.uk/~jcpearso/mkhybrid.html">mkhybrid</a> tool, and
+	      recorded it using the freely-available <a
+	      href="ftp://ftp.fokus.gmd.de/pub/unix/cdrecord/">cdrecord</a>.
+	    <p>
+
+	  <li class="l2"><a name="gnumake"></a><span class="l2">GNU Make Required on Unix</span>
+	    <p>
+	      With the exception of Windows operating systems,
+	      building ACE and TAO from source code requires GNU Make.  While you can use
+	      other tools to build applications using ACE &amp; TAO, using GNU Make lets
+	      you leverage the existing build system distributed with ACE &amp; TAO.  If
+	      you need GNU Make, you can get a source distribution <a
+	      href="http://www.gnu.org/software/make/make.html">here</a>
+	      as well as other places.
+	    <p>
+
+	  <li class="l2"><a name="install_nt_on_nt"></a><span class="l2">Installing on Windows vs. UNIX</span>
+	    <p>
+              To install a Windows build of TAO 1.1a from CD, run
+              setup on a Windows platform.  Likewise, to install for
+              a UNIX or UNIX-like platform, run setup on a UNIX or
+              UNIX-like platform.
+	    <p>
+
+          <li class="l2"><a name="event_svc_clarification"></a><span class="l2">Clarification of Event Service Installation Nomenclature</span></li>
+            <p>
+              During installation, a dialog will ask you to select the
+              service executables you wish to install.  The dialog
+              lists two event service executables, and does not
+              provide much help in discerning the difference.
+            <p>
+              Select <b>CosEvent</b> to install the service executable
+              for the OMG's CosEvent service; select <b>Event</b> to
+              install the service executable for TAO's Real-Time Event
+              service (RTEC).
+        <p>
+	</ol>
+
+      <li class="l1"><a name="updates"></a><span class="l1">New Features Since TAO 1.0a</span>
+        <p>
+	<ol type="a">
+	  <li class="l2"><a name="giop"></a><span class="l2">GIOP 1.2</span>
+	    <p>
+	    TAO 1.1a includes support not only for GIOP 1.0 and GIOP 1.1, but also most of
+	    GIOP 1.2.
+	    <p>
+
+	  <li class="l2"><a name="services"></a><span class="l2">New Services</span>
+	    <p>
+	    Several services were added including Concurrency Control,
+	    Load Balancing, Logging and Notification.
+	    <p>
+
+	  <li class="l2"><a name="corba23"></a><span class="l2">Compliance directed
+	  towards CORBA 2.3</span>
+	    <p>
+	    The TAO 1.1a release targets compliance with the CORBA 2.3 Specification, whereas TAO
+	    1.0a targeted compliance with the CORBA 2.2 specification.
+	    <p>
+
+	  <li class="l2"><a name="ins"></a><span class="l2">Interoperable Naming
+	  Service</span>
+	    <p>
+	    TAO 1.1a includes an implementation of the Interoperable Naming Service (INS).
+	    <p>
+
+	  <li class="l2"><a name="messaging"></a><span class="l2">CORBA Messaging
+	  Support</span>
+	    <p>
+	    TAO 1.1a includes support for Asynchronous Method Invocation and
+	    a subset of the QoS policies of the CORBA Messaging Specification.
+	    <p>
+
+	  <li class="l2"><a name="rtcorba"></a><span class="l2">Real-time CORBA Support</span>
+	    <p> TAO 1.1a includes in-progress support for the
+	    Real-time CORBA specification.
+	    <p>
+	</ol>
+
+	Details on these, and many other features of TAO 1.1a, are detailed in <a
+	href="{{site.baseurl}}/product/index.html#doc">OCI's TAO Developer's
+    Guide</a>, available separately.
+    <p>
+      <li class="l1"><a name="platform_notes"></a><span class="l1">Platform-specific Notes</span>
+        <p>
+          <ol type="a">
+          <li class="l2"><span class="l2"><a href="version_info.html">Version Information</a></span>
+            <p>
+            <a href="version_info.html">View runtime platform version information here.</a>
+            <p>
+          </li>
+
+          <li class="l2"><span class="l2"><a name="known_problems">Known Problems</a></span>
+              <p>
+              <dl>
+                <dt><span class="l3">Problems using GNU Make Parallel Builds</span></dt>
+              <p>
+              <dd>
+                Using the <code>-j</code> for GNU Make can cause
+                strange build errors when building code generated by
+                the IDL compiler if dependencies are not correctly
+                specified in the Makefile.
+              </dd>
+            <p>
+
+              <dt><span class="l3"><code>POA/TIE</code> test fails to build using the Sun Workshop 5.1/Forte compiler</span></dt>
+            <p>
+              <dd>
+                Workshop 5.1/Forte is new, uncharted territory, and
+                template instantiation rears its ugly head once again.
+              </dd>
+            <p>
+
+              <dt><span class="l3">Sun Workshop 5.0 and 5.1/Forte oddities</span></dt>
+              <p>
+              <dd>
+                Both Sun Workshop 5.0 and 5.1/Forte require
+                <em>explicit template instantiation</em> and <em>do
+                not support function inlining</em>.  These settings
+                are enforced by the <code>platform_*</code> files for
+                these compilers, and will override any setting to the
+                contrary in <em>your</em>
+                <code>platform_macros.GNU</code>.  Also, the "old"
+                <code>iostreams</code> library is used rather than the
+                "new" one.
+              </dd>
+              <p>
+
+              <dt><span class="l3">Installer Window looks "weird" with Big Fonts in Windows</span></dt>
+              <p>
+              <dd>
+                For some reason the Installer's window looks weird
+                when using Big Fonts under Windows.  The simple
+                workaround is to resize the window to redraw and make
+                it look sane.
+              </dd>
+              <p>
+
+              <dt><span class="l3">The ACE <code>Process_Manager_Test</code> fails on Solaris</span></dt>
+              <p>
+              <dd>
+                The ACE <code>Process_Manager_Test</code> fails when
+                compiled multi-threaded (i.e., using the <em>-mt</em>
+                option for SunCC or <em>-D_REENTRANT</em> linked with
+                <em>-lthread</em> for gcc) on SunOS 5.6-5.8.  This is
+                <em>not</em> a bug in ACE, but rather a bug in
+                Solaris' thread implementation.  The bug is documented
+                in the <code>setitimer(2)</code> manual page, and
+                relates to the disposition of <code>SIGALRM</code> in
+                the face of multiple threads.  There is no known
+                workaround for this problem.
+              </dd>
+              <p>
+
+              <dt><span class="l3">Some TAO tests generate <code>CORBA::Transient</code> errors with <code>EAFNOSUPPORT</code> set</span></dt>
+              <p>
+              <dd>
+                This problem cuts across platforms and tests; we've
+                seen it happen on SunOS 5.6 as well as on NT.  On
+                Solaris, it predominantly occurs in the
+                <em>Latency</em> performance test and in the
+                <em>MT_Client</em> test.  On NT, it consistently fails
+                <em>Latency</em> as well as occasional failures of
+                <em>MT_Client</em>, <em>EndPoint_Per_Priority</em>,
+                and <em>Leader_Followers</em>.
+                <p>
+                  The problem's <a
+                  href="http://www.egroups.com/messagesearch/tao-users?query=EAFNOSUPPORT">been
+                  discussed on tao-users</a> several times, and the
+                  only workaround/explanation is to run the server
+                  using <code>-ORBDottedDecimalAddresses 1</code>.
+                  The best guess is that it's related to delays during
+                  name-to-address resolution.
+              </dd>
+              <p>
+
+              <dt><span class="l3">The ACE <code>CDR_Array_Test</code> fails to link on compilers using implicit template instantiation</span></dt>
+              <p>
+              <dd>
+                The ACE <code>CDR_Array_Test</code> fails to link when
+                compiled with compilers using implicit template
+                instantiation.  We discovered this using the Sun
+                Workshop 4.2 compiler/linker where we got the
+                following error:
+                <pre class="out">
+$ CC -mt -fast -O -DACE_NDEBUG -features=castop -DACE_LACKS_RTTI -xtarget=generic  -D__ACE_INLINE__  -I/export/home/tao_builds/cleeland/tao11a/ocitao/ACE_wrappers/build/sunos56_sun42_d0o1 -DACE_HAS_EXCEPTIONS  -o CDR_Array_Test .obj/CDR_Array_Test.o -mt -R /export/home/tao_builds/cleeland/tao11a/ocitao/ACE_wrappers/build/sunos56_sun42_d0o1/ace -R./ -xildoff -fast -xtarget=generic -L/export/home/tao_builds/cleeland/tao11a/ocitao/ACE_wrappers/build/sunos56_sun42_d0o1/ace -L./  -lACE -lsocket -ldl -lnsl -lgen -lposix4
+Undefined                       first referenced
+ symbol                             in file
+digits                              Templates.DB/47Eq@z43fkK3.o
+ld: fatal: Symbol referencing errors. No output written to CDR_Array_Test
+make:  [CDR_Array_Test] Error 1
+                </pre>
+This problem does <em>not</em> occur using explicit template instantiation.
+<p>
+The linkage failure is caused by a template's code referencing a
+static array declared in file scope.  For the case of explicit
+template instantiation, this is okay because the instantiations remain
+in the same compilation/linkage unit as the static array.  However,
+for implicit instantiation, the templates and the static array exist
+in separate compilation units, and standard linker rules do not permit
+visibility of the static array from the template instantiation.
+<p>
+At the time of this release, this failure's been fixed in DOC Beta kit
+1.1.10 by moving the static array into the template itself.
+              </dd>
+              <p>
+
+              <dt><span class="l3">Incomplete testing under Windows 98</span></dt>
+              <p>
+              <dd>
+The automated tests included with TAO do not fully support this platform and this resulted in a number of test failures beyond those seen on Windows NT.  Some of these tests fail because they use features that Windows 98 does not support, others fail because the tests run too slowly and time-out, and still others fail because of problems in the test automation framework specific to Windows 98.  These failures should not affect the basic functionality of TAO (and your applications).
+              </dd>
+              <p>
+            </dl>
+          </li>
+        </ol>
+
+      <li class="l1"><a name="building_apps"></a><span class="l1">Quickstart for Building with TAO</span>
+
+	<p> This section contains a few things you will need to know to build applications
+      which use the TAO and ACE libraries distributed on this CD. You can find
+      more detailed information in <a href="bldgapps.html">bldgapps.html</a>,
+      adapted from the <a
+	  href="{{site.baseurl}}/product/index.html"><em>TAO Developer's Guide</em>
+      (OCI part number 510-01)</a>, <a
+	  href="https://ssl.ociweb.com/buy/index.html">available for purchase online</a>.
+    <p>
+
+        <ol type="a">
+	  <li class="l2"><a name="building_unix"></a><span class="l2">TAO on UNIX</span>
+
+	    <p>
+              On UNIX and UNIX-like systems, you should use GNU Make to build applications
+              with TAO.  The document <a
+              href="bldgapps.html#UNIX_Section">bldgapps.html</a> shows
+              an <a href="bldgapps.html#makefileexample">example Makefile</a>.
+            <p>
+              Briefly, you will need to set the following environment variables:
+            <p>
+
+            <dl>
+              <dt><code>ACE_ROOT</code></dt>
+              <dd>The base of your ACE and TAO installation</dd>
+
+              <dt><code>TAO_ROOT</code></dt>
+              <dd><code>$ACE_ROOT/TAO</code></dd>
+
+              <dt><code>LD_LIBRARY_PATH (SHLIB_PATH on HP-UX)</code></dt>
+              <dd>Must include <code>$ACE_ROOT/ace</code></dd>
+            </dl>
+
+            <p>
+              These can all be set by "sourcing" the environment script located
+              in your ACE_wrappers directory.
+              For example, assuming the base of your installation of TAO is in
+              <code>/usr/local/ACE_wrappers</code>, and assuming you are using the
+              C-shell (csh):
+            <p>
+	      <div class="out">
+source /usr/local/ACE_wrappers/ace_env.csh<br>
+              </div>
+              <em>Note: <code>ace_env.sh</code> is also supplied for Bourne-like Shell users</em>
+            <p>
+
+	  <li class="l2"><a name="building_nt"></a><span class="l2">TAO on Win32 with Visual C++</span>
+            <p>
+              To build applications with ACE/TAO the following environment variables need to be set:
+            <p>
+
+            <dl>
+              <dt><code>ACE_ROOT</code></dt>
+              <dd>The base of your ACE and TAO installation</dd>
+
+              <dt><code>TAO_ROOT</code></dt>
+              <dd><code>%ACE_ROOT%\TAO</code></dd>
+
+              <dt><code>PATH</code></dt>
+              <dd>Must include <code>%ACE_ROOT%\bin</code></dd>
+            </dl>
+            <p>
+              See <a href="bldgapps.html#Setting_UNIX_Env_Vars">bldgapps.html</a> for detailed instructions on setting the environment variables for the various Windows OSs.  On Windows NT and Windows 2000, the installer script sets the ACE_ROOT and TAO_ROOT environment variables, but you need to explicitly add the specified directory to the PATH variable.    You may need to log out and back in to actually see these variables propagated to all running processes.  On Windows 98, you need to explictly set all the variables listed above.
+            <p>
+              You also need to add various directories to the global Visual C++ settings so that VC++ can properly locate the ACE/TAO header files and libraries.  This is described in <a href="bldgapps.html#Setting_Visual_CPP_Options">bldgapps.html</a>.
+            <p>
+              Any existing Visual C++ projects that need to use TAO should be modified as described in <a href="bldgapps.html#createproject">bldgapps.html</a>.  Briefly, you need to:
+            <ul>
+              <li> Modify the default compiler settings to use
+                   multi-threaded DLLs;
+              <li> Modify the Input Object/Library modules to use the
+                   debug or release versions of the ACE, TAO, and
+                   orbsvcs libraries, as appropriate for your
+                   development environment;
+              <li> Set up a custom build configuration to invoke the TAO
+                   IDL compiler to generate C++ header and source files
+                   from OMG IDL files.
+              </ul>
+
+        </ol>
+	<p>
+
+      <li class="l1"><a name="sample_app"></a><span class="l1">Sample Application</span>
+            <p>
+              The CD includes a sample application which you can build and run to verify
+              that your installation of TAO was successful.  The application consists of a
+              simple message server and client.  The client sends a message to the
+              server by invoking an operation on a Messenger object.
+            <p>
+              Source code for this application is found on the CD in the file
+              <code>example.tgz</code>.  We have also included a Makefile for building the
+              application on UNIX and UNIX-like systems, and a Visual C++ project file
+              for building it on Windows.
+            <p>
+              On UNIX and UNIX-like platforms, use <code>gunzip</code> and
+              <code>tar</code> to uncompress and unpack this file.  Then, run GNU Make in the
+              example directory to build the MessengerServer and MessengerClient.  You can
+              then run them after they are successfully built.
+            <p>
+              On Windows, use <code>WinZip</code> to unpack the file.  You will find a
+              Visual C++ workspace called <code>GettingStartedVC</code> in the
+              <code>example\GettingStartedVC</code> subdirectory which you can use to compile the
+              interfaces and build the MessengerServer and MessengerClient programs.
+            <p>
+              The server creates a Messenger object and prints its IOR as a string to a file,
+              then waits for client requests.  The client reads the IOR string from
+              the file and sends a message using the Messenger object.  The server then prints
+              the contents of the message to stdout.
+            <p>
+              Here is sample output from running the server and client on Linux:
+            <p>
+
+            <div class="out">
+$ MessengerServer &<br>
+[1] 25291<br>
+IOR written to file Messenger.ior<br>
+<br>
+$ MessengerClient<br>
+Message from: rick<br>
+Subject:      Test<br>
+Message:      Howdy!<br>
+message was sent<br>
+            </div>
+
+    </ol>
+
+    <hr>
+    <address><a href="javascript:SendMail('taosupport', 'ociweb.com')">EMail TAO Support at taosupport</a></address>
+  </body>
+</html>

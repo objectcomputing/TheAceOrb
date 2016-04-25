@@ -1,0 +1,28 @@
+Q: Why can't I make an SSLIOP connection using a DSA certificate?
+
+A: >
+ If you would like to create and use DSA certificates there are a couple of things that need 
+ to be done for it to work with SSLIOP. When using DSA certificates you need to specify DH parameters. 
+ You can do this by obtaining the SSL context before any connections are made using the ORB. 
+ This is TAO specific therefore not portable to other ORBs. First you need to obtain a set of DH parameters. 
+ You can either generate these at runtime ( which will take a very long time ), 
+ or generate them once with the openssl tool and append them to the end of your certificate. <br>
+ <pre>  openssl tool: [Command Line]
+        openssl gendh 512 &gt;&gt;cert.pem<br></pre>
+ This will add 512-bit DH parameters to the end of the file cert.pem. 
+ After you have created these parameters you will need to load them in your application.<br>
+ <pre>  #include "orbsvcs/SSLIOPC.h"
+   #include "openssl/pem.h"<br>
+   // Open the file with the DH parameters
+   FILE * fp = fopen ( "cert.pem", "r" );<br>
+   // Read in the DH parameters from the open file
+   DH * dh_params = PEM_read_DHparams ( fp , NULL, NULL, NULL );<br>
+   // Obtain the SSL Context so we can set the DH parameters for it
+   SSL_CTX * ssl_ctx = ACE_SSL_Context::instance()-&gt;context();<br>
+   // Set the DH Parameters for the SSL Context
+   SSL_CTX_set_tmp_dh ( ssl_ctx , dh_params );<br></pre>
+ This should be it. This sets the DH parameters needed to use a DSA certificate with SSLIOP. 
+ Please note that a greater degree of error checking should be done than what is provided in this code. 
+ <br>
+ 
+ 

@@ -1,0 +1,11 @@
+Q: How can my TAO client obtain information about the endpoint (e.g., IP address and port for IIOP) it is using to send a request?
+
+A: >
+ The TAO::Transport::IIOP::Current interface can be used to obtain
+  information about the local and remote endpoints. Please see example code
+  in LINK:164:. Similar code can be used by the client to obtain information 
+  about the endpoint used to send a request. Note since the transport
+  information is only available on client side at interceptor points
+  (within send_request, send_poll(), receive_reply(), receive_exception() and 
+  receive_other ()), TAO must be built with support for interceptors if the 
+  client side needs Transport::Current functionality.

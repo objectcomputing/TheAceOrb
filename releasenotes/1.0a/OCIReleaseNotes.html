@@ -1,0 +1,855 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 FINAL//EN">
+
+<HTML>
+<HEAD>
+<TITLE>Release Notes for OCI's Distribution of TAO 1.0a</TITLE>
+<!-- DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN" $Id: relnotes.htm,v 1.17 1999/09/13 15:19:10 totten_s Exp $  -->
+<STYLE>
+<!--
+      h1 { font-family: Arial,Helvetica; font-size: 24pt; }
+      pre { margin-left: 0.5in }
+      dt { font-style: italic; }
+      div.out { font-family: fixed; margin-bottom: 2em; }
+      .l1 { font-weight: bold; font-family: Arial,Helvetica; font-size: 24pt;}
+      .l2 { font-weight: bold; font-family: Arial,Helvetica; font-size: 18pt;}
+-->
+    </STYLE>
+
+
+
+    
+    <style>
+<!--
+      h1 { font-family: Arial,Helvetica; font-size: 24pt; }
+      pre { margin-left: 0.5in }
+      dt { font-style: italic; }
+      div.out { font-family: fixed; margin-bottom: 2em; }
+      .l1 { font-weight: bold; font-family: Arial,Helvetica; font-size: 24pt;}
+      .l2 { font-weight: bold; font-family: Arial,Helvetica; font-size: 18pt;}
+-->
+    </style>
+  <META NAME="Author" CONTENT="Object Computing Inc.">
+
+<BASE TARGET="_parent">
+</HEAD>
+
+<BODY bgcolor="#FFFFFF">
+  <TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0 WIDTH=653>
+   <TR VALIGN="top" ALIGN="left">
+        <TD WIDTH=26 HEIGHT =426>&nbsp;</TD>
+        <TD WIDTH=627><table width=627 height=426><tr align=left valign=top><td>
+
+    <h1 align="center">
+      Release Notes for OCI's Distribution of TAO 1.0a<br>
+      Copyright 1999 by Object Computing, Inc.
+    </h1>
+
+    <hr>
+    <center>
+    <table width="75%">
+      <tr>
+        <th align="left" valign="top">NOTE:</th>
+        <td>&nbsp;</td>
+        <td>
+          These release notes are current as of TAO 1.0a which
+          corresponds to OCI part number 010-01.  The latest version
+          of these release notes can be viewed or downloaded from
+          OCI's web site at <a href="http://theaceorb.com/releasenotes/">http://theaceorb.com/releasenotes/</a>.
+        </td>
+      </tr>
+    </table>
+    </center>
+    <hr>
+
+    <!-- Table of Contents -->
+
+    <p class="l1">Table of Contents</p>
+    <ol type="1">
+      <li><a href="#general_notes">General Notes</a>
+        <ol type="a">
+          <li><a href="#cdformat">CD Format Notes</a>
+          <li><a href="#gnumake">Building Requires GNU Make</a>
+          <li><a href="#static_debug">Static Libraries and Debug Builds</a>
+          <li><a href="#install_nt_on_nt">Installing on Windows NT vs. UNIX</a>
+        </ol>
+      <li><a href="#platform_notes">Platform-specific Notes</a>
+        <ol type="a">
+          <li><a href="#nt_intel_vc">Windows NT on Intel with Microsoft Visual C++ 5.0 and 6.0</a>
+          <li><a href="#sol7_intel_egcs">Solaris 7 (SunOS 5.7) on Intel with egcs 1.1.2</a>
+          <li><a href="#sol251_sparc_egcs">Solaris 2.5.1 (SunOS 5.5.1) on SPARC with egcs 1.1.2</a>
+          <li><a href="#sol251_sparc_sun42">Solaris 2.5.1 (SunOS 5.5.1) on SPARC with SunCC 4.2</a>
+          <li><a href="#sol26_sparc_egcs">Solaris 2.6 (SunOS 5.6) on SPARC with egcs 1.1.2</a>
+          <li><a href="#sol26_sparc_sun42">Solaris 2.6 (SunOS 5.6) on SPARC with SunCC 4.2</a>
+          <li><a href="#sol7_sparc_egcs">Solaris 7 (SunOS 5.7) on SPARC with egcs 1.1.2</a>
+          <li><a href="#sol7_sparc_sun50">Solaris 7 (SunOS 5.7) on SPARC with SunCC 5.0</a>
+          <li><a href="#hp_pa_acc">HP-UX 11.00 on PA-RISC with aCC</a>
+          <li><a href="#linux_intel_egcs">Linux on Intel with egcs 1.1.2</a>
+        </ol>
+      <li><a href="#building_apps">Quickstart for Building with TAO</a>
+        <ol type="a">
+          <li><a href="#building_unix">TAO on UNIX</a>
+          <li><a href="#building_nt">TAO on Win32 with Visual C++</a>
+        </ol>
+      <li><a href="#sample_app">Sample Application</a>
+    </ol>
+        
+    <hr width="50%">
+
+    <ol type="1">
+      <li class="l1"><a name="general_notes"></a><span class="l1">General Notes</span>
+        <ol type="a">
+          <li class="l2"><a name="cdformat"></a><span class="l2">CD Format</span>
+            <p>
+              This CD's format is ISO-9660 with Rock Ridge and Joliet extensions.  Thus, it
+              should be readable on nearly every Unix platform (Rock Ridge extensions) as
+              well as NT (Joliet extensions).  We mastered it using the freely-available <a
+              href="http://www.ps.ucl.ac.uk/~jcpearso/mkhybrid.html">mkhybrid</a> tool, and
+              recorded it using the freely-available <a
+              href="ftp://ftp.fokus.gmd.de/pub/unix/cdrecord/">cdrecord</a>.
+            <p>
+
+          <li class="l2"><a name="gnumake"></a><span class="l2">GNU Make Required on Unix</span>
+            <p>
+              With the exception of Windows NT and Windows-like operating systems,
+              building ACE and TAO from source code requires GNU Make.  While you can use
+              other tools to build applications using ACE &amp; TAO, using GNU Make lets
+              you leverage the existing build system distributed with ACE &amp; TAO.  If
+              you need GNU Make, you can get a source distribution through <a
+              href="http://www.ociweb.com/taodg/gnumake_manual.html">http://www.ociweb.com/taodg/gnumake_manual.html</a>
+              as well as other places.
+            <p>
+          <li class="l2"><a name="static_debug"></a><span class="l2">Static Libraries and Debug Builds</span>
+            <p>
+              Due to size limitations, debug builds for UNIX and UNIX-like operating
+              systems on this CD do not include static libraries.  You may build
+              static ACE, TAO, and ORB services libraries by adding
+              <code>static_libs=1</code> to the flags you supply to GNU Make and
+              rebuilding ACE and TAO.  See <a href="#building_apps"><strong>Building
+              Applications with TAO</strong></a> for more information on how to do this
+              yourself.
+            <p>
+              <em>Note:</em> you should have at least 900 Mb of additional free space
+              available to build only the static versions of the debuggable libraries.  If
+              you want to build both static and dynamic versions, you will need more.
+            <p>
+          <li class="l2"><a name="install_nt_on_nt"></a><span class="l2">Installing on Windows NT vs. UNIX</span>
+            <p>
+              To install a Windows NT build of TAO 1.0a from CD, run
+              setup on a Windows NT platform.  Likewise, to install for
+              a UNIX or UNIX-like platform, run setup on a UNIX or
+              UNIX-like platform. 
+            <p>
+        </ol>
+
+      <li class="l1"><a name="platform_notes"></a><span class="l1">Platform-specific Notes</span>
+        <ol type="a">
+          <li class="l2"><a name="nt_intel_vc"></a><span class="l2">Windows NT on Intel with Microsoft Visual C++ 5.0 and 6.0</span>
+            <p>
+              ACE &amp; TAO were compiled and tested using the following tools/OS combinations:
+            <dl>
+              <dt><em>Visual C++ 5.0</em>
+              <dd>
+                Windows NT 4.0 <a href="http://www.microsoft.com/ntserver/nts/downloads/archive/NT4SvcPk3/default.asp">Service Pack 3</a> (NT4.0SP3)<br>
+                Visual C++ 5.0 (no service packs applied)
+              </dd>
+
+              <dt><em>Visual C++ 6.0</em>
+              <dd>
+                Windows NT 4.0 <a href="http://www.microsoft.com/ntserver/nts/downloads/recommended/sp5/default.asp">Service Pack 5</a> (NT4.0SP5)<br>
+                Visual C++ 6.0 (no service packs applied)
+              </dd>
+            </dl>
+            <p>
+              Visual C++ defaults to using program database (<code>.pdb</code>) files for
+              symbolic debugging information.  The compiler embeds absolute paths to the
+              program database files in the object (<code>.obj</code>) files it creates.  Microsoft
+              offers a debug format called <em>C 7.0 compatible</em> which embeds all
+              symbolic information in the object files themselves.  Visual C++ supports
+              Microsoft format symbols and COFF format symbols.  The debug versions of ACE
+              and TAO on this CD-ROM were built using C7 compatibility, including both
+              symbol formats.
+            <p>
+              If your project uses the program database style, your project will link to
+              C7 binaries included in this distribution. If you want to use C7 debug
+              information exclusively (rather than program database), <em>C7
+              compatible</em> must be selected and <em>program database</em>
+              <b>de-</b>selected in the C++ project options (compiler option
+              <strong>/Z7</strong>), and the program database files must be disabled in
+              the linker (<strong>/PDB:NONE</strong>).
+            <p>
+
+              For a debug build, the setup program places the following
+              DLLs and executables in <code>%ACE_ROOT%\bin</code>:
+              <ul>
+                <li><code>aced.dll</code> (ACE library)
+                <li><code>taod.dll</code> (TAO library)
+                <li><code>orbsvcsd.dll</code> (ORB services library)
+                <li><code>tao_idl.exe</code> (TAO IDL to C++ compiler)
+                <li><code>gperf.exe</code> (GPERF executable)
+              </ul>
+            <p>
+
+              For a non-debug (release) build, the setup program places
+              the following DLLs and executables in <code>%ACE_ROOT%\bin</code>:
+              <ul>
+                <li><code>ace.dll</code> (ACE library)
+                <li><code>tao.dll</code> (TAO library)
+                <li><code>orbsvcs.dll</code> (ORB services library)
+                <li><code>tao_idl.exe</code> (TAO IDL to C++ compiler)
+                <li><code>gperf.exe</code> (GPERF executable)
+              </ul>
+
+            <p>
+              It is necessary to modify the Executable files paths,
+              Include files paths, and Library files paths in the Visual
+              C++ IDE to include various directories. This is done in the
+              Tools > Options > Directories menu.  Add the
+              following directories to <code>Include Files</code>:
+            <ul>
+              <li><code>%ACE_ROOT%</code>
+              <li><code>%ACE_ROOT%\TAO</code>
+              <li><code>%ACE_ROOT%\TAO\tao</code>
+              <li><code>%ACE_ROOT%\TAO\orbsvcs</code>
+              <li><code>%ACE_ROOT%\TAO\orbsvcs\orbsvcs</code>
+            </ul>
+
+            <p>
+              Add the following directories to <code>Library Files</code>:
+            <ul>
+              <li><code>%ACE_ROOT%\ace</code>
+              <li><code>%ACE_ROOT%\TAO\tao</code>
+              <li><code>%ACE_ROOT%\TAO\orbsvcs\orbsvcs</code>
+            </ul>
+
+            <p>
+              Add the following directory to <code>Executable Files</code>:
+            <ul>
+              <li><code>%ACE_ROOT%\bin</code>
+            </ul>
+
+            <p>
+              You should also add <code>%ACE_ROOT%\bin</code> to your
+              PATH environment variable so the DLLs can be located by
+              the dynamic linker at run time.
+
+            <p>
+              <strong>NOTE:</strong> If you rebuild
+              <code>tao_idl.exe</code> and <code>gperf.exe</code> using
+              a Release configuration, they will be placed in
+              <code>%ACE_ROOT%\bin\Release</code>. You should copy them
+              after you rebuild to <code>%ACE_ROOT%\bin</code>.  A
+              similar situation exists for the various ORB services
+              executables, such as
+              <code>%ACE_ROOT%\TAO\orbsvcs\Naming_Service\Naming_Service.exe</code>
+              (which will be placed after rebuilding in
+              <code>%ACE_ROOT%\TAO\orbsvcs\Naming_Service\Release\Naming_Service.exe</code>
+              if you build using a Release configuration).
+
+            <p>
+              Building projects on NT using static libraries requires you to specify
+              certain preprocessor directives. You do this inside Visual C++ by going to
+              the C++ tab under the project settings, selecting the Preprocessor
+              Definitions category and adding
+              <code>ACE_HAS_DLL=0,TAO_HAS_DLL=0,TAO_ORBSVCS_HAS_DLL=0,ACE_NO_INLINE</code>
+              to the preprocessor definitions.  Additionally, it may be necessary to link
+              to <tt>user32.lib</tt> and <tt>advapi32.lib</tt>.
+            <p>
+
+          <li class="l2"><a name="sol7_intel_egcs"></a><span class="l2">Solaris 7 (SunOS 5.7) on Intel with egcs 1.1.2</span>
+            <p>
+              We compiled and tested ACE &amp; TAO with the following OS/tool combination:<p>
+            <dl>
+              <dt>Solaris 2.7 (Intel)
+              <dd>
+                <div class="out">
+$ uname -rsv<br>
+SunOS 5.7 Generic_106542-04
+                </div>
+              </dd>
+                <dt>egcs 1.1.2
+                <dd>
+                <div class="out">
+$ g++ -v<br>
+Reading specs from <em>EGCSDIR</em>/lib/gcc-lib/i386-pc-solaris2.7/egcs-2.91.66/specs<br>
+gcc version egcs-2.91.66 19990314 (egcs-1.1.2 release)<br>
+$ g++ --print-prog-name=ld<br>
+/usr/ccs/bin/ld<br>
+$ g++ --print-prog-name=as<br>
+<em>EGCSDIR</em>/lib/gcc-lib/i386-pc-solaris2.7/as
+                </div>
+                </dd>
+
+                <dt>Sun Linker
+                <dd>
+                <div class="out">
+$ what /usr/ccs/bin/ld<br>
+/usr/ccs/bin/ld:<br>
+        SunOS 5.7 Generic 106951-03 February 1999<br>
+$ /usr/ccs/bin/ld -V<br>
+ld: Software Generation Utilities - Solaris/ELF (3.0)
+                </div>
+                </dd>
+
+              <dt>GNU Assembler (binutils 2.9.1)
+              <dd>
+                <div class="out">
+$ <em>EGCSDIR</em>/lib/gcc-lib/i386-pc-solaris2.7/as -V /dev/null<br>
+GNU assembler version 2.9.1 (i386-pc-solaris2.7), using BFD version 2.9.1
+                </div>
+              </dd>
+
+              <dt>GNU Library Archiver
+              <dd>
+                <div class="out">
+$ ar -V<br>
+GNU ar 2.9.1<br>
+Copyright 1997 Free Software Foundation, Inc.<br>
+This program is free software; you may redistribute it under the terms of<br>
+the GNU General Public License.  This program has absolutely no warranty.
+                </div>
+              </dd>
+            </dl>
+
+            <p>
+              We used the GNU Binutils version 2.9.1 assembler and archiver rather than
+              the standard Sun assembler (<tt>/usr/ccs/bin/as</tt>) and library archiver
+              (<tt>/usr/ccs/bin/ar</tt>).  We experienced the following problems with the standard tools:
+              <blockquote>
+            <dl>
+              <dt>assembler (<code>as</code>--WorkShop Compilers 4.2 alpha 14 Jan 1996)
+              <dd>
+                Did not accept code for assembly via a UNIX pipe.
+              </dd>
+
+              <dt>archiver (<code>ar</code>--Software Generation Utilities (SGU) Solaris/ELF 3.0)
+              <dd>
+                Choked on long symbols names while building the static TAO library (<code>libTAO.a</code>).
+              </dd>
+            </dl>
+              </blockquote>
+
+
+          <li class="l2"><a name="sol251_sparc_egcs"></a><span class="l2">Solaris 2.5.1 (SunOS 5.5.1) on SPARC with egcs 1.1.2</span>
+            <p>
+              We compiled and tested ACE &amp; TAO with the following OS/tool combination:<p>
+            <dl>
+              <dt>Solaris 2.5.1
+              <dd>
+                <div class="out">
+$ uname -rsv<br>
+SunOS 5.5.1 Generic_103640-19
+                </div>
+              </dd>
+                <dt>egcs 1.1.2
+                <dd>
+                <div class="out">
+$  g++ -v<br>
+Reading specs from <em>EGCSDIR</em>/lib/gcc-lib/sparc-sun-solaris2.5.1/egcs-2.91.66/specs<br>
+gcc version egcs-2.91.66 19990314 (egcs-1.1.2 release) <br>
+$ g++ --print-prog-name=ld<br>
+/usr/ccs/bin/ld<br>
+$ g++ --print-prog-name=as<br>
+<em>EGCSDIR</em>/lib/gcc-lib/sparc-sun-solaris2.5.1/egcs-2.91.66/as<br>
+                </div>
+                </dd>
+
+                <dt>Sun Linker
+                <dd>
+                <div class="out">
+$ what /usr/ccs/bin/ld<br>
+SunOS 5.5.1 Generic 103627-02 September 1997<br>
+$  /usr/ccs/bin/ld -V<br>
+ld: Software Generation Utilities - Solaris/ELF (3.0)<br>
+                </div>
+                </dd>
+
+              <dt>Workshop 5.0a Assembler
+              <dd>
+                  <div class="out">
+$ <em>EGCSDIR</em>/lib/gcc-lib/sparc-sun-solaris2.5.1/egcs-2.91.66/as -V<br>
+<em>EGCSDIR</em>/lib/gcc-lib/sparc-sun-solaris2.5.1/egcs-2.91.66/as: WorkShop Compilers 5.0 Alpha 03/27/98 Build<br>
+                  </div>
+                </dd>
+            </dl>
+            <a name="sunasnote"></a><strong>NOTE:</strong> We were unable to get ACE &amp;
+            TAO to compile correctly using the standard Sun Assembler
+            (<tt>/usr/ccs/bin/as</tt>) when compiling with egcs 1.1.2.  The GNU Assembler
+            (gas) would not work, either.  If you need to recompile ACE &amp; TAO on
+            Solaris 2.5.1 using egcs in an environment identical to ours, you
+            <em>will</em> need the WorkShop assembler.  We accomplished this by copying or
+            symlinking the Workshop 5.0a assembler under the
+            <code>gcc-lib/<em>platform</em>/<em>compiler-version</em></code> directory for
+            the compiler, though you may find alternative methods for this.
+            <p>
+          <li class="l2"><a name="sol251_sparc_sun42"></a><span class="l2">Solaris 2.5.1 (SunOS 5.5.1) on SPARC with SunCC 4.2</span>
+            <p>
+              We compiled and tested ACE &amp; TAO with the following OS/tool combination:<p>
+            <dl>
+              <dt>Solaris 2.5.1
+              <dd>
+                <div class="out">
+$ uname -rsv<br>
+SunOS 5.5.1 Generic_103640-19
+                </div>
+              </dd>
+
+              <dt>Sun CC 4.2 Compiler
+              <dd>
+                <div class="out">
+$  CC -V /dev/null<br>
+CC: WorkShop Compilers 4.2 16 Jun 1998 C++ 4.2 patch 104631-07<br>
+tdb_link: WorkShop Compilers 4.2 16 Jun 1998 C++ 4.2 patch 104631-07<br>
+CC: WorkShop Compilers 4.2 16 Jun 1998 C++ 4.2 patch 104631-07<br>
+/export/sw/SUNWspro/bin/../SC4.2/bin/c++filt: WorkShop Compilers 4.2 16 Jun 1998<br>
+ld: Software Generation Utilities - Solaris/ELF (3.0)<br>
+                </div>
+              </dd>
+            </dl>
+            <p>
+
+          <li class="l2"><a name="sol26_sparc_egcs"></a><span class="l2">Solaris 2.6 (SunOS 5.6) on SPARC with egcs 1.1.2</span>
+            <p>
+              <em>(NOTE: This configuration is identical to the <a
+              href="#sol251_sparc_egcs">Solaris 2.5.1 egcs build</a> except for the OS
+              version.)</em>
+            <p>
+              We compiled and tested ACE &amp; TAO with the following OS/tool combination:<p>
+            <dl>
+              <dt>Solaris 2.6
+              <dd>
+                <div class="out">
+$ uname -rsv<br>
+SunOS 5.6 Generic<br>
+$ showrev -p<br>
+No patches are installed
+                </div>
+              </dd>
+
+              <dt>egcs 1.1.2
+              <dd>
+                <div class="out">
+$  g++ -v<br>
+Reading specs from <em>EGCSDIR</em>/lib/gcc-lib/sparc-sun-solaris2.5.1/egcs-2.91.66/specs<br>
+gcc version egcs-2.91.66 19990314 (egcs-1.1.2 release) <br>
+$ g++ --print-prog-name=ld<br>
+/usr/ccs/bin/ld<br>
+$ g++ --print-prog-name=as<br>
+<em>EGCSDIR</em>/lib/gcc-lib/sparc-sun-solaris2.5.1/egcs-2.91.66/as<br>
+                </div>
+              </dd>
+
+              <dt>Sun Linker
+              <dd>
+                <div class="out">
+$ what /usr/ccs/bin/ld<br>
+SunOS 5.5.1 Generic 103627-02 September 1997<br>
+$  /usr/ccs/bin/ld -V<br>
+ld: Software Generation Utilities - Solaris/ELF (3.0)<br>
+                </div>
+              </dd>
+
+              <dt>Workshop 5.0a Assembler (see <a href="#sunasnote">note under Solaris 2.5.1/egcs section</a>)
+              <dd>
+                <div class="out">
+$ <em>EGCSDIR</em>/lib/gcc-lib/sparc-sun-solaris2.5.1/egcs-2.91.66/as -V<br>
+<em>EGCSDIR</em>/lib/gcc-lib/sparc-sun-solaris2.5.1/egcs-2.91.66/as: WorkShop Compilers 5.0 Alpha 03/27/98 Build<br>
+                </div>
+              </dd>
+            </dl>
+            <p>
+
+          <li class="l2"><a name="sol26_sparc_sun42"></a><span class="l2">Solaris 2.6 (SunOS 5.6) on SPARC with SunCC 4.2</span>
+            <p>
+              <em>(NOTE: This configuration is identical to the <a
+              href="#sol251_sparc_sun42">Solaris 2.5.1 SunCC 4.2 build</a> except for the OS
+              version.)</em>
+            <p>
+              We compiled and tested ACE &amp; TAO with the following OS/tool combination:<p>
+            <dl>
+              <dt>Solaris 2.6
+              <dd>
+                <div class="out">
+$ uname -rsv<br>
+SunOS 5.6 Generic<br>
+$ showrev -p<br>
+No patches are installed
+                </div>
+              </dd>
+
+              <dt>Sun CC 4.2 Compiler
+              <dd>
+                <div class="out">
+$  CC -V /dev/null<br>
+CC: WorkShop Compilers 4.2 16 Jun 1998 C++ 4.2 patch 104631-07<br>
+tdb_link: WorkShop Compilers 4.2 16 Jun 1998 C++ 4.2 patch 104631-07<br>
+CC: WorkShop Compilers 4.2 16 Jun 1998 C++ 4.2 patch 104631-07<br>
+/export/sw/SUNWspro/bin/../SC4.2/bin/c++filt: WorkShop Compilers 4.2 16 Jun 1998<br>
+ld: Software Generation Utilities - Solaris/ELF (3.0)<br>
+                </div>
+              </dd>
+            </dl>
+            <p>
+
+          <li class="l2"><a name="sol7_sparc_egcs"></a><span class="l2">Solaris 7 (SunOS 5.7) on SPARC with egcs 1.1.2</span>
+            <p>
+              <em>(NOTE: This configuration is identical to the <a
+              href="#sol251_sparc_egcs">Solaris 2.5.1 egcs build</a> except for the OS
+              version.)</em>
+            <p>
+              We compiled and tested ACE &amp; TAO with the following OS/tool combination:<p>
+            <dl>
+              <dt>Solaris 2.7
+              <dd>
+                <div class="out">
+$  uname -rsv<br>
+SunOS 5.7 Generic_106541-04
+                </div>
+              </dd>
+
+              <dt>egcs 1.1.2
+              <dd>
+                <div class="out">
+$  g++ -v<br>
+Reading specs from <em>EGCSDIR</em>/lib/gcc-lib/sparc-sun-solaris2.5.1/egcs-2.91.66/specs<br>
+gcc version egcs-2.91.66 19990314 (egcs-1.1.2 release) <br>
+$ g++ --print-prog-name=ld<br>
+/usr/ccs/bin/ld<br>
+$ g++ --print-prog-name=as<br>
+<em>EGCSDIR</em>/lib/gcc-lib/sparc-sun-solaris2.5.1/egcs-2.91.66/as<br>
+                </div>
+              </dd>
+
+              <dt>Sun Linker
+              <dd>
+                <div class="out">
+$ what /usr/ccs/bin/ld<br>
+SunOS 5.5.1 Generic 103627-02 September 1997<br>
+$  /usr/ccs/bin/ld -V<br>
+ld: Software Generation Utilities - Solaris/ELF (3.0)<br>
+                </div>
+              </dd>
+
+              <dt>Workshop 5.0a Assembler (see <a href="#sunasnote">note under Solaris 2.5.1/egcs section</a>)
+              <dd>
+                <div class="out">
+$ <em>EGCSDIR</em>/lib/gcc-lib/sparc-sun-solaris2.5.1/egcs-2.91.66/as -V<br>
+<em>EGCSDIR</em>/lib/gcc-lib/sparc-sun-solaris2.5.1/egcs-2.91.66/as: WorkShop Compilers 5.0 Alpha 03/27/98 Build<br>
+                </div>
+              </dd>
+            </dl>
+            <p>
+
+          <li class="l2"><a name="sol7_sparc_sun50"></a><span class="l2">Solaris 7 (SunOS 5.7) on SPARC with SunCC 5.0</span>
+            <p>
+              We compiled and tested ACE &amp; TAO with the following OS/tool combination:<p>
+            <dl>
+              <dt>Solaris 2.7
+              <dd>
+                The following patches were applied prior to building TAO:
+                <ul>
+                  <li><b>107311-05</b> -- C++ Compiler Patch
+                  <li><b>107357-03</b> -- Common Compiler Patch
+                  <li><b>106327-05</b> -- Sun OS 5.7 Shared Library Patch
+                </ul>
+                <p>
+                <div class="out">
+$ uname -rsv<br>
+SunOS 5.7 Generic_106541-04<br>
+                </div>
+              </dd>
+
+              <dt>Sun CC 5.0 Compiler
+              <dd>
+                Problems with this compiler caused builds with debug off to have missing
+                symbols for some template instantiations.  Thus, only builds with debug
+                turned on are included here.
+                <p>
+                <div class="out">
+$ CC -V /dev/null<br>
+CC: WorkShop Compilers 5.0 98/12/15 C++ 5.0<br>
+cdr_link: WorkShop Compilers 5.0 99/07/26 C++ 5.0 Patch 107311-05<br>
+CC: WorkShop Compilers 5.0 98/12/15 C++ 5.0<br>
+/usr/SUNWspro/bin/../SC5.0/bin/c++filt: WorkShop Compilers 5.0 99/07/26 C++ 5.0 Patch 107311-05<br>
+ld: Software Generation Utilities - Solaris/ELF (3.0)
+                </div>
+              </dd>
+            </dl>
+            <p>
+
+
+          <li class="l2"><a name="hp_pa_acc"></a><span class="l2">HP-UX 11.00 on PA-RISC with aCC</span>
+            <p>
+              <table width="75%">
+                <tr>
+                  <th valign="middle" align="center">Important<br>Installation<br>Tip!</th>
+                  <td>&nbsp;</td>
+                  <td width="80%">
+                    This CD uses ISO-9660 with Rock Ridge extensions, a format which HP's
+                    native mount is unable to grok.  To mount this CD on HP-UX systems, you
+                    will need to use the <code>pfs_mount</code> command instead of the the
+                    usual <code>mount</code> command.  However, in order to successfully
+                    run <code>pfs_mount</code>, both the <code>pfs_mountd</code> and
+                    <code>pfsd</code> daemons must be running.  So, to mount the CD,
+                    execute commands similar to the following as user <b>root</b>:
+                    <blockquote>
+                    <code>
+# pfs_mountd &<br>
+# pfsd &<br>
+# pfs_mount /dev/dsk/c1t2d0 /mnt<br>
+              </code>
+                      </blockquote>
+                    See related manual pages (section 1m) for <code>pfs_mount</code>,
+                    <code>pfs_mountd</code>, and <code>pfsd</code> for more information.
+                    <p>
+                      You will have to kill both <code>pfsd</code> and
+                      <code>pfs_mountd</code> processes in order to eject the CD.
+                  </td>
+                </tr>
+              </table>
+            <p>
+              We compiled and tested ACE &amp; TAO with the following OS/tool combination:<p>
+            <dl>
+              <dt>HP-UX 11.0 (32 bit version)
+              <dd>
+                <div class="out">
+$ uname -rsv<br>
+HP-UX B.11.00 U
+                </div>
+              </dd>
+
+              <dt>HP aCC Compiler
+              <dd>
+                <p>
+                <div class="out">
+$ aCC -V /dev/null<br>
+aCC: HP ANSI C++ B3910B A.03.13<br>
+92453-07 linker command s800.sgs ld PA64 B.11.00 REL 980519<br>
+                </div>
+              </dd>
+            </dl>
+            <b>Some additional notes about the HP-UX distribution:</b>
+            <ul>
+            <li>
+              Although we built ACE and TAO using the 32 bit version of the operating
+              system, the libraries and executables should also work on the 64 bit version
+              of the operating system.
+            <li>
+              The <em>aCC</em> compiler cannot compile
+              <tt>$TAO_ROOT/orbsvcs/orbsvcs/Trader.cpp</tt> with debugging enabled.
+              Therefore, we compiled a non-debug version of <tt>Trader.o</tt> to use in
+              building the debug version of the ORB services library for HP-UX on this
+              CD-ROM.  The problem did not affect any other files; all were successfully
+              compiled with debug symbols.  This will have no impact unless you are
+              debugging the Trader, A/V Streams, and Life Cycle services.
+            <li>
+              The standard HP-UX 11 (B.11.00) archive utility <tt>ar(1)</tt> (PA64 B.11.00
+              REL 980312) fails when creating static libraries due to an inability to
+              process long symbol names in certain TAO object files.  Instead, we used the
+              GNU <code>ar</code> distributed with GNU Binutils version 2.9.1 to build the libraries.
+              We did this by passing the option <tt>AR=<em>&lt;path to ar&gt;</em></tt> to
+              <code>make</code> when building all of ACE and TAO. For example, we would use
+              the following command if GNU ar is installed in the default location
+                <blockquote>
+                  <code>
+$ make AR=/usr/local/bin/ar
+                  </code>
+                </blockquote>
+              <li>
+                TAO applications that rely on shared libraries must have the variable
+                <strong>SHLIB_PATH</strong> defined in their environment to include the
+                directory containing TAO and ACE shared libraries (e.g.,
+                <tt>$ACE_ROOT/ace</tt>).  The <strong>SHLIB_PATH</strong> environment
+                variable is analogous to <strong>LD_LIBRARY_PATH</strong> used in other
+                UNIX-based distributions on this CD-ROM.  This environment variable need
+                not be set at link-time, as the makefiles pass the <tt>-L</tt> option to
+                the linker.
+            </ul>
+            <p>
+<!--
+     When running TAO applications that rely on shared libraries it is
+     necessary to define the environment variable SHLIB_PATH to include
+     the path containing the TAO and ACE shared libraries, $ACE_ROOT/ace.
+     During runtime, SHLIB_PATH takes the role of LD_LIBRARY_PATH used
+     in the other UNIX-based distributions included on this CD-ROM.
+     For linking it is not necessary to define any environment variables
+     when using the ACE make include files since they set -L
+     accordingly.
+-->
+
+          <li class="l2"><a name="linux_intel_egcs"></a><span class="l2">Linux on Intel with egcs 1.1.2</span>
+            <p>
+            <p>
+              We compiled and tested ACE &amp; TAO with the following OS/tool combination:<p>
+            <dl>
+              <dt><a href="http://www.redhat.com">Redhat Linux 6.0</a>
+              <dd>
+                <div class="out">
+$  uname -rsv<br>
+Linux 2.2.5-15 #1 Mon Apr 19 23:00:46 EDT 1999
+                </div>
+              </dd>
+
+              <dt>egcs 1.1.2 (standard compiler installed with RH 6.0)
+              <dd>
+                <div class="out">
+$ g++ -v<br>
+Reading specs from /usr/lib/gcc-lib/i386-redhat-linux/egcs-2.91.66/specs<br>
+gcc version egcs-2.91.66 19990314/Linux (egcs-1.1.2 release)<br>
+$ g++ --print-prog-name=ld<br>
+ld<br>
+$ g++ --print-prog-name=as<br>
+as<br>
+$ ld -v<br>
+GNU ld version 2.9.1 (with BFD 2.9.1.0.23)<br>
+$ as -v /dev/null<br>
+GNU assembler version 2.9.1 (i386-redhat-linux), using BFD version 2.9.1.0.23<br>
+                </div>
+              </dd>
+            </dl>
+            <p>
+              Although we built ACE &amp; TAO on Red Hat Linux 6.0, they
+              <em>should</em> be compatible with any version of Linux
+              (kernel version 2.0 or greater) which has libc 6 (a.k.a.,
+              glibc 2).  <b>CAVEAT: The Linux builds on this CD
+              have not been tested on any version of Linux other than
+              Red Hat 6.0.</b>
+            <p>
+        </ol>
+        <p>
+
+      <li class="l1"><a name="building_apps"></a><span class="l1">Quickstart for Building with TAO</span>
+
+        <p>
+          This section contains a few things you will need to know to build applications
+          which use the TAO and ACE libraries distributed on this CD.  You can find more
+          detailed information in <a href="bldgapps.html">bldgapps.html</a>, which is
+          adapted from Chapter 4 of the <a
+          href="http://www.ociweb.com/products/tao/products.html"><em>TAO Developer's
+          Guide</em> (OCI part number 500-01)</a>.  The Guide can be purchased through <a
+          href="http://www.ociweb.com/products/tao/purchase.html">http://www.ociweb.com/products/tao/purchase.html</a>.
+        <p>
+
+        <ol type="a">
+          <li class="l2"><a name="building_unix"></a><span class="l2">TAO on UNIX</span>
+
+            <p>
+              On UNIX and UNIX-like systems, you should use GNU Make to build applications
+              with TAO.  The document <a
+              href="bldgapps.html">bldgapps.html</a> shows
+              several <a href="bldgapps.html#marker=31210">sample Makefiles</a>.
+            <p>
+              Briefly, you will need to set the following environment variables:
+            <p>
+
+            <dl>
+              <dt><code>ACE_ROOT</code></dt>
+              <dd>The base of your ACE and TAO installation</dd>
+
+              <dt><code>TAO_ROOT</code></dt>
+              <dd><code>$ACE_ROOT/TAO</code></dd>
+
+              <dt><code>LD_LIBRARY_PATH</code></dt>
+              <dd>Must include <code>$ACE_ROOT/ace</code></dd>
+
+              <dt><code>MAKEFLAGS</code></dt>
+              <dd>Contains flags such as <code>"debug=0"</code> and
+                  <code>"exceptions=1"</code> and should normally match the
+                  settings for your installation.</dd>
+            </dl>
+
+            <p>
+              For example, assuming the base of your installation of TAO is in
+              <code>/usr/local/ACE_wrappers</code>, and assuming you are using the
+              C-shell (csh):
+            <p>
+              <div class="out">
+setenv ACE_ROOT /usr/local/ACE_wrappers<br>
+setenv TAO_ROOT $ACE_ROOT/TAO<br>
+setenv LD_LIBRARY_PATH $ACE_ROOT/ace:$LD_LIBRARY_PATH<br>
+setenv MAKEFLAGS "debug=0 exceptions=1"<br>
+              </div>
+              <em>Note: On HP-UX (32-bit systems), use <code>SHLIB_PATH</code>
+              rather than <code>LD_LIBRARY_PATH</code>.</em>
+            <p>
+
+          <li class="l2"><a name="building_nt"></a><span class="l2">TAO on Win32 with Visual C++</span>
+            <p>
+              The document <a
+              href="bldgapps.html#marker=41935">bldgapps.html details project file
+              settings</a>.  Briefly, you will need to:
+            <ul>
+              <li> Modify Visual C++ option settings to specify the
+                   directory locations of ACE and TAO header files and
+                   libraries;
+              <li> Modify the default compiler settings to use
+                   multi-threaded DLLs;
+              <li> Modify the Input Object/Library modules to use the
+                   debug or release versions of the ACE, TAO, and
+                   orbsvcs libraries, as appropriate for your
+                   development environment;
+              <li> Set up a custom build configuration to invoke the TAO
+                   IDL compiler to generate C++ header and source files
+                   from OMG IDL files.
+              </ul>
+
+            <p>
+              See <a href="bldgapps.html">bldgapps.html</a> for more information.
+
+        </ol>
+        <p>
+
+      <li class="l1"><a name="sample_app"></a><span class="l1">Sample Application</span>
+            <p>
+              The CD includes a sample application which you can build and run to verify
+              that your installation of TAO was successful.  The application consists of a
+              simple time server and client.  The client invokes an operation on a Time
+              object in the server to get the current time in GMT.
+            <p>
+              Source code for this application is found on the CD in the file
+              <code>example.tgz</code>.  We have also included a Makefile for building the
+              application on UNIX and UNIX-like systems, and a Visual C++ 5.0 project file
+              for building it on Windows NT.
+            <p>
+              On UNIX and UNIX-like platforms, use <code>gunzip</code> and
+              <code>tar</code> to uncompress and unpack this file.  Then, run make in the
+              example directory to build the server and client.  You can then run the
+              server and client.
+            <p>
+              On Windows NT, use <code>WinZip</code> to unpack the file.  You will find a
+              Visual C++ workspace called <code>TimeOfDay</code> in the
+              <code>example\VC++5</code> subdirectory which you can use to compile the
+              interfaces and build the server and client programs.
+            <p>
+              The server creates a Time object and prints its IOR as a string to stdout,
+              then waits for client requests.  The client takes the IOR string as a
+              parameter and invokes a request on the Time object, then prints the time (in
+              GMT) to stdout.
+            <p>
+              Here is sample output from running the server and client on Linux:
+            <p>
+
+            <div class="out">
+$ server &<br>
+[3] 30821<br>
+IOR:010000000d00000049444c3a54696d653a312e300000000001000000000000006c00000001<br>
+0101000f000000746f7474656e2e6f63692e636f6d0000ab0500001b00000014010f00525354de<br>
+9ecd37cf5a02000000000001000000010000000002000000000000000800000001000000004f41<br>
+54010000001400000001f5864001000100000000000901010000000000<br>
+<br>
+$ client <var>&lt;ior-from-printed-by-server&gt;</var><br>
+Time in Greenwich is 21:47:19<br>
+            </div>
+
+    </ol>
+
+    <hr>
+    <address><a href="javascript:SendMail('taosupport', 'ociweb.com')">EMail TAO Support at taosupport</a></address>
+<!-- Created: Fri Aug 27 14:37:09 CDT 1999 -->
+<!-- hhmts start -->
+Last modified: Wed May 29 10:44:18 GMT 2002
+<!-- hhmts end -->
+  </td></tr></table>
+</TD>
+   </TR>
+  </TABLE></BODY>
+</HTML>

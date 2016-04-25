@@ -1,0 +1,19 @@
+Q: How can I detect when a connection between a client and server is broken?
+
+A: >
+ (Paraphrased from e-mail by Carlos O'Ryan <a href="mailto:coryan@uci.edu">coryan@uci.edu</a>)
+ <p> You cannot directly detect when this happens.  You could write a pluggable
+ protocol that informs your application when a connection dies, but that's
+ about it. </p><p> Typically behind this question is the issue: how can I detect if
+ my client died. Using connections for that is a very bad idea:  the client
+ or server ORBs may close the connection just because it is idle for too long
+ or there may not be a physical connection between two ORBs (they may be collocated
+ or using shared memory to communicate).  There can also be multiple connections
+ between a given client-server pair.  In CORBA, connections are hidden, and
+ can come and go as needed.  Trying to rely on them to establish if the client
+ is still there does not work. </p><p> In general you are better off using some application-level session
+ object that gets destroyed by the client when it terminates gracefully, and
+ that gets destroyed by an Evictor if it has been idle or unable to contact
+ the client for too long. <br>
+ 
+ 

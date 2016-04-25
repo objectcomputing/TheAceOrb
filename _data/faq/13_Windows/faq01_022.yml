@@ -1,0 +1,14 @@
+Q: Does OCI's version of TAO contain MFC libraries?
+
+A: >
+ <p>
+ <em>MFC Libraries</em> are libraries built with the ACE_HAS_MFC variable
+ defined.  See LINK:137: for more details of what this means.
+ </p>
+ <p>
+ The OCI-produced binary installation kits  do not contain MFC libraries for Windows platforms.
+ You will need to recompile ACE and TAO in order to build them with MFC libraries.
+ </p>
+ <br>
+ 
+ 

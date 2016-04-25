@@ -1,0 +1,21 @@
+Q: Where can I see performance comparisons between TAO and &lt;some other ORB&gt;?
+
+A: >
+ It's not
+ as easy to compare the performance of ORBs as generically as one might compare,
+ e.g., the performance of microprocessors.  There are no standard benchmarks
+ available at the present.  Thus, any evaluation of performance of an ORB
+ is largely dependent on the application and its characteristics as well as
+ the environment in which it's running (such as over an ATM network vs. ethernet
+ vs. wireless, etc.). <p> That said, you might be able to get a better
+ feeling of the situations in which various ORBs "shine" (performance-wise)
+ by looking at some of the benchmarks available through the following links: </p>
+ <ul>
+ <li> <a href="http://nenya.ms.mff.cuni.cz/projects.phtml?p=mbench&q=3">Distributed Systems Research Group, Charles University, Prague</a></li>
+ <li> <a href="http://www.kegel.com/corba/">Dan Kegel's CORBA Page</a></li>
+ <li> <a href="http://www.atl.external.lmco.com/projects/QoS/compare/dist_oo_compare_ipc.html">LMCO Advanced Technology Labs' Middleware Comparator</a></li>
+ </ul>
+ <p> Finally, don't forget that nothing comes without a cost, so carefully
+ evaluate the entire ORB <em>package</em>, not just the performance. <br>
+ 
+ 

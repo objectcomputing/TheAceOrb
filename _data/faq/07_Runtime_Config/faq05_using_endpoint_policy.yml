@@ -1,0 +1,50 @@
+Q: How can I have some objects available to one interface and the rest available on another?
+
+A: >
+ There are two key techniques you can use in this situation. You can use multiple ORBs, or you can use a single ORB and use the TAO-specific endpoint policy to filter endpoints on a per-POA basis.
+ 
+ <p> The two ORB approach works by passing separate endpoint collections defined with "-ORBEndpoint <protocol://addr[;protocol://addr;...]>" to the different ORB_init calls used to initialize each ORB. This way, each ORB will listen their own endpoints and their POAs will only produce object references containing the endpoints associated with the ORB. The trade-off is that each ORB must run its own event loop, and each ORB must create its own root POA along with other resources.
+ 
+ <p> The endpoint policy approach allows you to have a process with a single ORB, and thus a single event loop and a single POA hierarchy, and still be able to have some POAs create object references containing a subset of the endpoints owned by the ORB. To see an example of the endpoint policy in action, look at TAO/tests/POA/EndpointPolicy.
+ 
+ <p> The endpoint policy implementation is stored in libTAO_EndpointPolicy. If you are using MPC to manage your build environment, have your server project inherit the "endpointpolicy" base project. Somewhere in your application code, you must <code>#include "tao/EndpointPolicy/EndpointPolicy.h"</code>. The endpoint policy is initialized using protocol-specific valuetype containers. For each protocol you use in your application, you must also include the definition for the endpoint value. For example, use <code>#include "tao/EndpointPolicy/IIOPEndpointValue_i.h"</code> to include the IIOP-specific endpoint valuetype definition.
+ 
+ <p> The policy value for the endpoint policy is a list of endpoints. This way you may supply more than one endpoint value, even for different protocols, to the same endpoint policy. The constructor for IIOP-specific endpoint values takes a hostname and a port number.
+ <pre>
+   EndpointPolicy::EndpointList list;
+   list.length (1);
+   list[0] = new IIOPEndpointValue_i("localhost", endpoint_port);
+ 
+   CORBA::Any policy_value;
+   policy_value <<= list;
+ </pre>
+ 
+ <p> Endpoint policy instances are created the way any other custom policy might be, using the ORB's create_policy() operation.
+ <pre>
+   CORBA::PolicyList policies;
+   policies.length (1);
+   policies[0] = orb->create_policy (EndpointPolicy::ENDPOINT_POLICY_TYPE,
+                                     policy_value);
+ </pre>
+ 
+ <p> Unlike other POA related policies, this policy is applied to a POA manager. This is done via the POAManagerFactory interface.
+ <pre>
+   PortableServer::POAManagerFactory_var poa_manager_factory;
+   poa_manager_factory = root_poa->the_POAManagerFactory ();
+ 
+   PortableServer::POAManager_var good_pm;
+   good_pm = poa_manager_factory->create_POAManager ("goodPOAManager",
+                                                      policies);
+ </pre>
+ <p> You then use this POAManager when you create POA instances. This POA manager is also the one on which you call activate to set all the related POAs to the active state.
+ <pre>
+   policies.length(0);
+   PortableServer::POA_var good_poa =
+     root_poa->create_POA ("goodPOA",
+                           good_pm.in (),
+                           policies);
+   good_pm->activate ();
+ </pre>
+ <p> At this point any object references created by the "goodPOA" will contain only the endpoints specified on the list given to the "goodPOAManager".
+ <p><b>Important Note:</b> The endpoint policy works to select endpoints that were previously passed to the ORB with the <code>-ORBEndpoint</code> or <code>-ORBListenPoints</code> ORB_init options. If you supply any endpoint values to the policy that do not match any of the ORB's endpoints, this by itself will not cause a failure, but that endpoint will be included in any object references. If none of the endpoint values given to the policy match the endpoints known to the ORB, the POA will throw an exception when attempting to create an object reference.
+ 

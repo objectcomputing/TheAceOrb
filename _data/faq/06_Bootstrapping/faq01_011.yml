@@ -1,0 +1,86 @@
+Q: Can I use resolve_initial_references() to directly bind to my own servers?
+
+A: >
+ Instead
+ of binding object references with the Naming Service and requiring clients
+ to resolve them by name, you can make it possible for clients to directly
+ bind to objects using <code>CORBA::ORB::resolve_initial_references()</code>,
+ the same
+ mechanism used to bind to other important objects, such as the Naming Service. 
+ <p> For example, suppose you have a server that provides a Bank object (let's
+ call it "CORBABank").  Rather than binding this object by name in a naming
+ context in the Naming Service, you would like clients to access it directly
+ by simply calling </p><p>
+ </p><pre>
+   orb->resolve_initial_references("CORBABank");
+ </pre>
+ <p>
+ There are several ways to accomplish this.
+ <ol>
+ <li>Directly bind the object reference into the client ORB's list of
+     references using an ORB initializer and the
+     <code>ORBInitInfo::register_initial_references()</code> function.</li>
+ <li>Use the client ORB's <code>register_initial_reference()</code> member 
+     function.</li>
+ <li>Use the <code>-ORBInitRef</code> ORB initialization option on the client
+     ORB</li>
+ </ol>
+ </p>
+ <p>
+ The following steps describe one way to use the 3rd method described above.
+ </p>
+ <ol>
+ <li> In the server, generate an IOR for the target object as usual.<br>
+ <li> Give the CORBA Object a simple object key by registering its IOR in the
+      server ORB's IOR Table (See LINK:073: for details)
+ <li> Start the server listening on a particular endpoint using the
+      <code>-ORBListenEndpoints</code> option.
+ <li> Start the client with the <code>-ORBInitRef</code> option and assign
+      the service name to the simple corbaloc-style reference of the CORBA
+      Object.
+ <li> In the client, call <code>resolve_initial_references()</code> and pass
+      it the service name.
+ </ol>
+ <p>
+ The combination of the simple object key and the fixed endpoint allows us
+ to reference the object via a corbaloc-style reference in the
+ <code>-ORBInitRef</code> option.
+ </p>
+ <p>
+ For example, we can start our processes as follows:
+ </p>
+ <pre>
+   server -ORBListenEndpoints iiop://bart:10200
+   client -ORBInitRef CORBABank=corbaloc:iiop:bart:10200/BankObject
+ </pre>
+ <p>
+ Where BankObject is the simple object key assigned to the CORBA object
+ in the server.
+ </p>
+ <p>
+ Now, on the client side, we can use
+ <code>resolve_initial_references("CORBABank")</code>
+ to directly bind to the Bank object living inside the Bank server.
+ For example: 
+ </p><p>
+ </p><pre>
+   // Initialize the ORB.
+   CORBA::ORB_var orb = CORBA::ORB_init(argc, argv);
+ 
+   // Get a reference to the Bank using resolve_initial_references().
+   CORBA::Object_var obj = orb->resolve_initial_references("CORBABank");
+   Bank_var bank = Bank::_narrow(object.in());
+   if (CORBA::is_nil(bank.in())) {
+     cerr << "Bank::_narrow() failed!" << endl;
+     return 1;
+   }
+ 
+   // Use the Bank's object reference like you normally would...
+ </pre>
+ <p>
+ Note that on older versions of TAO (before 1.1.10) the object reference format is slightly different:<br>
+ </p><pre>
+   client -ORBInitRef CORBABank=iioploc://bart:10200/BankObject
+ </pre>
+ <br>
+ 

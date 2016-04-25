@@ -1,0 +1,15 @@
+Q: Where can I find the source code for the examples in the <em>TAO Developer's Guide</em>?;
+
+A: >
+ The source code for all the examples in recent versions of
+ the OCI <a
+ href="{{site.baseurl}}/purchase/index.html"><em>TAO
+ Developer's Guide</em></a> is available in the OCI
+ TAO source code distribution, itself.  See
+ <code>ACE_wrappers/TAO/DevGuideExamples/</code>.  For older
+ versions of TAO and the <em>TAO Developer's Guide</em>, the
+ source code for the examples can be downloaded from our web
+ site.  See <a href="{{site.baseurl}}/downloads/index.html">{{site.baseurl}}/downloads/index.html</a>
+ for more details.<br/>
+ 
+ 

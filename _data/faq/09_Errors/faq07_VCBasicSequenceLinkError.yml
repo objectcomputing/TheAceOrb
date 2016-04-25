@@ -1,0 +1,20 @@
+Q: How can I fix the follwing linker errors from VC71 or VC8 when using IDL sequences of basic types?
+
+A: >
+ If you see the following (or similar) linker errors...
+ <pre>
+ TAO.lib(TAO.dll) : error LNK2005: "public: void __thiscall
+         TAO::unbounded_value_sequence&lt;int&gt;::length(unsigned int)"
+         ([mangled name removed]) already defined in fooC.obj
+ </pre>
+ ...and the IDL file foo.idl contains a typedef of a sequence of basic types like so... (basic types are types defined by the OMG IDL spec like string, long, etc.)
+ <pre>
+ typedef sequence&lt;unsigned long&gt; MyULongList;
+ </pre>
+ ...the problem is that both your library or exe (from fooC.obj) and TAO.dll are exporting the same class (instantated from the sequence template).  Until and unless this issue is fixed for good in the IDL compiler (see DOC group bugzilla entry 2703), use one of the following work-arounds:
+ <UL>
+ <LI>Instead of typedef'ing your own MyULongList, use CORBA::ULongSeq or similar.</LI>
+ <LI>Add #include &lt;tao/orb.idl&gt; (which includes tao/ULongSeq.pidl) to the top of your IDL file, or just the include statement for the sequence type(s) that you are using (such as tao/ULongSeq.pidl).</LI>
+ </UL>
+ Either of these work-arounds will force the compiler, when building fooC.obj from fooC.cpp, to see the exported class in the TAO library's headers and avoid re-exporting it.
+ 

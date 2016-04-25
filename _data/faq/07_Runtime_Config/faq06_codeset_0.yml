@@ -1,0 +1,15 @@
+Q: "Why do I get this: ACE_DLL::open failed for TAO_Codeset?"
+
+A: >
+ Codeset negotiation is an optional feature for TAO. It is implemented in a
+ separate shared library, libTAO_Codeset.so, or TAO_Codeset.dll on Windows.
+ Typically, TAO is not explicitly linked to the codeset library, rather it
+ relies on the ACE Service Configuration framework to load the library for it.
+ <p>
+ The error in question is reported when ACE cannot find the Codeset library in
+ the LD_LIBRARY_PATH, or the runtime PATH on Windows. While most error or
+ warning reports such as the one in question are guarded by a log-level test,
+ this one is not, because the code in question is often used in static
+ initializers, which are called before a log-level determination can be made.
+ 
+ 

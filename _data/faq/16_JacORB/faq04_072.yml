@@ -1,0 +1,8 @@
+Q: Does JacORB support the &quot;iioploc&quot; object reference format?
+
+A: >
+ No, JacORB (as well as versions of TAO 1.1.10 and later) uses the "corbaloc" object reference format. See LINK:073: for more information about using "corbaloc" object references between JacORB (or any client) and TAO servers.
+ <p>
+ <br>
+ 
+ 

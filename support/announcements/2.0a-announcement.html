@@ -1,0 +1,102 @@
+---
+layout: page
+title: TAO 2.0a
+order: 65
+categories: [ocitao]
+---
+<div id="contenttext">
+    <div class="bodytext" align="justify">
+
+	<h1>TAO 2.0a Release Announcement</h1>
+
+
+
+
+
+
+
+	<p>ACE+TAO 2.0a is now available for download.&nbsp; Please see
+<a href="http://download.ociweb.com/TAO-2.0a"> http://download.ociweb.com/TAO-2.0a</a> for the download.
+Our sincere thanks to the large community of ACE+TAO users and
+contributors, without whom this release would not have been possible.
+</p><p>TAO 2.0a derives from the DOC TAO 2.0.4 micro kit with bugfix-related
+patches selectively applied to enhance stability. A record of applied
+patches can be found in OCIChangeLog files installed with the
+distribution.
+</p><p>Many important new features and bug fixes have been introduced in TAO
+2.0a. They are described briefly here. These and many other features of
+TAO 2.0a are detailed in OCI's TAO Developer's Guide, Version 2.0a,
+which will be available separately.
+For a detailed description of the motivation for and implementation of
+a particular change, see the appropriate OCIChangeLog or ChangeLog file
+in the TAO 2.0a source code distribution, such as
+ACE_wrappers/OCIChangeLog, ACE_wrappers/TAO/OCIChangeLog,
+ACE_wrappers/TAO/CIAO/OCIChangeLog and
+ACE_wrappers/TAO/DAnCE/OCIChangeLog.
+Some ChangeLog entries may include a "ticket" number (e.g., [RT
+12345]), to help customers track specific changes they have sponsored.
+</p><p><b>Features added since TAO 1.6a</b>
+</p><p>Many features have been added to ACE and TAO since the release of TAO
+1.6a. A comprehensive listing is available in the NEWS files of each of
+the major package root directories. See in particular summaries from the
+top of the file down to the x.6.7 release.
+</p><p>The following list provides some highlights.
+</p><ul><li>Added build support for the Android native development environment. <br /></li><li>Many performance improvements to the TAO core libraries. <br /></li><li>Improved support for the use of mt_noupcall wait strategy. <br /></li><li>Improved performance of the Parallel Connect Strategy. <br /></li><li>Improved Unicode compatibility, including WinCE support. <br /></li><li>Improved service configuration processing. <br /></li><li>Updated ZIOP to match the OMG Beta 2 specification. <br /></li><li>Sequences can now optionally check to see if an element request is
+  beyond the length of the sequence. When encountered, a BAD_PARAM
+  exception is raised. This is enabled by default in debug builds, and
+  can be explicitly enabled by defining TAO_CHECKED_SEQUENCE_INDEXING in
+  your ace/config.h file. <br /></li><li>New ORB initialization options added:
+  -ORBHandleLoggingStrategyEvents
+  -ORBIgnoreDefaultSvcConfFile
+  -ORBForwardOnceOnObjectNotExist
+  -ORBForwardOnceOnCommFailure
+  -ORBForwardOnceOnTransient
+  -ORBForwardOnceOnInvObjref
+  See TAO/docs/options.html or the TAO Developer's Guide 2.0a for
+  details about these new options.
+- Deprecated configuration options removed:
+  -ORBConnectionCachingStrategy
+  -ORBObjectKeyTableLock
+  -ORBPOALock <br /></li></ul><p>The IDL Compiler has undergone significant improvement since TAO 1.6a. Detail of these changes can be found in TAO/docs/compiler.html and in
+  the TAO Developer's Guide 2.0a. Here are highlights of the changes:
+  </p><ul><li>Added support for IDL3+ keywords. <br /></li><li>Improved the speed of processing large files with many module
+    reopenings. <br /></li><li>Many changes to improve the support for generating CCM related
+    files. <br /></li><li>Anonymous type use now triggers an error. This behavior can be
+    modified by compiling with options described in docs/compiler.html. <br /></li><li>Added new command line option -iC to override the default include
+    path for *C.h files included in generated *A.h files. <br /></li><li>Added code generation for export header files. <br /></li><li>Initial support for IDL-&gt;C++ mapping added, including support for
+    std::string and std::vector use. <br /></li><li>Renamed ALL ORB service executables. There were many instances where
+  services from multiple vendors were installed on the same host. Adding
+  tao_ to the name of the service makes it unambiguous which vendor's
+  service is being invoked. To see the full list, look at the changes
+  between TAO-1.8.2 and TAO-1.8.3 in TAO/NEWS. <br /></li><li>The Naming service may now be run with multiple processing threads. <br /></li><li>Many improvements to the Notification service are available including: <br /></li><li>The Monitor/Control feature now works in static builds. <br /></li><li>The Monitor nw reports queue-overflow and has improved reporting of
+    queue depth. <br /></li><li>Codeset negotiation support in the notification service is now a
+    compile-time option. <br /></li><li>The -ORBRunThreads option is now called -RUNThreads. <br /></li><li>The clean up of proxies when a peer dies has been improved. <br /></li><li>Topology persistence now includes persisting filters. <br /></li><li>Improved the Implementation repository performance
+- Added a new utility, tao_logWalker to assist with the diagnosis of
+  problems that may span many processes in a distributed system. <br /></li></ul><p><b>Important bug fixes since TAO 1.6a</b>
+</p><p>Many bugs have been fixed or work-arounds provided since TAO 1.6a. For
+more details, see the release announcements for the intervening DOC
+group beta kits (from 1.6.7 to 2.0.4), the ChangeLogs, and the DOC group
+Bugzilla bug database found at http://bugzilla.dre.vanderbilt.edu. A
+summary and selection of the more important fixes are listed below.
+</p><p>Fixed many ACE bugs:
+  </p><ul><li>bug #3336 was added for the formatting of time values. <br /></li><li>bug #3104 regarding interval timers. <br /></li><li>bug #3729 regarding INET multicast addresses. <br /></li><li>Addtional bugs fixed: 2748, 3164, 3480, 3494, 3502, 3541, 3542,
+    3544, 3557. <br /></li></ul><p>Fixed many TAO bugs: </p><ul><li>Addressed several Coverity reported issues. <br /></li><li>Fixed several bugs related to recursive typecodes. <br /></li><li>bug #2200, cleaned up issues in the IDL compiler <br /></li><li>Fixed optional ostream operator generation for IDL arrays <br /></li><li>Fixed missing request id in logging of LocateRequest/LocateReply &amp;
+    CancelRequest.</li><li>Fixed problems with ORB shutdown in combination with active
+    requests. <br /></li><li>Fix problem in the IDL compiler where set/get methods for attributes
+    in a local interface derived from a non local interface where not
+    regenerated as pure virtual <br /></li><li>Fixed some bugs concerning spaces within roots, to allow TAO_IDL to
+    be used by user projects that are installed on windows paths such as
+    "c:\Project Files\..." or "c:\Documents and Settings\.." etc. <br /></li><li>Fixed bug in code generation for components, where a derived
+    component or home with more than one generation of ancestors was
+    missing inherited operations in its operation table <br /></li><li>Corrected TAO_IDL dds code generation to count WChar size for
+    wstring marshal size.
+  - bug #3688, Notification Service filter constraint expressions were
+    being ignored when event type domain_name or type_name is specified. <br /></li><li>Fixed IDL compiler bug that in some cases caused code generation for
+    inherited operations to be skipped. <br /></li><li>Fixed several bugs related to the purging of transports when the
+    cache is almost full. <br /></li><li>bug #3543, Fixed race condition when multiple threads make a
+    connection to the same server <br /></li><li>Fixed some race conditions in the transport cache. <br /></li><li>Fixed memory leaks and make sure the TAO singletons are destructed
+    when the TAO DLL gets unloaded. <br /></li><li>Fixed memory leak in string and object reference sequences. <br /></li><li>Additional bugs fixed: 3078, 3499, 3524, 3543, 3549, 3557, 3559,
+    3853. <br /></li></ul>
+
+    </div>
+</div>

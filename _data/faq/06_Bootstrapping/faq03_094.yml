@@ -1,0 +1,79 @@
+Q: How do I make my object references persistent?
+
+A: >
+ In CORBA
+ terminology a transient object reference is one that is only good for the
+ lifetime of a given server's execution.  If you run a server, distribute
+ a transient reference to a client, and then kill the server, then the object
+ reference is now useless (even if the server is restarted).  A persistent
+ reference allows you continue to use the reference even if the server is
+ restarted.<br>
+ In order to make your object references persistent you must do the following in your server:
+ <ol>
+ <li> Create a child POA with the PERSISTENT and USER_ID policies.<br>
+ <li> Create an ObjectId for each servant using <code>PortableServer::string_to_ObjectId()</code>.<br>
+ <li> Activate the object in the child POA using <code>activate_object_with_id()</code>.<br>
+ <li> Start the server listening on a particular endpoint using the <code>-ORBListenEndpoints</code> option.<br>
+ </ol>
+  All of this is standard CORBA except for step 4, which requires an ORB-specific
+ option.  An alternative to step 4 is to use the Implementation Repository.
+ <br>
+ For example:<br>
+ <pre>
+   // Initialize the ORB.
+   CORBA::ORB_var orb = CORBA::ORB_init(argc, argv);
+ 
+   // Obtain an object reference for the root POA.
+   CORBA::Object_var obj = orb->resolve_initial_references("RootPOA");
+   PortableServer::POA_var rpoa = PortableServer::POA::_narrow(obj);
+ 
+   // Create a policy list for our child POA.
+   CORBA::PolicyList bankPolicies;
+ 
+   // Create the policies for our child POA:
+   //   LifespanPolicy: PERSISTENT
+   //   IdAssignmentPolicy: USER_ID
+   pols.length(2);
+   pols[0] = rpoa->create_lifespan_policy(PortableServer::PERSISTENT);
+   pols[1] = rpoa->create_id_assignment_policy(PortableServer::USER_ID);
+ 
+   // Get the Root POA's POA Manager so it can manage our child POA
+   PortableServer::POAManager_var poa_mgr = rpoa->the_POAManager();
+ 
+   // Create the child POA.
+   PortableServer::POA_var bank_poa =
+     rpoa->create_POA("BankPOA", poa_mgr, pols);
+ 
+   // Destroy the POA policies (create_POA() makes a copy).
+   pols[0]->destroy();
+   pols[1]->destroy();
+ 
+   // Create a Bank servant object and activate it with the POA.
+   Bank_i* bankServant = new Bank_i();
+ 
+   // Explicitly activate the Bank servant.  We will use the string
+   // "CORBABank" to generate an ObjectId for the bank.
+   CORBA::String_var bankIdString = CORBA::string_dup("CORBABank");
+   PortableServer::ObjectId_var bankId =
+     PortableServer::string_to_ObjectId(bankIdString.in());
+   bank_poa->activate_object_with_id(bankId, bankServant);
+   obj = bank_poa->id_to_reference(bankId.in());
+ 
+   // Activate the POAs.
+   poa_mgr->activate();
+ 
+   // Handle requests from clients.
+   orb->run();
+ </pre>
+ <p> Since the Bank's object reference is a persistent IOR, when we invoke
+ the Bank's server, we need to specify a particular endpoint for the ORB.
+  For example: </p><p>
+ </p><pre>
+   BankServer -ORBListenEndpoints iiop://bart:10200
+ </pre>
+ <p> Now, any clients that receive these object references can use them between
+ different runs of the server.  Note, that you still need to manually restart
+ the server, unless you use the Implementation Repository.<br>
+ <br>
+ 
+ 

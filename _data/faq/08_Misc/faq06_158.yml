@@ -1,0 +1,21 @@
+Q: Why does ORB_init change the order of the command line arguments if we pass argv to ORB_init(argc, argv)?
+
+A: >
+ CORBA::ORB_init() is supposed to remove all "-ORB" options it recognizes.  One way of doing that logically and
+ efficiently is to put all of those recognized arguments at the end of the argument vector and adjust the argument count (argc) accordingly.
+ 
+ <p>You are only supposed to use the first "argc" number of arguments after call
+ CORBA::ORB_init().  In your case, you had:
+ <pre>
+   argc = 3    and argv = { "ex", "-ORBDebugLevel", "5" }
+ </pre>
+ After calling CORBA::ORB_init() you have:
+ <pre>
+   argc = 1    and argv = { "ex", "5", "-ORBDebugLevel" }
+ </pre>
+ This means that you should only be using first argument from the argument vector.<br>
+ <br>
+ If you need to maintain the order of the original argument vector for later use,
+ then you have to make a copy before calling CORBA::ORB_init().</p>
+ 
+ 

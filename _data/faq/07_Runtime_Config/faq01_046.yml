@@ -1,0 +1,27 @@
+Q: How do I get a TAO server to use IIOP v1.0 or v1.1?
+
+A: >
+ You must
+ use the -ORBListenEndpoints option.  For further details, please refer to the <em>TAO
+ Developer's Guide</em>, the chapter on "ORB Initialization Options." Alternately
+ refer to $TAO_ROOT/docs/Options.html. <p>
+ The short answer is:
+ </p><p>
+ -ORBListenEndpoints iiop://V.v@[hostname:[port]]
+ </p><p> The V.v@ portion of this syntax informs the server to use a specific
+ major and minor version of the specified protocol.  For example, to force
+ a server to use IIOP v1.1 (instead of the default v1.2) on a host named "barney"
+ at port 22000: </p><p>
+ -ORBListenEndpoints iiop://1.1@barney:22000
+ </p><p> If you always want to force use of IIOP 1.0 or 1.1, you can set the
+ following macro values and rebuild TAO (and your application): </p><p>
+ #define TAO_DEF_GIOP_MAJOR 1<br>
+ #define TAO_DEF_GIOP_MINOR 0  [or 1]
+ </p><p>
+ These macros are typically set in $TAO_ROOT/tao/orbconf.h or $ACE_ROOT/ace/config.h.
+ <br>Correction to the "-ORBListenEndpoints" syntax.  It should be:<br>
+ -ORBListenEndpoints iiop://1.0@[host][:port]<br>
+ The hostname is not always required.
+ <br>
+ 
+ 

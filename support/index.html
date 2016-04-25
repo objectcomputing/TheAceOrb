@@ -1,0 +1,99 @@
+---
+layout: page
+title: Support
+order: 50
+categories: [ocitao]
+---
+<div id="contenttext">
+  <div class="bodytext" align="justify">
+
+	<h2>OCI's Support&nbsp;Model for ACE and TAO</h2>
+<p>OCI provides engineering support for the formally released major versions of TAO and its associated&nbsp;portability layer, ACE, on OCI supported platforms. (The downloads, from the Center for Distributed Object Computing, or DOC, at Washington University in St. Louis and Isis at&nbsp;Vanderbilt, are considered development&nbsp;versions.) By "OCI supported platforms" OCI means those configurations it has within its engineering facilities and is therefore able to use to provide timely responses. (Additionally OCI supports some platforms made available by hardware vendors from their porting centers.)</p>
+<p>TAO and ACE are tightly coupled. Therefore we must support both as changes in one may &nbsp;impact the other. We also support ACE&nbsp;as a standalone OS and network abstraction product. The same&nbsp;support model&nbsp;applies.&nbsp;Patches often impact both code bases. ACE changes mostly to support TAO. Otherwise, from a feature standpoint,&nbsp;ACE is a relatively stable code base.</p>
+<p>The DOC Group&nbsp;also has a variety of platforms. Additionally, through the good auspices of some key users, who have undertaken to "adopt" TAO, source code is kept current on certain other special platforms. This makes TAO possibly the most widely available CORBA implementation in the world. For the very latest in all platforms on which TAO runs check out the Washington University web site for TAO's current status at <a href="http://www.cs.wustl.edu/~schmidt/TAO-status.html">http://www.cs.wustl.edu/~schmidt/TAO-status.html</a>. Many OCI platform combinations are included in the nightly builds and tests of the TAO&nbsp;develpment code. This ensures that users can, if they choose, work with&nbsp;the latest&nbsp;code, however please note that we do not normally provide support for DOC group development versions of ACE/TAO. (An exception may be, for instance, where we are adding functionality to TAO beta code under contract to you.)&nbsp;</p>
+<p><b>The OCI Distribution:</b> The OCI version of ACE/TAO is a stable one. We prefer that clients use the&nbsp;OCI released&nbsp;version. It is easier and thus cheaper (for you) when we support it. All fixes go into our version and the DOC group version, if the problem still applies. We basically have a community who need a bug-fix only (BFO)&nbsp;version. That is our model. We only fix bugs, add support for new operating systems, new compilers, new targets, policies, strategies&nbsp;and minimally intrusive new features in the CORBA services. <i>Our value proposition to the user base is an open source,&nbsp;stable version of TAO, suitable for production use.</i>&nbsp;</p>
+<p>Users of the OCI Distribution of ACE/TAO should not post their OCI version specific questions to the TAO mailing lists as the development team&nbsp;are not able to address&nbsp;issues other than those relating to the latest version on which they are working. They focus their limited resources on the latest development code. &nbsp;&nbsp;&nbsp;</p>
+<p><b>Patch Releases:</b> For our most recent versions, we release new patches at reasonable intervals&nbsp;(usually every few weeks).&nbsp;They contain bug fixes and enhancements that were made subsequent to the previous patch.&nbsp; You do not need an active support contract to download and use our patches.&nbsp; As versions become older, patch releases may become less frequent.</p>
+<p><b><a href="/support/announcements/tao-release-announcements" target="_self">Click here</a>
+</b> for information on subscribing to OCI ACE/TAO announcements</p>
+<p>Patches are optional. You can take them when you decide it is a good time for you. But please apply them sequentially and do not skip a patch. It might work, but we will make no guarantees. OCI may&nbsp;issue "bumper patches" from time to time,&nbsp;but be sure to confirm which patch&nbsp;levels they cover, before you apply them. Do not mix our code base with the DOC group code, it will inevitably cause problems.&nbsp;</p>
+<p>If your company requires a formal release of a patch, prior to a normal distribution, you may elect to&nbsp;accelerate&nbsp;the patch release, by funding the two days of engineering effort required.&nbsp;&nbsp;(Sometimes it is actually less than two days effort.)</p>
+<p><b>Project Driven Releases:</b> For major changes to TAO we usually work with the DOC Group in&nbsp;devlopment branches of their&nbsp;code base.&nbsp; These can take a while to accomplish. We coordinate with the DOC Group to avoid duplication of effort, and ensure an efficient implementation.&nbsp;The subsequent&nbsp;inclusion into the OCI formal release cycle is driven by the&nbsp;client schedule.&nbsp;</p>
+<p><b>Upgrade Policy:</b> Because we work on a time and materials basis, it means we can support older versions of TAO. We do not force an upgrade. However older versions become more difficult for us to support as other vendors may discontinue their support of their OSs and compilers. Providing our engineers with access to your systems may enable you to sustain an older version of ACE and TAO for a little longer.</p>
+<p><b>Support&nbsp;Options:</b> ACE and TAO&nbsp;are open source, so you may choose to provide all the support yourself, and perhaps leverage off the active ACE/TAO newsgroup and its mutual support model. Or should you&nbsp;prefer to mitigate your risk, you can contract with OCI to get predictable support tailored to your needs. <b>Open source is about letting you choose.</b> If we cannot provide better support, than you provide for yourself, then we do not have&nbsp;a business model.</p>
+<p>Bear in mind the DOC Group and TAO development community support focuses on the <b>latest</b> <b>versions</b>. Their research and development is assisted by technically adept users finding, commenting on,&nbsp;and solving issues with their current version. They are unable to help users with older versions of their code base&nbsp;or different versions such as OCI's distribution.&nbsp;&nbsp;</p>
+<p>OCI provides contracted support for users of the OCI Distribution of ACE and TAO. Customers with valid purchase orders, funding their support contracts, may obtain support via <a href="mailto:support@ociweb.com"><b>support</b>
+</a>
+<b>.</b> Please submit a PRF (problem report form) which can be found in the ACE and TAO root directories of source code.</p>
+<p>Support is presently rendered two ways: </p>
+<ol><li>Ad hoc, i.e. during normal business hours, as required, on a best effort basis, time and materials.</li>
+<li>On a 24 by 7 response basis with a service level agreement (SLA). Contact OCI for the cost of the plans offered.</li>
+</ol>
+<p>In both cases support is provided on an hourly time and materials model. Except 24 by 7 includes a monthly fee. It should be noted that OCI does not provide free technical support, except through the newsgroups. Users without support contracts should try one of the self-help CORBA newsgroups. Our FAQ page also is available for any user of our distribution. Please check there first, your question may already be answered.</p>
+<p>Many times problems submitted by users are not specifically ACE or TAO bugs. Therefore OCI support for TAO and ACE includes CORBA, C++ and OO issues. OCI will make every effort to resolve the problem, be it C++ syntax, poor CORBA practices, or inappropriate selection and implementation of CORBA services.</p>
+<p>JacORB, Java CORBA, MPC&nbsp;and DDS support can also be included in your support plan.</p>
+<p><b>Help us help you:</b> When we support you, we work with you to manage both cost and time. For instance, it will help if&nbsp;you could&nbsp;create a small test case and&nbsp;send it to us to&nbsp;illustrate the problem. Or, if we have some quick ideas,&nbsp;you may want to test our suggested fixes, or work arounds&nbsp;first. We may even request that you instrument the code and send us the output. We try to help you manage the cost and the effort by approaching the problem in a <i>cost-effective</i> manner. If it is urgent we will assign additional engineers to solve the problem in a <i>time-effective</i> manner.&nbsp;If an issue is urgent we prefer to know sooner, rather than later.</p>
+<p>If you copy others (CC) on the original PRF submission they can also watch the email traffic. A senior OCI engineer will triage the request and assign it to another OCI engineer based on the skills indicated by the PRF. We have multiple engineers also watching the request tracker ticket&nbsp;to ensure something does not get missed.&nbsp;Your issues are addressd by seasoned SW engineers.&nbsp;</p>
+<p>We need to know your exact platforms, operating systems, chips etc in case you have special requirements. The more information we have, the faster we can narrow the issues. Sometimes we access the client systems remotely. That enables even faster resolution. It is your choice.</p>
+<p>We can, and do, come on site to help clients. The response to such a request is speedier if a support contract and funded PO&nbsp;are in place.<br />
+</p>
+<p>Contact <a href="mailto:sales@ociweb.com"><b>sales</b>
+</a> to obtain a support contract.</p>
+<h3>OCI's Supported Environments</h3>
+<p>This list reflects various software and hardware configurations that have been supported at different times depending on sponsorship. Please check with us for the exact status of versions and combinations. We are always adding new capabilities to our Labs. If you have a special need we can probably add it to the mix. Customers' needs drive our offerings.</p>
+<h3>Operating Systems and Processors</h3>
+<ul><ul><li>Solaris 8, 9 and 10, on SPARC, Intel x86, and AMD Opteron</li>
+<li>Windows 2000, XP, Vista, 7 and Server 2003 on Intel using Visual C++ Version 6.0, 7.1 and 8. (Visual C++ 6 restricted to 1.4a and previous.)</li>
+<li>Red Hat Linux 7.2, 7.3, 8.0, and 9 on Intel x86</li>
+<li>Red Hat Enterprise Linux Advanced Server 3.0, 4.0, 5.0 and 6.1 on AMD Opteron</li>
+<li>Fedora 7 on Intel x86 (earlier versions may be possible)</li>
+<li>SUSE 9.0 and 10 Professional for AMD64 on AMD Athlon 64</li>
+<li>Other Linux Distros. such as Ubuntu 7.10, CentOS 5 and Debian 4.0.&nbsp;</li>
+<li>HP-UX 11.00. 11.23&nbsp;on PA RISC (32/64 bit)</li>
+<li>HP-UX 11.20 on Itanium with HP ANSI C++</li>
+<li>IBM AIX 5.1, 5.2 and 5.3&nbsp;with IBM&nbsp;XL C++&nbsp; 6.0 and 7.&nbsp;(32/64 bit)</li>
+<li>Mac OS X 10.3 and 10 .4 on Intel and PPC&nbsp;with g++ 3.1</li>
+<li>(IRIX 6.5 with MIPSpro v 7.4&nbsp; under arangements with SGI, contact <a href="mailto:sales@ociweb.com">sales</a> for details of 64-bit build)</li>
+</ul>
+</ul>
+<h3>Real-time Systems and other Targets</h3>
+<ul><ul><li>LynxOS RTOS 4.2 and earlier&nbsp;</li>
+<li>VxWorks 5.5 with the Tornado 2.0 and 2.2 development environment for Windows and Solaris (Check with WindRiver for EOL status.)</li>
+<li>VxWorks 6.2, 6.3, 6.4, 6.5 and 6.7 in RTP and kernel mode, with the WindRiver Workbench IDE on Windows, Solaris and Linux.&nbsp;</li>
+<li>INTEGRITY RTOS from Green Hills</li>
+<li>x86, PowerPC with VME, and Ultra SPARC II board sets</li>
+<li>Microsoft Windows XP Embedded</li>
+<li>Microsoft PocketPC 2002 and 2003, Windows CE 5 &amp; 6 with Visual Studio 8 &amp; 9&nbsp;on handheld devices. Contact <a href="mailto:sales@ociweb.com">sales</a> for details.</li>
+<li>Various real-time Linux distributions including Gentoo Linux.</li>
+<li>Limited support for QNX (Neutrino), contact <a href="mailto:sales@ociweb.com">sales</a> for details.</li>
+<li>Android NDK Release 6<br />
+</li>
+</ul>
+</ul>
+<h3>C++ Compiler Options</h3>
+<ul><ul><li>The vendor supported compiler e.g. Visual C++ for Windows, or Sun C++ or HP aCC</li>
+<li>The GNU open source compiler collection GCC.</li>
+<li>IBM Visual Age&nbsp;series XL C++&nbsp;6.0 for AIX</li>
+<li>Green Hills MULTI IDE</li>
+<li>For Intel C++ contact sales.</li>
+</ul>
+</ul>
+<h3>Support services</h3>
+<p>OCI offers a range of support services, in addition to the training classes, to help you get started and successfully implement your CORBA project. </p>
+<ul><ul><li>CORBA and ACE frameworks to aggregate domain specific services for easy use by developers.</li>
+<li>CORBA, ACE, C++, Java, XML, OO Design and code reviews.</li>
+<li><a href="http://www.ociweb.com/products/migration" target="_self">Migration </a>from earlier versions of CORBA, and other products implementing CORBA.</li>
+<li>Inter-ORB testing. We have multiple commercial and open source ORBs in our development labs. </li>
+<li>Porting TAO (or more correctly, ACE)&nbsp;to new platforms.</li>
+<li>Adding or expanding the features of TAO.</li>
+<li>Testing: - Performance, functionality, security, interoperability, configuration and optimization.</li>
+<li>Maintaining the currency and synchronization of an existing TAO port.</li>
+<li>Problem resolution and bug fixes.</li>
+<li>Combining Java and CORBA.</li>
+</ul>
+</ul>
+<p>Contact OCI at <a href="mailto:sales@ociweb.com">sales</a> to design an engagement model for your project.</p>
+
+
+  </div>
+</div>

@@ -1,0 +1,11 @@
+Q: How do I link against multithreaded libraries in Visual C++?
+
+A: >
+ Select the Project -&gt; Settings menu item<br>
+ Select the C/C++ tab.<br>
+ Set the Category to Code Generation<br>
+ Under Run-time library select one of the multithreaded libraries
+ <p>
+ <br>
+ 
+ 

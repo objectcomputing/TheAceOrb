@@ -1,0 +1,4 @@
+Q: Why does the client receive a failure (<code>COMM_FAILURE</code>) during failover to a secondary server even though the secondary server received the request from the client correctly? 
+
+A: >
+ If you use the FTORB library, request/retry should be transparent to the application. If you don't use the FTORB library, you will not get the transparent behavior.  See LINK:EnableFaultTolerance:

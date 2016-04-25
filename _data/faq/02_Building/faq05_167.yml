@@ -1,0 +1,11 @@
+Q: GPERF is licensed as GPL2. Will that impact my application?
+
+A: >
+ No. TAO_IDL simply "fork/execs" a gperf process to generate the hash
+ function, so it doesn't contain any GPL'd code internally, and hence is
+ not a derived work in the GPL sense. (Thanks to Doug Schmidt)
+ 
+ There are no other libraries in TAO that use GPERF code, nor any other 
+ GPL code. Neither is the generated code affected by the GPL.
+ 
+ 

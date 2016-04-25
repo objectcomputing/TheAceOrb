@@ -1,0 +1,75 @@
+Q: What's the relationship between OCI's TAO and the DOC Group's TAO?
+
+A: >
+ <em>OCI's Distribution of TAO</em> is signified with a
+ letter in the version number (e.g., TAO 1.3a, TAO 1.4a),
+ whereas DOC Group release version numbers do not include a letter
+ (e.g., TAO 1.4, TAO 1.5).  OCI patch releases also indicate a
+ patch level (e.g., TAO 1.4a_p12), whereas DOC Group beta kits
+ indicate the beta number after a major release (e.g., TAO
+ 1.5.4).
+ 
+ <p>
+ Each OCI release is derived from a DOC Group version (for
+ example, TAO 1.4a was derived from TAO 1.4.3), but
+ an OCI release does not correspond exactly to any DOC Group release.
+ </p>
+ 
+ <p>
+ OCI seeks to maintain extremely stable, fully-tested, open
+ source products backed by
+ <a href="{{site.baseurl}}/support/index.html">commercial support</a>,
+ <a href="{{site.baseurl}}/training/index.html">training</a>,
+ <a href="http://www.ociweb.com/consulting">consulting</a>, and
+ accompanied by
+ <a
+ href="{{site.baseurl}}/purchase/index.html">extensive
+ documentation and binaries on CD-ROM available for
+ purchase</a>.  Many organizations
+ desire a commercially-supported release of TAO as a basis for
+ their mission critical applications.
+ </p>
+ 
+ <p>
+ The <a href="http://www.dre.vanderbilt.edu/">DOC Group's</a>
+ primary focus is <a
+ href="http://www.cs.wustl.edu/%7Eschmidt/research.html">research and development</a>
+ rather than commercial support.  Support is provided on a
+ "best effort" basis through the public <a
+ href="http://www.cs.wustl.edu/~schmidt/TAO-mail.html">tao-users
+ mailing list</a>, and is often excellent.  However, more
+ "predictable" support is availble from
+ <a href="{{site.baseurl}}">OCI</a> and
+ <a href="http://www.cs.wustl.edu/~schmidt/commercial-support.html">other organizations</a>.
+ </p>
+ 
+ <p>
+ OCI selects a reasonably stable DOC Group release as the basis
+ for each OCI distribution.  OCI then builds and tests across
+ over 50 combinations of hardware, operating systems, C++
+ compilers, and build flags.  As bugs are encountered, they are
+ fixed directly (and the fix is contributed back to DOC), fixed
+ by integrating an existing DOC fix (depending on the severity
+ and the degree of entanglement), or documented (if a fix is
+ too involved to be accomplished without sponsorship).
+ </p>
+ 
+ <p> In addition, OCI applies various enhancements, sponsored by our customers.
+  We also integrate these back into the DOC group repository. </p>
+  
+ <p>
+ OCI also packages select binaries (custom builds are also
+ available -- see <a
+ href="{{site.baseurl}}/product/index.html">{{site.baseurl}}/product/index.html</a>)
+ and makes them available for purchase on CD-ROM.  Since OCI's
+ distribution of TAO is still open source, OCI also distributes
+ the source code and all patches free of charge (see <a href="{{site.baseurl}}/downloads">{{site.baseurl}}/downloads</a>).
+ </p>
+ 
+ <p>
+ In OCI distributions, the original DOC Group <code>ChangeLog</code>s are preserved;
+ OCI changes are documented in <code>OCIChangeLog</code> and <code>OCIReleaseNotes.html</code>
+ files, included in the source code distribution.  See, for example, the latest
+ <a href="{{site.baseurl}}/1.4a/OCIReleaseNotes.html">OCI TAO 1.4a Release Notes</a>.
+ </p>
+ 

@@ -1,0 +1,7 @@
+Q: How can I configure TAO to disregard the default configuration file 'svc.conf'?
+
+A: >
+ In the past this was done by setting 'fakesvcconf =1' in the platform_macros.GNU. However this has
+  been deprecated in 1.5a. The current recommendation is to define TAO_PLATFORM_SVC_CONF_FILE_NOTSUP
+  in $ACE_ROOT/ace/config.h. This is also backwards compatible with 1.4a and 1.3a.
+ 

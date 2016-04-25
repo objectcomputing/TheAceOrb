@@ -1,0 +1,77 @@
+---
+layout: page
+title: 1.0a links
+categories: [ocitao]
+tags: []
+order: 49
+---
+<div id="contenttext">
+  <div class="bodytext" align="justify">
+
+	<em><h2>TAO Developer's Guide version 1.0a Excerpts and Updates</h2>
+</em>
+<p><em>Need help at getting started with TAO? Here are excerpted chapters from the 1.1a edition of TAO Developers Guide.</em>
+</p>
+<p><a href="http://download.ociweb.com/tao_dev_guide_getting_started.pdf">
+<strong>Getting Started with TAO</strong>
+</a> Chapter 3 from the "TAO Developer's Guide version 1.0a" - (26k)</p>
+<p>Plus some additional infornmation you might find useful in evaluation TAO.</p>
+<p><a href="http://download.ociweb.com/tao_dev_guidetoc.pdf">
+<strong>TAO Developer's Guide</strong> Table of Contents</a> (PDF)</p>
+<p><a href="http://download.ociweb.com/TAO_Dev_GuideIX.pdf">
+<strong>TAO Developer's Guide</strong> Index</a> (PDF)</p>
+<p><a href="http://download.ociweb.com/Erratum_sheet.pdf">
+<strong>TAO Developer's Guide</strong> Errata Sheet</a> (PDF)</p>
+<h3>OCI's Distribution of The ACE ORB (TAO)</h3>
+<p>Version 1.0a, for Linux</p>
+<p><a href="http://download.ociweb.com/TAO-1.0a-x86-glibc-egcs-linux-d0e1.tar.gz">Source &amp; Libraries</a> (16 MB)<br />Includes the full source code distribution for ACE and TAO plus all of the shared libraries (libACE.so, libTAO.so, liborbsvcs.so), the TAO IDL compiler executable, and executables for all of the ORB services that are distributed with TAO.</p>
+<p><a href="http://download.ociweb.com/TAO-1.0a-x86-glibc-egcs-linux-d0e1_i.tar.gz">Headers &amp; Libraries</a> (8 MB)<br />Includes only those source code files needed for building applications with ACE and TAO plus all of the shared libraries (libACE.so, libTAO.so, liborbsvcs.so), the TAO IDL compiler executable, and executables for all of the ORB services that are distributed with TAO.</p>
+<p><a href="http://download.ociweb.com/ACE+TAO-1.0a.tar.gz">Source Code only</a> (9 MB)<br />The source for OCI's Distribution of The ACE ORB (TAO) Version 1.0a</p>
+<h3>Installation Instructions:</h3>
+<p>These files were archived using GNU tar 1.12 and compressed using gzip 1.2.4.To uncompress and extract them, use the following commands:</p>
+<p class="source">gunzip -c &lt;filename&gt; | tar xvf -</p>
+<p>This will create a directory hierarchy rooted at ACE_wrappers/.The build that includes the full source code will expand to about 97 MB. The build that includes only those files needed for building applications will expand to about 40 MB. The full source code alone will expand to about 65 MB.</p>
+<p>Additional Information</p>
+<p>The following information, extracted from the <a href="/releasenotes/index.html">release notes</a> for OCI's Distribution of TAO Version 1.0a, describes the environment under which these builds were created and tested. </p>
+<h4>Platform-specific Notes</h4>
+<p>Linux on Intel with egcs 1.1.2</p>
+<p>We compiled and tested ACE &amp; TAO with the following OS/tool combination:</p>
+<p>Redhat Linux 6.0</p>
+<p class="source">$ uname -rsv </p>
+<ul>Linux 2.2.5-15 #1 Mon Apr 19 23:00:46 EDT 1999 </ul>
+<p>&nbsp;</p>
+<p>egcs 1.1.2 (standard compiler installed with RH 6.0)</p>
+<p class="source">$ g++ -v </p>
+<ul>Reading specs from /usr/lib/gcc-lib/i386-redhat-linux/egcs-2.91.66/specs<br />gcc version egcs-2.91.66 19990314/Linux (egcs-1.1.2 release) </ul>
+<p>&nbsp;</p>
+<p class="source">$ g++ --print-prog-name=ld </p>
+<ul>ld </ul>
+<p class="source">$ g++ --print-prog-name=as </p>
+<ul>as </ul>
+<p class="source">$ ld -v </p>
+<ul>GNU ld version 2.9.1 (with BFD 2.9.1.0.23) </ul>
+<p class="source">$ as -v /dev/null </p>
+<ul>GNU assembler version 2.9.1 (i386-redhat-linux), using BFD<br />version 2.9.1.0.23 </ul>
+<p>Although we built ACE &amp; TAO on Red Hat Linux 6.0, they should be compatible with any version of Linux (kernel version 2.0 or greater) which has libc 6 (a.k.a., glibc 2). CAVEAT: The Linux builds on this CD have not been tested on any version of Linux other than Red Hat 6.0.</p>
+<h3>Quickstart for Building with TAO</h3>
+<p>This section contains a few things you will need to know to build applications which use the TAO and ACE libraries distributed on this CD. You can find more detailed information in bldgapps.html, which is adapted from Chapter 4 of the TAO Developer's Guide (OCI part number 500-01). </p>
+<p>TAO on UNIX</p>
+<p>On UNIX and UNIX-like systems, you should use GNU Make to build applications with TAO.</p>
+<p>Briefly, you will need to set the following environment variables:</p>
+<p class="source">ACE_ROOT </p>
+<ul>The base of your ACE and TAO installation </ul>
+<p>&nbsp;</p>
+<p class="source">TAO_ROOT $ACE_ROOT/TAO </p>
+<p class="source">LD_LIBRARY_PATH </p>
+<ul>Must include $ACE_ROOT/ace </ul>
+<p class="source">MAKEFLAGS </p>
+<ul>Contains flags such as "debug=0" and "exceptions=1" and should normally match the settings for your installation. </ul>
+<p>For example, assuming the base of your installation of TAO is in /usr/local/ACE_wrappers, and assuming you are using the C-shell (csh): </p>
+<p class="source">setenv ACE_ROOT /usr/local/ACE_wrappers </p>
+<p class="source">setenv TAO_ROOT $ACE_ROOT/TAO </p>
+<p class="source">setenv LD_LIBRARY_PATH $ACE_ROOT/ace:$LD_LIBRARY_PATH </p>
+<p class="source">setenv MAKEFLAGS "debug=0 exceptions=1"</p>
+
+
+  </div>
+</div>

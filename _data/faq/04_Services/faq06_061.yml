@@ -1,0 +1,29 @@
+Q: Why does my event channel get so slow when consumers die?
+
+A: >
+ By default
+ the event channels (Cos and RTEC) in TAO continue to attempt to push new
+ events at consumers even after previous pushes to that consumer have failed.
+ If a particular consumer is destroyed without disconnecting from the event
+ channel, then all subsequent pushes by the corresponding supplier proxy will
+ fail.  Since each of these require the ORB to timeout, they can drastically
+ affect the throughput of the EC. <p> You can modify this behavior via the -ECSupplierControl and -ECConsumerControl
+ options.  The consumer control option sets the strategy used to deal with
+ ill-behaved consumers.  Put the following in a service configurator option
+ file (ec.conf): </p><p>
+ </p><pre>   static EC_Factory "-ECConsumerControl reactive"</pre>
+ <p>
+ This sets the control strategy for the consumers to reactive.  Now start the event channel process with this configuration:
+ </p><p>
+ </p><pre>   $TAO_ROOT/orbsvcs/Event_Service -ORBSvcConf ec.conf</pre>
+ <p> Any failed attempts to communicate with a consumer result in the disconnection
+ of that consumer (and its proxy) from the event channel.  The reactive strategy
+ also polls all the consumers periodically and disconnects them if they fail
+ to respond. The default polling period is 5 seconds and can be set via the
+ -ECConsumerControlPeriod option. </p><p>
+ The supplier control strategy (and associated polling period) works the same way with suppliers.
+ </p><p> The native Cos Event Channel has analogous options (-CECConsumerControl,
+ -CECSupplierControl, -CECConsumerControlPeriod, and -CECSupplierControlPeriod).
+  <br>
+ 
+ 

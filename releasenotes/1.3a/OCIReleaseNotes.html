@@ -1,0 +1,2039 @@
+<html>
+	<head>
+		<title>OCI TAO 1.3a Release Notes</title></head>
+	<body bgcolor="#eeeeee">
+		<a name="top"></a>
+		<p>
+			<h1 align="center">
+				Release Notes for OCI's Distribution of TAO 1.3a_p15<br>
+				Copyright 2000-2005 by Object Computing, Inc.
+			</h1>
+			<hr>
+				<center>
+					<tr>
+						<th align="left" valign="top">
+							NOTE:</th>
+						<td>&nbsp;</td>
+						<td>
+							These release notes can be found in the distribution at <tt>ACE_wrappers/OCIReleaseNotes.html</tt>.
+						</td>
+					</tr>
+				</center>
+			</hr>
+			<!--------------------------- Table of Contents -------------------------->
+			<hr>
+		<p class="l1">Table of Contents</p>
+		<ol type="1">
+			<li>
+				<a href="#general_notes">General Notes</a>
+			<li>
+				<a href="#updates">New Features Since TAO 1.2a</a>
+			<li>
+				Platforms that this release was tested on:
+				<ul>
+					<li>
+						<a href="#Solaris">Solaris</a>
+					<li>
+						<a href="#Linux">Linux</a>
+					<li>
+						<a href="#Windows">Windows</a>
+					<li>
+						<a href="#Tru64">Tru64</a>
+					<li>
+						<a href="#AIX">AIX</a>
+					<li>
+						<a href="#HP-UX">HP-UX</a>
+					<li>
+						<a href="#Irix">Irix</a>
+					<li>
+						<a href="#MACOSX">Mac OS X</a>
+					<li>
+						<a href="#VxWorks">VxWorks</a>
+					<li>
+						<a href="#Others">Others</a></li>
+				</ul>
+			<li>
+				<a href="#buildflags">OCI recommended build flags</a></li>
+		</ol>
+		<p>
+		<p>
+			</hr>
+			<!--------------------------- General Notes -------------------------->
+			<a name="general_notes"></a>
+			<table border="0" cellpadding="0" cellspacing="0" width="100%">
+				<tr>
+					<td colspan="2" bgcolor="#aaaaff">
+						<h2 align="center">General Notes</h2>
+					</td>
+				</tr>
+				<tr>
+					<td valign="top">
+						<p>
+							<ol type="1">
+								<li>
+									Heritage -- Relationship to DOC Releases
+									<p>
+										TAO 1.3a derives from the DOC TAO 1.3.1 beta kit with bugfix-related patches
+										selectively applied to enhance stability. A record of applied patches can be
+										found in <strong>OCIChangeLog</strong> files installed with the distribution.</p>
+								<li>
+									Make Project Creator
+									<p>
+									All of ACE/TAO was built using MakeProjectCreator (MPC). This tool is included
+									with this distribution and may be used for your own projects as well. MPC will
+									generate GNU make files, Windows project files for both VC++ 6 and 7.1, Borland
+									make files, and others. It can be extended to other make systems as well. MPC
+									documentation is available in the distribution at
+									ACE_wrappers/bin/MakeProjectCreator/README or in the OCI Developer's Guide for
+									TAO 1.3a. This chapter can be viewed from http://downloads.ociweb.com/MPC in
+									html or downloaded in pdf.
+									<p>
+										Thus, all of the previous make files and project files, except for Visual Age
+										project files (which do not yet have a MPC generator), have been removed and
+										only generated files are present in this distribution.</p>
+								<li>
+									GNU Make on Unix
+									<p>
+										With the exception of Windows operating systems, ACE and TAO were built with
+										GNU Make. While one can use other tools to build applications using ACE &amp;
+										TAO, using GNU Make permits the leveraging of the existing build system
+										distributed with ACE &amp; TAO.</p>
+								<li>
+									Compiler restrictions
+									<p>
+										Version 1.3a of ACE/TAO, being based on DOC TAO 1.3.1, requires that the
+										compiler be able to support namespaces, at least minimally. Any compiler that
+										does not support namespaces cannot be used with this version, for example,
+										Sun's 4.2 compiler and Tornado 2.0.</p>
+								<li>
+									Explict template instantiation
+									<p>
+										It's possible, and maybe even desirable, to use explicit template instantiation
+										for any platform. This can not only decrease compile times, but it helps
+										prevent submitting errors in the explicit instantiation sections of source
+										files. Just add "#define ACE_HAS_EXPLICIT_TEMPLATE_INSTANTIATION" to config.h
+										to enable this feature. A related setting for gcc, suncc, and others can be
+										enabled by adding "templates=explicit" to platform_macros.GNU. This has the
+										same effect as above, but additionally *requires* explicit instantiation. Since
+										all current compilers support implicit templates, there is less need for this
+										setting. However, this setting is still the default for suncc compilers,
+										therefore you should probably add "templates=automatic" to your
+										platform_macros.GNU for suncc. Currently there is an additional side-effect to
+										enabling explicit template instantiation, regardless of which method you use to
+										do it. It changes the default setting for TAO_USE_SEQUENCE_TEMPLATES, so that a
+										non-template base class is used for all corba sequences. This means that you'll
+										typically want to also add a "#define TAO_USE_SEQUENCE_TEMPLATES" to your
+										config.h, whenever you add the "#define
+										ACE_HAS_EXPLICIT_TEMPLATE_INSTANTIATION".
+									</p>
+								</li>
+							</ol>
+					</td>
+				</tr>
+			</table>
+			<a href="#top">[Top]</a>
+			<!--------------------------- New Features -------------------------->
+			<a name="updates"></a>
+			<table border="0" cellpadding="0" cellspacing="0" width="100%">
+				<tr>
+					<td colspan="2" bgcolor="#aaaaff">
+						<h2 align="center">New Features</h2>
+					</td>
+				</tr>
+				<tr>
+					<td valign="top">
+						<p>
+						<p>
+							Many important new features and bug fixes have been introduced in TAO 1.3a.
+							They are described briefly here. These and many other features of TAO 1.3a are
+							detailed in OCI's <a href="{{site.baseurl}}/product/index.html">TAO
+								Developer's Guide, Version 1.3a</a>, available separately.
+						</p>
+						<ol type="1">
+							<!--------------------------- PATCH 15 ------------------------->
+							<li>
+								<h3>Features added and bugs/fixes in TAO 1.3a_p15</h3>
+								<p></p>
+								<ul>
+									<!-- <li> <em>PUT YOUR p15 FEATURES HERE!</em></li> -->
+									<li>
+									Improved support for HP aCC compiler versions 3.57 and 3.60.
+									</li>
+									<li>
+									Added emulated support for timed semaphore acquire() on HP-UX.
+									</li>
+									<li>
+									Added a new dispatching strategy--Thread Per Consumer--to TAO's
+									RT Event Service.  This strategy is similar to the MT dispatching
+									strategy in that it separates the thread that receives the push()
+									from a supplier from the thread that does the eventual push() to
+									the consumer(s), but it differs from MT in that MT has a pool of
+									threads pulling from a single queue and ultimately potentially
+									servicing every consumer, whereas TPC has a queue for *each*
+									consumer and, thus, a single thread is dedicated to pushing to that
+									consumer.  This insures that a badly-behaved consumer CANNOT
+									have an adverse effect on the channel or supplier.
+									</li>
+									<li>
+									Added a means by which an application of the RT Event Service
+									can specify what the RTEC should do if the TAO_EC_Queue fills up.
+									This behavior is encapsulated in a derivation of an
+									ACE_Service_Object, called TAO_EC_Queue_Full_Service_Object.
+									The RTEC looks for a service object of a particular name (default
+									in macro TAO_EC_DEFAULT_QUEUE_FULL_SERVICE_OBJECT_NAME).
+									</li>
+								</ul>
+							<!--------------------------- PATCH 14 ------------------------->
+							<li>
+								<h3>Features added and bugs/fixes in TAO 1.3a_p14</h3>
+								<p></p>
+								<ul>
+									<!-- <li> <em>PUT YOUR p14 FEATURES HERE!</em></li> -->
+									<li>
+										Fixed "zombie" thread problem in the Notification Service where, when using
+										<code>-AllocateTaskPerProxy</code> and a consumer terminates without properly
+										disconnecting, the thread (i.e., task) becomes a "zombie" because no other
+										thread does a proper join.  This results in the appearance of allocated-but-not-recovered
+										resources until the thread ends.
+									</li>
+								</ul>
+							<!--------------------------- PATCH 13 ------------------------->
+							<li>
+								<h3>Features added and bugs/fixes in TAO 1.3a_p13</h3>
+								<p></p>
+								<ul>
+									<!-- <li> <em>PUT YOUR p13 FEATURES HERE!</em></li> -->
+									<li>
+										Fixed a static initialization order dependency problem in ACE's Thread Specific
+										Storage support.</li>
+									<li>
+										Added a <code>-x</code> option to <b>catior</b> that works like <code>-f</code>
+										except that it reads the IOR from standard input rather than from a file. This
+										makes catior much more like the unix "cat" command, and enables it to be used
+										in a pipeline.</li>
+									<LI>
+										Changed the precedence rules for the <code>-ORBListenEndpoints</code> (aka <code>-ORBEndpoint</code>)
+										so that the host identifier (either hostname or IP address) that appears in
+										IIOP profiles is determined thus:
+										<ol>
+									<li>
+										value from <code>hostname_in_ior</code>
+									(if specified);
+									<li>
+										setting of <code>-ORBDottedDecimalAddresses</code>
+									option;
+									<li>
+										value for <em>hostname</em> in <code>-ORBListenEndpoints</code>
+									specification;
+									<li>
+							whatever TAO magically comes up with based on system configuration
+						</ol>
+						A new test (<code>TAO/tests/IOR_Endpoint_Hostnames</code>) verifies the
+						operation of this feature. </LI>
+						<li>
+							Changed the way that Bidirectional endpoint processing happens when <code>-ORBDottedDecimalAddresses
+								1</code> is in effect. The previous behavior always used the setting of the
+							receiver, but that caused problems when the sender and receiver were not using
+							the same dotted decimal addresses setting. Bidirectional endpoint processing
+							now uses whatever the sender provides as the hostname since that's also what
+							will be in that sender's IORs. See ChangeLog entry from<blockquote><code>Wed May 25
+									12:10:40 2005 Chris Cleeland &lt;cleeland@ociweb.com&gt; </code></blockquote>
+							for more details.
+						</li>
+						<li>
+							Ported the -ORBPreferredInterfaces option from TAO 1.4 to allow specifying
+							which local interface to use when connecting to a specified remote interface. <blockquote><code>
+									-ORBPreferredInterfaces 192.168.*=127*,*.ociweb.com=132.* </code></blockquote>
+							The above command causes TAO to use the first interface starting with 127 (e.g.
+							127.0.0.1) when connecting to any address starting with 192.168.*, and to use
+							the first interface starting with "132." when connecting to any host that ends
+							in ociweb.com. T
+							<br>
+							The argument specified on the left side of the equals sign must match the
+							target host, which usually comes from an IOR. For example, if an IOR contains
+							test.theaceorb.com then this would not match either of the above directives,
+							even if test.theaceorb.com happens to be at 192.168.1.10.
+						</li>
+						<li>
+							The ACE Service Configurator now supports UTF-8, UTF-16 and UTF-32 encoding
+							schemes when ACE_HAS_WCHAR is defined in config.h.
+						</li>
+						</ul>
+						<!--------------------------- PATCH 12 ------------------------->
+						<li>
+							<h3>Features added and bugs/fixes in TAO 1.3a_p12</h3>
+							<p></p>
+							<ul>
+								<!-- <li> <em>PUT YOUR p12 FEATURES HERE!</em></li> -->
+								<li>
+								The Service Configurator will now distinguish between the existence of and lack
+								of file permissions for the default service configurator file.
+								<li>
+								The SO Reduce application was modified to generated MPC files instead of
+								Makefiles.
+								<li>
+								The Visual Age 6 compiler configuration was changed to not use the #pragma
+								implementation for templates. Instead, template header files just include the
+								template cpp.
+								<li>
+								The IDL compiler now correctly handles UNC ("Universal Naming Convention")
+								paths, when Windows-based projects used them in -I command line parameters or
+								in #include statements.
+								<li>
+								Resolved and problem with tao_idl generated code for typedef-ed arrays, where
+								some of the utility methods were not static as the CORBA spec requires.
+								<li>
+								Resolved a problem with generating the values for floating point constants in
+								code generated by tao_idl
+								<li>
+								The gnuace MPC builds can now detect the presence of yacc(1) and/or lex(1) and
+								regenerate all related parser code, based on the lexical analyzer and the
+								grammar specifications ( idl.ll and idl.yy) On the platforms where these tools
+								are not available, the pre-generated versions are used.
+								<li>
+								The SSLIOP transport protocol factory now correctly interprets Windows-style
+								paths, which contain colon (':'), when pointing to the locations of keys and
+								certificates.
+								<li>
+								Corrected a bug in the gnuace template that did not ensure that generated
+								source files were created before attempting to generate the precompiled header
+								binary.
+								<li>
+								The gnuace project type allows users to set the 'targetoutdir' template
+								variable which determines where .obj, .shobj directories, binaries and
+								libraries go.
+								<li>
+								The SO Reduce application now outputs MPC files instead of Makefiles.
+								<li>
+								The Service Configurator now distinguishes between the existence of a
+								configurator file and the in-ability to open the configurator file.
+								<li>
+								Fixed a bug related to multicast federation of the RtEC. Removed the portion
+								of code that attempts to subscribe to an existing multicast socket. This allows
+								the ECG_MCast_EH to receive events on all supported platforms.
+								<li>
+								Improved interoperability with other ORBs with respect to use of Unicode based
+								wide strings.
+								<li>
+								Fixed an SSLIOP bug related to sending large data sets.
+								<li>
+									Fixed several TSS bugs (mostly affect Windows builds):
+									<ul>
+										<li>
+										Comply with POSIX standard for replacing a TSS object.
+										<li>
+										Comply with POSIX standard for deleting a key while it is in use.
+										<li>
+										Rework the ACE_TSS_Cleanup instance support to make it even safer.
+										<li>
+											Automatically cleanup TSS for non-ACE threads that call ACE functions.</li>
+									</ul>
+								<li>
+								Fixed a problem affecting the ability of SSL-based TAO servers, which require
+								client authentication to work with JSSE-based Java clients (JacORB).
+								<li>
+									Added new service configuration options to the SSLIOP_Factory:
+									<ul>
+										<li>
+										-SSLCAFile FMT:file - allows explicit specification of the the Trusted
+										Certificates location. The FMT is either "PEM" or "DER". Similar to verify(1)
+										-CAfile option.
+										<li>
+										-SSLCAPath directory - allows explicit specification of the directory, where
+										the Trusted Certificates are located. The directory must be in a particular
+										format - see openssl(1) fom more details on how to install additional CA
+										certificates. Similar to verify(1) -CApath option.
+										<li>
+											-SSLRand file1:file2:.. - allows specification of additional sources of
+											randomness (entropy). The option mimics the -rand option on genrsa(1), for
+											example.
+										</li>
+									</ul>
+								</li>
+							</ul>
+						<!--------------------------- PATCH 11 ------------------------->
+						<li>
+							<h3>Features added and bugs/fixes in TAO 1.3a_p11</h3>
+							<p></p>
+							<ul>
+								<!-- <li> <em>PUT YOUR p11 FEATURES HERE!</em></li> -->
+								<li>
+								Fixed a problem where an assertion would be thrown when a bi-directional POA
+								policy has been used and then a different ORB instance is created. Note,
+								however that the solution does not prevent some possible data race conditions
+								for applications with multiple ORB instances, multiple threads that create them
+								and using bi-directional POA policy.
+								<li>
+									Fixed a problem where, when using <code>-ORBConcurrency thread-per-connection</code>,
+									connections to clients that have gone away result in sockets sitting in <code>CLOSE_WAIT</code>
+								on the server side until the server exits.
+								<li>
+								A new ORB option was added, -ORBLingerTimeout, which only affects the IIOP
+								transport. If a linger timeout is specified, it will be applied to each TCP
+								socket prior to closing the connection.
+								<li>
+								Fixed a problem with premature connection closures on the server side, in cases
+								where large replies were being subjected to the TCP flow control mechanism.
+								<li>
+								Modified the tao_idl code to correctly deal with typedef'ed arrays. When
+								dealing with array's, detect if the array is typedef'ed. If it is typedef'ed
+								and the primitive base type is a string, then it will generate code as if the
+								array was typedef'ed to a string.
+								<li>
+								Added capability to use INS-style corbaloc references (e.g.,
+								orbaloc:ssliop:localhost:12345/NameService) to specify SSLIOP references. This
+								was motivated by a desire to access a naming service exclusively using SSLIOP,
+								but needing to specify its endpoint to clients via a corbaloc-style IOR. See
+								the new ssliop-corbaloc test in $TAO_ROOT/orbsvcs/tests/Security, which shows a
+								typical usage of the new feature.
+								<li>
+								Updated TAO core to support both legacy URL style generated corbaloc IOR's
+								(with escape character '\\') and OMG specified style (with escape character
+								'%'). This makes it backward compatible with pre 1.4 TAO as well as other ORB's
+								like JacORB etc.
+								<li>
+								Removed a bug workaround in ACE for 64-bit HP-UX. When specifying a base
+								address for ACE_MMAP_Memory_Pool_Options (which is used by the mmap Naming
+								Service persistence), it was previously ignored and a default value was used.
+								This is no longer necessary for aCC versions later than 3.10.
+								<li>
+								Added configurator options for the CosEvent Service to determine the relative
+								roundtrip timeout for both suppliers and consumers when pushing or pulling an
+								event. An additional option was added to determine the number of retries (when
+								pushing or pulling to or from an unresponsive consumer or supplier) before
+								removing it from the CosEvent Service.
+								<li>
+									When built using the MPC-generated make/project files, the following common TAO
+									utilities are now installed in the $ACE_ROOT/bin directory instead of the
+									directories in which they are built:
+									<ul>
+										<li>
+										tao_imr
+										<li>
+										tao_ifr
+										<li>
+										nslist
+										<li>
+										nsadd
+										<li>
+										nsdel
+										<li>
+											NamingViewer</li>
+									</ul>
+								<li>
+									Fixed race conditions in calling destructors during Asynch Invocation by adding
+									reference counting.
+								</li>
+							</ul>
+							<p></p>
+							<p></p>
+						<!--------------------------- PATCH 10 -------------------------->
+						<li>
+							<h3>Features added and bugs/fixes in TAO 1.3a_p10</h3>
+							<p></p>
+							<ul>
+								<!-- <li> <em>PUT YOUR p10 FEATURES HERE!</em></li> -->
+								<li>
+								Fixed a problem with codeset selection when the default wchar codeset is used
+								and this is UTF-16. Now the UTF-16 BOM translator is selected even when the
+								wchar codeset is defaulted.
+								<li>
+								Fixed memory leaks in the Notification Service that occurred when a Consumer
+								disconnected.
+								<li>
+								There was a problem in the Notification Service's support for Event-style Admin
+								and Proxy objects in addition to the one fixed in patch 9. This problem has
+								been fixed, and the $TAO_ROOT/orbsvcs/tests/Notify/Basic test has been extended
+								to further test support for Event-style objects.
+								<li>
+									The ORB distributed with the Java JDK 1.4.x has a defect in the code that
+									marshals wide character strings in sequences of structures. As a work-around,
+									TAO can now be forced to send all wide characters in big-endian order even on
+									platforms like Intel x86 for which little-endian ordering is the default. The
+									Byte Order Mark (BOM) is used as necessary to inform the peer ORB of the byte
+									order being used. This work-around can be enabled either at compile time or at
+									run time.
+									<br>
+									To configure it at compile time, define the symbol: TAO_USES_FORCE_UTF16BE.<br>
+									To configure it at run time, use a new service configuration option:<br>
+									<code>static UTF16_BOM_Factory "-forceBE [0|1]"</code><br>
+									Zero turns it off; one turns it on.&nbsp; If neither zero nor one is specified,
+									the state of the option is toggled.<br>
+									There is a minor performance penalty for using this option so it should only be
+									used if interoperability with the JDK ORB is needed.</li>
+							</ul>
+							<p></p>
+							<p></p>
+						<!--------------------------- PATCH 9 -------------------------->
+						<li>
+							<h3>Features added and bugs/fixes in TAO 1.3a_p9</h3>
+							<p></p>
+							<ul>
+								<!--
+                <li>
+                  <em>PUT YOUR p9 FEATURES HERE!</em></li>
+-->
+								<li>
+								Fixed resource leak in Notification Service Connection Reliability (Topology)
+								persistence that occurred when the *.new file could not be opened.
+								<li>
+								The Notification Service is supposed to support Event Service-style channels,
+								but there was an error in the code that provided this support. The error
+								resulted in a failure (usually a SEGV) when the first event was pushed to the
+								old style channel. This has been corrected, and a test has been added to
+								orbsvcs/tests/Notify/Basic that would have detected the problem.
+								<li>
+								The Notification Service XML Topology saver and loader were using ostream to
+								save a CORBA::Long. This caused failures on some platforms, so the code was
+								changed to copy the CORBA::Long to a long before it is saved.
+								<li>
+								The test in orbsvcs/tests/Notify/XML_Persistence was not honoring -ORB command
+								line arguments.
+								<li>
+								The timeouts for the Basic and Reconnecting tests of the Notification Service
+								were increased to accommodate slow platforms.
+								<li>
+								Added a perl version of the shell script to run one of the Notification Service
+								performance tests (the graph 3-4 test). Also a usage message was added for this
+								test.
+								<li>
+								The file orbsvcs/PSS/Dump_Visitor.cpp has been changed from using std ostreams
+								to using ace/streams.h. The change was made to improve portability
+								(particularly on HP-UX). The change was originally made in the DOC group
+								repository.
+								<li>
+									Corrected several memory and resource leaks in the Naming Service, both in the
+									library and in the executable. The most significant leaks were encountered when
+									using flat file persistence (<font name="courier,fixed">-u</font> or <font name="courier,fixed">
+										-r</font>
+								options).
+								<li>
+								Corrected a minor memory leak in the core that would leak connection-related
+								resources on connection closure or on shutdown.
+								<li>
+								Corrected a problem in the Notification Service where, when a consumer
+								disappeared from the face of the earth, or at least the machine on which it was
+								running, the notification service queued up events to deliver at a future time
+								rather than considering the delivery to be a failure.
+								<li>
+									Fixed a linking problem (unresolved symbols) that affected gperf and other ACE
+									applications. The <code>libadm</code>
+								system library was missing from the link command line.
+								<li>
+								Fixed a problem where shared libraries didn't have the correct internal
+								versioned name on platforms that support that (e.g., most Unix-like platforms).
+								<li>
+								Integrated a patch suggested in DOC Bugzilla #1542 that correctly deallocated
+								items dynamically allocated and held in Thread-Specific Storage (TSS). This
+								eliminates some long-standing pseudo-leaks such as the output_cdr_buffer, etc.
+								<li>
+								Corrected a problem in the NonBlocking_Conn_Test so that it works.
+								<li>
+									Updated the platform_sunos5_sunc++.GNU file so that applications, when linked,
+									will automatically look for libraries in <font face="courier">$ACE_ROOT/lib</font>.
+								<li>
+								Fixed a bug in the tao_idl compiler that caused link errors when array's were
+								declared in the global scope. Particular helper functions were not exported and
+								that doesn't work on Windows.
+								<li>
+								Added support for ACE_OS::fsync() under Windows, which calls FlushFileBuffers.
+								Windows-specific code in the Notification Service that did this was therefore
+								removed.
+								<li>
+								Added support for RedHat Advanced Server 3.0 running on the Opteron chip set.
+								<li>
+									Added support for an option in nsadd to add a new context, including the
+									automatic addition of intermediate contexts for any addition.
+									<p>
+										This added capability is working correctly. However, the new test added to
+										verify it has exposed a problem that has been in the Naming Service for a long
+										time. The problem occurs only on static builds and only on some platforms. It
+										is that only the first client can add a context, subsequent clients quietly
+										fail when trying to add contexts, but they can add objects to existing
+										contexts.
+									</p>
+								<li>
+								Improved support for Winsock 2 on MS Pocket PC 2003 (WinCE 4.0). Automatic
+								interface discovery now works correctly.
+								<li>
+									Added new test case for wide string interoperability, added procedure for
+									building $TAO_ROOT/interop-tests/wchar for Sun's Java ORB as well as JacORB.
+								</li>
+							</ul>
+							<p></p>
+							<p></p>
+						<!--------------------------- PATCH 8 -------------------------->
+						<li>
+							<h3>Features added and bugs/fixes in TAO 1.3a_p8</h3>
+							<p></p>
+							<ul>
+								<li>
+									A new wait strategy--<em>Wait_On_LF_NoUpcalls</em>, specified with <code>"-ORBClientConnectionHandler
+										mt_noupcall"</code>--was added to allow a thread that's waiting for a reply
+									on an invocation to participate in the Leader-Follower interaction, but not
+									dispatch upcalls on that thread (other threads are permitted to dispatch
+									upcalls). This could be considered to be something between the two extremes of <em>
+										Wait_On_Leader_Follower</em> (the default) and <em>Wait_On_Read</em> (specified
+									with <code>"-ORBClientConnectionHandler rw"</code>), and could be reasonable
+									alternative in many cases to <em>Wait_On_Read</em>.
+								<li>
+									<b>
+										<blink>CODE CHANGES REQUIRED IN PLUGGABLE TRANSPORTS!</blink></b> The new <em>Wait_On_LF_NoUpcalls</em>
+									wait strategy required minor changes to some of the base class code used in
+									pluggable transports/pluggable protocols. The good news is that these changes
+									are simple, actually reducing code in the pluggable transport.
+									<p>
+										The changes are in <code>TAO_Connection_Handler</code>. Using <code>TAO_IIOP_Connection_Handler</code>
+										as an example (it's a pluggable transport just like anything else), the
+										following code: <blockquote>
+											<pre>
+// OLD handle_input
+int
+TAO_IIOP_Connection_Handler::handle_input (ACE_HANDLE h)
+{
+  int result =
+    this-&gt;handle_input_eh (h, this);
+
+  if (result == -1)
+    {
+      this-&gt;close_connection ();
+      return 0;
+    }
+
+  return result;
+}
+</pre>
+										</blockquote>turns into <blockquote>
+											<pre>
+// New and improved handle_input
+int
+TAO_IIOP_Connection_Handler::handle_input (ACE_HANDLE h)
+{
+  return this-&gt;handle_input_eh (h, this);
+}
+</pre>
+										</blockquote>The pluggable transport's <code>handle_input</code>
+									no longer needs to close the connection.
+									<p>
+										However, if your pluggable transport's <code>handle_input</code> <em>doesn't</em>
+										look like the old <code>handle_input</code>, you will need to look at <code>TAO_Connection_Handler::handle_input_eh()</code>
+										and integrate the code that appears at the beginning of that method, i.e., <blockquote>
+											<pre>
+{
+  if (this-&gt;transport ()-&gt;acts_as_server () &amp;&amp;
+      this-&gt;orb_core_-&gt;get_tss_resources()-&gt;upcalls_temporarily_suspended_on_this_thread_)
+    {
+      if (TAO_debug_level &gt; 6)
+        ACE_DEBUG ((LM_DEBUG,
+                    "(%P|%t) Connection_Handler[%d] - not going to handle_input "
+                    "on Transport %d "
+                    "because upcalls temporarily suspended on this thread\n",
+                    this-&gt;transport()-&gt;id(),
+                    this-&gt;transport()-&gt;id()));
+      return 0;
+    }
+  ...continue with rest of the code...
+}
+</pre>
+										</blockquote>
+								<li>
+									The Client_Strategy_Factory option <code>-ORBClientConnectionHandler</code> has
+									been renamed to <code>-ORBWaitStrategy</code> to harmonize it more closely with
+									the underlying components that implement it. The original name is still
+									accepted for backwards compatibility, but <code>-ORBWaitStrategy</code>
+								is suggested moving forward.
+								<li>
+								The Notification Service XML Topology Persistence object would stop prematurely
+								on some 64 bit platforms. The resulting incomplete topology file would cause
+								the notification service either to hang the next time it ran, or to restore
+								only part of the topology. The topology file will now be written correctly.
+								<li>
+								Fixed a memory management issue in the IDL compiler that could cause it to
+								crash with a segmentation violation on Tru64 4.0F with the Digital C++ v6.1-027
+								compiler.
+								<li>
+								Fixed a bug in the IDL compiler where *I.{h,cpp} would not be generated when
+								the -GI option was used.
+								<li>
+								Added support for the native long long type on VxWorks 5.42 or higher.
+								<li>
+								Added support for the wchar_t type on VxWorks 5.5 or higher.
+								<li>
+								Added a feature to the Naming_Service executable whereby it properly shuts
+								itself down on receipt of a signal on platforms which support signals. It
+								responds to SIGINT and SIGTERM.
+								<li>
+								Added support for building on PocketPC 2003 using eVC++ 4.0. This includes many
+								wide-string adaptations of error/debug messages. TAO-specific RTEC gained
+								configurable pacing delay to allow federation via multicast to work on PocketPC
+								2003.
+								<li>
+									Added support for building on AMD 64-bit Athlon processors.
+								</li>
+							</ul>
+							<p></p>
+							<p></p>
+						<!--------------------------- PATCH 7 -------------------------->
+						<li>
+							<h3>Features added and bugs/fixes in TAO 1.3a_p7</h3>
+							<p></p>
+							<ul>
+								<li>
+								Several Bugs with the ImR have been fixed, although there are still known
+								problems with PER_CLIENT activation, apparent memory leaks, and performance.
+								Several new tests have been added to help track down these problems, and they
+								may be addressed in a future release.
+								<li>
+								MPC is now a logically separate project. Most generic MPC tools have been moved
+								to ACE_wrappers/MPC, although some ACE/TAO-specific extensions are still in
+								ACE_wrappers/bin/MakeProjectCreator. Several bug fixes have been made, as well
+								as some pretty significant performance improvements. The latest version of MPC
+								is currently kept in the doc group CVS repository, but will be copied into the
+								ACE_wrappers directory for any OCI release.
+								<li>
+								There is also a new clone_build_tree.pl script that can be used in place of
+								create_ace_build.pl. The new script is much faster, has more features, and can
+								output the cloned tree to any location, although it still defaults to
+								ACE_wrappers/build. This tool is now part of the MPC suite of tools found in
+								the MPC directory.
+								<li>
+									The Notification Service has been extended to support the ConnectionReliability
+									and EventReliability properties defined in the CORBA standard. If these
+									properties are given the value "persistent" the Notification service will store
+									information about connection to clients and undelivered events in persistent
+									storage. This information will be used to recover after a failure.<br>
+									To take advantage of the reliable Notification Service the application
+									developer must set the properties and cooperate during the reconnection
+									process. Also he system administrator must configure the the notification
+									service for persistent operation.<br>
+									For more information see the CORBA standard available from <a href="http://www.omg.org">
+										the OMG</a> and the document <a href="TAO/docs/notification/reliability.html">Using
+										the Reliable Notification Service.</a>
+								<li>
+								In addition to the changes made directly to the Notification Service a number
+								of test and example programs have been created for the reliable notification
+								service. These programs may be found in subdirectories of
+								$TAO_ROOT/orbsvcs/tests/Notify. A README file in each directory provides more
+								detailed information, and a run_test.pl script is included to run the example
+								or test.
+								<li>
+								A change has been made to the Notification Service IDL that significantly
+								improved build times and reduced the Notification Service footprint. The change
+								suppressed the generation proxy and stub code for the many interfaces that are
+								specified by the OMG, but are not implemented in TAO.
+								<li>
+								Precompiled header support was added for the Tru64 compiler and the MIPSpro
+								Compiler on IRIX.
+								<li>
+									Changed ACE to attempt to use gethostname() on Windows, if available, before
+									falling back on GetComputerName() to implement ACE_OS::hostname. The
+									GetComputerName() function returns the NetBios name, not the IP hostname.
+									Often, they are identical, but this change should ensure that ACE/TAO will work
+									even when the two names differ.
+								</li>
+							</ul>
+							<p></p>
+							<p></p>
+						<!--------------------------- PATCH 6 -------------------------->
+						<li>
+							<h3>Features added and bugs/fixes in TAO 1.3a_p6</h3>
+							<p></p>
+							<ul>
+								<li>
+								Changes were made to the IDL compiler to correct a problem where include paths
+								added with the -I option were not being properly handled. This work was adapted
+								from the DOC group's current IDL compiler which does not exhibit this problem.
+								<li>
+								Updated the config files for vc6 and vc7 to reflect the actual state of the
+								compiler features used in ACE and TAO.
+								<li>
+								An MPC bug was fixed where relative directory replacement wouldn't take place
+								when the replacement variable contained subdirectories underneath the current
+								working directory.
+								<li>
+								Added support for Portable Interceptors to work with collocated invocations as
+								well as remote invocations.
+								<li>
+								Made changes to fix crashing with the IDL compiler after adding support for
+								correct include paths.
+								<li>
+								Refactored the ImR to move most functionality from the activator into the
+								locator.
+								<li>
+									Fixed a bug in the ORB where activating objects on multiple RT ORB's would
+									cause a segmentation fault.</li>
+							</ul>
+							<p></p>
+							<p></p>
+						<!--------------------------- PATCH 5 -------------------------->
+						<li>
+							<h3>Features added and bugs/fixes in TAO 1.3a_p5</h3>
+							<p></p>
+							<ul>
+								<li>
+								Assignments within 'specific' sections of mpc files are now handled correctly.
+								Previously they were always handled as string additions.
+								<li>
+								Limited Support of GCC 3.3 on AIX has been added. Support for automatic
+								template instantiation (except for the ACE_Singleton and TAO_Singleton) has
+								been added. Singleton templates require explicit instantiation. The singleton
+								templates can have problems (Segmentation Violations) when compiled with the
+								optimize flag (-O)
+								<li>
+								Corrected code in the Implementation Repository's Activator (ImR_Activator)
+								that made incorrect assumptions about which conditions could cause a TRANSIENT
+								to be raised. This resulted in an inability of the activator to detect death of
+								a server, and restart it.
+								<li>
+								Refactored GNU Makefile templates to support library versioning via MPC. The
+								ACE and TAO version numbers are now supplied through the
+								MakeProjectCreator/config/aceversion.mpb and taoversion.mpb files. These
+								version numbers may be overridden by supplying a new value for 'version' in
+								your project. If your project depends on ace or tao, and you wish to have no
+								version applied, use 'version=' with no value to override.
+								<li>
+									Improved thread safety in the parsing of corbaloc endpoints.
+								</li>
+							</ul>
+							<p></p>
+							<p></p>
+						<!--------------------------- PATCH 4 -------------------------->
+						<li>
+							<h3>Features added and bugs/fixes in TAO 1.3a_p4</h3>
+							<p></p>
+							<ul>
+								<li>
+								Wide character support and interoperability has been improved. The UTF16
+								handling code has been fixed to handle the byte order marker.
+								<li>
+								A fix for two threads allowed to handle_input for same handle at the same time
+								has been added.
+								<li>
+								Fixed bug in Notification Service's EventChannelFactory::get_all_channels()
+								that always returned an empty sequence.
+								<li>
+									Updates have been added to wxNamingViewer.
+								</li>
+							</ul>
+							<p></p>
+							<p></p>
+						<!--------------------------- PATCH 3 -------------------------->
+						<li>
+							<h3>Features added and bugs/fixes in TAO 1.3a_p3</h3>
+							<p></p>
+							<ul>
+								<li>
+								Tutorials: TAO/docs/tutorials has been updated and builds on multiple
+								platforms. These tutorials may not execute on all systems and may have trouble
+								building on static and exceptions=0 builds.
+								<li>
+								fixed bug 1614 - Possible crashes due to bad code in
+								send_connection_closed_notifications_i().
+								<li>
+									corbaloc parser changes: The code responsible for parsing corbaloc style object
+									references is refactored to enable the use of novel protocols in the address
+									definition. This new feature enables protocols not shipped as part of TAO to be
+									used with corbaloc or corbaname strings for resolving remote addresses.<br>
+									To support this feature, a new virtual method is added to the base class
+									TAO_Connector, corbaloc_scan(). The signature of the method may be found in
+									$TAO_ROOT/tao/Transport_Connector.h:<br>
+									<pre>  virtual TAO_Profile * corbaloc_scan (const char *ior,
+                                       size_t &amp;len
+                                       ACE_ENV_ARG_DECL);
+</pre>
+									This method is responsible for locating the end of the protocol specific
+									address, returning a partially completed profile (the object key will be filled
+									in later) and returning the length of the scanned address as the out parameter
+									"len." The default implementation assumes that comma (',') and slash ('/') will
+									not appear in the address, and will use the contents of the ior string upto the
+									next comma or slash to populate the profile. If commas or slashes are valid
+									parts of your protocol's address, as they are with Unix domain sockets (see
+									UIOP), then you must supply your own implementation of corbaloc_scan to find a
+									protocol specific address terminator. In such a case, the protocol specific
+									address terminator will still be followed by a comma or slash, as required by
+									the CORBA spec.<br>
+									To maintain backwards compatibility with earlier TAO implementations, the UIOP
+									implementation of corbaloc_scan will accept strings that end with a pipe ('|')
+									that is not followed by a comma or slash. In this case, the remainder of the
+									string is treated as the object key and a warning is generated.
+									<br>
+								<li>
+									A new header file $ACE_ROOT/ace/Codeset_Symbols.h defines symbolic names for
+									all of the code sets defined in OpenGroup's code set registry database version
+									1.2g ( ftp://ftp.opengroup.org/pub/code_set_registry/ )<br>
+									Three new symbols are defined to allow compile-time configuration of native
+									code sets.<br>
+									ACE_NATIVE_CHAR_CODESET_ID defines the native codeset used for 8 bit
+									characters.<br>
+									ACE_NATIVE_WCHAR_CODESET_ID defines the native codeset used for wide
+									characters.<br>
+									ACE_NATIVE_WCHAR_SIZE defines the width of a typical (not escaped or surrogated
+									) code point in the native wide character code set.<br>
+									The symbols can be defined in $ACE_ROOT/ace/config.h. If they are not defined
+									there, the following default values are used:<br>
+									<pre>
+    # define ACE_NATIVE_CHAR_CODESET_ID ACE_CODESET_ID_ISO_8859_1
+    # define ACE_NATIVE_WCHAR_CODESET_ID ACE_CODESET_ID_ISO_UTF_16
+    # define ACE_NATIVE_WCHAR_SIZE 2
+</pre>
+									These default values are the ones that were previously hard coded into TAO.<br>
+									Note: ISO 8859_1 is also known as Latin-1 and ISO_UTF_16 is a version of
+									Unicode.<br>
+									The UCS4 to UTF16 character translator in
+									$TAO_ROOT/tests/CodeSets/libs/UCS4_UTF16 has been extended to honor the Byte
+									Order Marks (BOM) allowed (but not required) in GIOP 1.2 and to use and honor
+									UTF-16 surrogate characters. Note that UTF-16 surrogate characters are an escape
+									mechanism that allow characters wider than 16 bits to be represented in UTF-16.
+								</li>
+							</ul>
+							<p></p>
+							<p></p>
+						<!--------------------------- PATCH 2 -------------------------->
+						<li>
+							<h3>Features added and bugs/fixes in TAO 1.3a_p2</h3>
+							<p></p>
+							<ul>
+								<li>
+								Thread Specific Storage has been fixed for VxWorks 5.5 The VxWorks 5.5 loader
+								has a strange quirk where complex static objects could be constructed multiple
+								times during static construction and normal thread execution.
+								<li>
+								The ACE_Log_Msg has been fixed for using SYSLOG.
+								<li>
+								The ACE reactors have been changed to reference count the Event Handlers. This
+								mechanism is particularly needed for multi-threaded applications that can have
+								multiple threads executing upcalls on a handler that needs to be shutdown in a
+								safe manner.
+								<li>
+								fixed bug 1237 - Race condition while handling location forwards
+								<li>
+								fixed bug 1572 - Deadlock in AMH calls if no response is sent
+								<li>
+								The IFR_Service's multicast discovery has been changed to default to off. The
+								option -m enables multicast and -l (lowercase L) enables locking.
+								<li>
+								The Portable Interceptors have been changed to not try to marshal parameters
+								during location forwards.
+								<li>
+								The transport has been changed to close a connection when it receives a partial
+								GIOP header.
+								<li>
+									The file <code>TAO/orbsvcs/orbsvcs/AV/md5c.c</code> has been renamed to <code>TAO/orbsvcs/orbsvcs/AV/md5c.cpp</code>
+								This was done because 64-bit compilers have trouble with the syntax as plain C.
+								<li>
+									<b>NOTE</b>: To build the <b>TAO_AV</b> library, <b>DELETE</b> the <code>$TAO_ROOT/orbsvcs/orbsvcs/AV/md5c.c</code>
+								file.
+								<li>
+								There are warnings when building some of the ORB services on Macintosh and
+								VxWorks operating systems. These are a result of unusual linking methods of
+								templates on these systems.
+								<li>
+									Added new option, <code>-ORBVerboseLogging</code>, to turn on the <code>VERBOSE</code>
+									or <code>VERBOSE_LITE</code> flag in <code>ACE_Log_Msg</code>. Range of values
+									are <b>0</b>, <b>1</b>, or <b>2</b> for <em>no verbose</em> (the default), <code>VERBOSE_LITE</code>,
+									and <code>VERBOSE</code>, respectively. The <code>VERBOSE</code> option
+									prefixes all ORB debug messages with a time/date stamp, while <code>VERBOSE_LITE</code>
+									adds even more information, e.g., the host on which the message originated.
+								</li>
+							</ul>
+							<p></p>
+							<p></p>
+						<!--------------------------- PATCH 1 -------------------------->
+						<li>
+							<h3>Features added and bugs/fixes in TAO 1.3a_p1</h3>
+							<p></p>
+							<ul>
+								<li>
+								The examples from the TAO Developer's Guide have been added to the distribution
+								and are built and run on the supported platforms.
+								<li>
+								There have been extensive improvements made to the Make Project Creator and its
+								use in ACE/TAO. It is now the default build mechanism. All parts of ACE/TAO
+								have been converted to use MPC.
+								<li>
+								The support for wide character sets has been enhanced.
+								<li>
+									The multithreaded part of the Naming Service Test
+									($TAO_ROOT/orbsvcs/tests/Simple_Naming/) fails intermittently on several
+									platforms. This failure is in the test client and does not appear to be a
+									problem with the Naming Service itself. The problem appears to be with the
+									default transport multiplexing strategy used by the ORB. The default strategy
+									is to multiplex the use of the connection (<code>-ORBTransportMuxStrategy muxed</code>)
+									and the problem only occurs when the connections are very heavily used. The
+									problem does not occur if an exclusive strategy (<code>-ORBTransportMuxStrategy
+										exclusive</code>) is used. It is unknown, but suspected that this problem
+								may be related to Bug 1020 mentioned above.
+								<li>
+									The ImR is at least partially functional in 1.3a. Some known problems are:
+									<ul>
+										<li>
+										Activator has no way to shutdown cleanly, and hence doesn't unregister from the
+										locator.
+										<li>
+										Locator also has no way to shutdown cleanly.
+										<li>
+										Persistence does not appear to work, but that could just be a problem with the
+										test.
+										<li>
+										Performance is poor.
+										<li>
+										The activator needs to notice when a server is down, and automatically remove
+										it from the locator.
+										<li>
+										Servers should self-register without requiring "tao_imr add".
+										<li>
+											Activator does not shutdown its servers when closing.
+										</li>
+									</ul>
+									<p></p>
+								<li>
+									Support for the Green Hills Integrity OS (ACE/TAO) and the Green Hills tool kit
+									(ACE only) has been added.
+								</li>
+							</ul>
+							<p></p>
+							<p></p>
+						<li>
+							<h3>Pending bugs/fixes in TAO 1.3a</h3>
+							<p></p>
+							<ul>
+								<li>
+								There is a bug in CDR operator generation for octet sequences. While this bug
+								does not cause incorrect behavior it greatly affects the performance of octet
+								sequences.
+								<li>
+								There is a pending change to the IDL compiler to fix a problem where the
+								compiler gets confused due to multiple slashes in paths.
+								<li>
+									The various tutorials in the <code>ACE_wrappers/TAO/docs/tutorials/</code> directory
+									have not been tested and may not run correctly out-of-the-box.
+								</li>
+							</ul>
+							<p></p>
+						<li>
+							<h3>Features added to TAO 1.3a since TAO 1.3.1</h3>
+							<p></p>
+							<ul>
+								<li>
+								MakeProjectCreator (MPC) -- MPC can be used to generate build tool specific
+								project files (which is just a collection of source files that make up a single
+								build target) from a generic mpc file. MPC takes platform specific input along
+								with the build tool generic files and generates build tool specific files.
+								Currently supported tools include GNU Make, NMake, Visual C++ 6, Visual C++ 7.0
+								and others.
+								<li>
+								Redundant Naming Service -- A new option for the Naming Service has been added
+								to allow the Naming Service to use a shared flat file on two or more separate
+								computers. Full capabilities are available only on Tru64 clusters, but limited
+								capabilities are available on any platform that the flat-file persistent Naming
+								Service will run.
+								<li>
+								Shared source on Windows -- It has been possible for users on UNIX and
+								UNIX-like platforms to use create_ace_build to build on multiple platforms from
+								the same source. The capability has been added to do this on the Windows
+								platforms also.
+								<li>
+								Input stream processing -- Input stream processing has been overhauled to
+								eliminate the so-called "parse_magic_bytes" bug. The particular problem was
+								very difficult to cause, and symptoms could vary from occasional unexpected
+								connection closure to full core dump. This change had negligible impact on
+								performance.
+								<li>
+									MAC OS X -- TAO support for the Macintosh OS X operating system has been added
+									to the existing ACE support in TAO 1.3.1.
+								</li>
+							</ul>
+							<p></p>
+						<li>
+							<h3>Features added since TAO 1.2a as part of TAO 1.3.1</h3>
+							<p></p>
+							<ul>
+								<li>
+								Persistent State Service (PSS) describes a way of making a service persistent.
+								The fact that PSS is being used by a service is known only to the service
+								(server) and not to the client which makes use of the service. PSS presents
+								persistent information as storage objects stored in storage homes, to quote the
+								specification. The storage homes are the datastores where the persistent data
+								is saved.
+								<li>
+								SSLIOP pluggable protocol ships with 1.3a. This allow users to use an SSL
+								implementation (not shipped with ACE/TAO) as a communication conduit.
+								<li>
+								There is a new Load Balancing Service that implements the current joint load
+								balancing submission revision of the OMG.
+								<li>
+								There is a new Logging Service, aka Telecom Log Service. It is a composite of
+								four separate services, Basic_Logging Service (similar to the previous logging
+								service), Event_Logging Service, Notify_Logging Service, and RTEvent_Logging
+								Service.
+								<li>
+								The final MIOP specification has recently been adopted by the OMG. TAO's MIOP
+								support (located in $TAO_ROOT/orbsvcs/orbsvcs/PortableGroup) enables servants
+								to receive requests sent to multicast addresses. This is performed by creating
+								a GroupId that identifies the multicast group and associating it with one or
+								more servants. Additionally, the Unreliable IP Multicast (UIPMC) pluggable
+								protocol is used to send and receive multicast requests. Multicast endpoints
+								can be created dynamically at runtime.
+								<li>
+								There is a new XML Parser for the Service Configurator. The current syntax is
+								still the default in version 1.3a with the new syntax available as an option.
+								The next version will change the default, but still keep the old syntax
+								available.
+								<li>
+								Many additional regression tests have been added.
+								<li>
+								ACE ported to Windows CE 3 with Pocket PC 2002 SDK, and Windows CE .NET with
+								Standard SDK complete.
+								<li>
+								AIX and HP-UX can now use g++ 3.2 (previous versions of g++ were not reliable
+								on these platforms).
+								<li>
+								The conversion of ACE/TAO documentation to Doxygen has been completed.
+								<li>
+									Support for the Itanium platform with Windows XP, HP-UX, and RedHat 2.1as has
+									been added.
+								</li>
+							</ul>
+							<p></p>
+						<li>
+							<h3>Important bug fixes since TAO 1.2a</h3>
+							<ul>
+								<p>
+									Many bugs have been fixed or work-arounds provided since TAO 1.2a. Here we
+									highlight a few of the more important bug fixes since TAO 1.2a, focusing
+									especially on fixes for bugs that could cause crashes, deadlocks, resource
+									leakage, or race conditions. Each bug is referenced by a number as assigned by
+									the DOC group Bugzilla bug database found at <a href="http://deuce.doc.wustl.edu/bugzilla/index.cgi">
+										http://deuce.doc.wustl.edu/bugzilla/index.cgi</a>.
+								</p>
+								<li>
+								1003: Start up hang with new fixes to ACE_TP_Reactor
+								<li>
+								1020*: (partial-solution) Client crash when TAO_Transport closes a connection,
+								race condition
+								<li>
+								1025: ORB loses memory
+								<li>
+								1061: Server blocks indefinitely on shutdown when using shmiop
+								<li>
+								1125: Stack grows out of bounds when large data is being flushed (also fixed in
+								TAO 1.2a_p5)
+								<li>
+								1129: Problem because of improper closure of connections
+								<li>
+								1131: Add support for connection timeouts
+								<li>
+								1175: Select_Reactor_Notify deadlocks when the notify queue is enabled (also
+								fixed in TAO 1.2a_p2)
+								<li>
+								1185: ORB blocks during connect() calls
+								<li>
+								1202: ORB crashes if peer exits or dies while running nested event loops
+								<li>
+								1222: ORB stack overflows with crashes during write()
+								<li>
+								1230: Problems with usage of reactor-&gt;notify () calls within the ORB
+								<li>
+								1235: SEGV in CORBA::ORB_init if non-existent file is specified with
+								-ORBSvcConf option
+								<li>
+								1247: TAO_Cache_Manager never purges cache entries for server-side connections
+								<li>
+								1265: Potential ORB deadlocks during shutdown
+								<li>
+								1269: ORB crashes if peer dies while ORB is blocked trying to send
+								<li>
+								1270: ORB/Reactor segfaults if peer dies while trying to write
+								<li>
+								1274: Crash-producing race conditions in Transport Cache management
+								<li>
+								1305: TP_Reactor can reach inconsistent state and get into tight spin loop
+								(also fixed in TAO 1.2a_p6)
+								<li>
+								1344: Deadlock if POACurrent is resolved before RootPOA
+								<li>
+								1361: TP_Reactor -- Closed handle resumed leading to crashes
+								<li>
+								1382: Another race condition in TAO_Transport class
+								<li>
+									1487: Exceptions returned from AMI invocations get leaked</li>
+							</ul>
+							<p>
+								* Bug 1020 (<a href="http://deuce.doc.wustl.edu/bugzilla/show_bug.cgi?id=1020"> http://deuce.doc.wustl.edu/bugzilla/show_bug.cgi?id=1020</a>)
+								deserves special explanation. The problem, as described in the bug report,
+								could cause a multithreaded client with a connection to a server to crash if
+								the server died. A client thread, trying to send a request to the server, may
+								attempt to close the connection. Meanwhile, another thread might awaken in the
+								reactor and also attempt to close the connection, resulting in a segmentation
+								violation and crash. The partial solution, designed and implemented by <a href="mailto:bala@isis-server.isis.vanderbilt.edu">
+									Balachandran Natarajan</a>, is similar in spirit to how the TCP state machine
+								models connection teardown. Connection closure in the ORB is now modeled as an
+								event that is handled through the ORB's leader-followers mechanism. In
+								addition, event handling along the invocation path and along the connection
+								handling path were separated for better separation of concerns. A regression
+								test, <code>$TAO_ROOT/tests/Bug_1020_Regression</code>, was also added.
+							</p>
+							<p></p>
+						</li>
+						</ol>
+					</td>
+				</tr>
+			</table>
+			<a href="#top">[Top]</a>
+			<!------------------------------ Solaris --------------------------------->
+			<a name="Solaris"></a>
+			<table border="0" cellpadding="0" cellspacing="0" width="100%">
+				<tr>
+					<td colspan="2" bgcolor="#00cccc">
+						<h2 align="center">Solaris</h2>
+					</td>
+				</tr>
+				<tr>
+					<td valign="top">
+						<p>
+							All of the Solaris builds used the recommended <a href="#buildflags">OCI build
+								flags</a>
+						in addition to the platform_macros.GNU and config.h files already set up for
+						the SunOS platform and compiler.
+						<p>
+							<strong>Files Used for SunOS Builds</strong>
+							<table border="1" width="70%">
+								<tr>
+									<th>
+										Build</th><th>platform_macros.GNU</th><th>config.h</th>
+								</tr>
+								<tr>
+									<td>SunOS 5.7 with g++ 2.95.3</td>
+									<td>platform_sunos5_g++.GNU</td>
+									<td>config-sunos5.7.h</td>
+								</tr>
+								<tr>
+									<td>SunOS 5.8 with g++ 3.2.1</td>
+									<td>platform_sunos5_g++.GNU</td>
+									<td>config-sunos5.8.h</td>
+								</tr>
+								<tr>
+									<td>SunOS 5.7 with Sun C++ 5.3</td>
+									<td>platform_sunos5_sunc++.GNU</td>
+									<td>config-sunos5.7.h</td>
+								</tr>
+								<tr>
+									<td>SunOS 5.8 with Sun C++ 5.3</td>
+									<td>platform_sunos5_sunc++.GNU</td>
+									<td>config-sunos5.8.h</td>
+								</tr>
+								<tr>
+									<td>SunOS 5.9 with Sun C++ 5.4</td>
+									<td>platform_sunos5_sunc++.GNU</td>
+									<td>config-sunos5.9.h</td>
+								</tr>
+							</table>
+							<hr>
+							<strong>Sun C++ Notes</strong>
+						<p>
+						Use the fast=1 instead of optimize=1 for optimizing with Sun compilers because
+						it selects a combination of compilation options for optimum execution speed.
+						Other optimization levels may reduce the footprint, but do not have a
+						corresponding flag in ACE/TAO.
+						<p>
+						<p>
+							</hr>
+							<hr>
+							<strong>Tests</strong>
+						<p>
+						No ACE tests fail on any platform. A scattering of TAO tests fail, but no
+						test/feature fails across platforms. </hr>
+						<p></p>
+					</td>
+				</tr>
+			</table>
+			<a href="#top">[Top]</a>
+			<!------------------------------ Linux --------------------------------->
+			<a name="Linux"></a>
+			<table border="0" cellpadding="0" cellspacing="0" width="100%">
+				<tr>
+					<td colspan="2" bgcolor="#00cccc">
+						<h2 align="center">Linux</h2>
+					</td>
+				</tr>
+				<tr>
+					<td valign="top">
+						<p>
+							All of the Red Hat builds used the recommended <a href="#buildflags">OCI build
+								flags</a>
+						in addition to the platform_macros.GNU and config.h files already set up for
+						the Linux platform and compiler.
+						<p>
+							<strong>Files Used for Red Hat Builds</strong>
+							<table border="1" width="70%">
+								<tr>
+									<th>
+										Build</th><th>platform_macros.GNU</th><th>config.h</th>
+								</tr>
+								<tr>
+									<td>RedHat 7.2 with g++ 2.95.3</td>
+									<td>platform_linux.GNU</td>
+									<td>config-linux.h</td>
+								</tr>
+								<tr>
+									<td>RedHat 7.3 with g++ 2.96</td>
+									<td>platform_linux.GNU</td>
+									<td>config-linux.h</td>
+								</tr>
+								<tr>
+									<td>RedHat 8.0 with g++ 3.2</td>
+									<td>platform_linux.GNU</td>
+									<td>config-linux.h</td>
+								</tr>
+								<tr>
+									<td>RedHat 2.1AW on Itanium with g++ 2.96</td>
+									<td>platform_linux.GNU</td>
+									<td>config-linux.h</td>
+								</tr>
+							</table>
+							<hr>
+								<b>Red Hat 7.x gcc 2.96 Notes</b>
+								<ul>
+									<li>
+										Red Hat 7.x with gcc 2.96.x may requires a compiler upgrade to 2.96.85. See <a href="http://groups.yahoo.com/group/tao-users/message/8254">
+											http://groups.yahoo.com/group/tao-users/message/8254</a> for details. Thanks
+										to Craig Rodrigues <a href="mailto:crodrigu@bbn.com.">crodrigu@bbn.com.</a>
+									</li>
+								</ul>
+							</hr>
+						<p></p>
+					</td>
+				</tr>
+			</table>
+			<a href="#top">[Top]</a>
+			<!------------------------------ Windows --------------------------------->
+			<a name="Windows"></a>
+			<table border="0" cellpadding="0" cellspacing="0" width="100%">
+				<tr>
+					<td colspan="2" bgcolor="#00cccc">
+						<h2 align="center">Windows</h2>
+					</td>
+				</tr>
+				<tr>
+					<td valign="top">
+						<p>
+							All of the Windows builds used the recommended <a href="#buildflags">OCI build
+								flags</a>
+						in a config.h file as shown below.
+						<p>
+							<strong>Files Used for Windows Builds</strong>
+							<table border="1" width="70%">
+								<tr>
+									<th>
+										Build</th><th>config.h</th>
+								</tr>
+								<tr>
+									<td>Windows XP sp1 with Visual C++ 6 sp5</td>
+									<td>config-win32.h</td>
+								</tr>
+								<tr>
+									<td>Windows 2000 sp3 with Visual C++ 6 sp5</td>
+									<td>config-win32.h</td>
+								</tr>
+								<tr>
+									<td>Windows 2003 Enterprise VC++ 7.1</td>
+									<td>config-win32.h</td>
+								</tr>
+								<tr>
+									<td>Windows 2000 sp3 with Borland C++ 5.5</td>
+									<td>config-win32.h</td>
+								</tr>
+								<tr>
+									<td>Windows XP sp1 with Borland C++ 5.5</td>
+									<td>config-win32.h</td>
+								</tr>
+								<tr>
+									<td>Windows XP Itanium with Microsoft C++ cross-compiler for Itanium</td>
+									<td>config-win32.h</td>
+								</tr>
+							</table>
+						<p>
+							We also test infrequently using a wider variety compilers. Various combinations
+							of the following. We're reasonably sure that most sensible versions of the
+							following will work correctly, but we can't guarantee a configuration unless we
+							test it regularly.
+						</p>
+						<p>
+							Operating Systems
+							<ul>
+								<li>
+								Windows XP sp1
+								<li>
+								Windows 2000 sp3
+								<li>
+								Windows 2003 Enterprise
+								<li>
+									Windows XP Itanium
+								</li>
+							</ul>
+						<p>
+							Compilers
+							<ul>
+								<li>
+								Visual C++ 6 sp5
+								<li>
+								Visual C++ 7.1
+								<li>
+								Borland C++ 5.5 using make
+								<li>
+									Microsoft C++ using nmake
+								</li>
+							</ul>
+						<p>
+							Libraries
+							<ul>
+								<li>
+								Original SDK
+								<li>
+								February 2003 Platform SDK
+								<li>
+									STLport 4.5.3
+								</li>
+							</ul>
+						<p>
+						The following config.h file is used for all Windows nightly builds.
+						<p>
+							<pre>
+// contents of config.h
+#define ACE_DISABLE_WIN32_ERROR_WINDOWS
+#define ACE_HAS_STANDARD_CPP_LIBRARY 1
+#include "config-win32.h"
+</pre>
+						<p>
+						The first line disables the popup of error windows when running the automated
+						tests. It is not normally needed for ordinary user programs. It would only be
+						used if an automated build was being done.
+						<p>
+						The platform_macros.GNU file is not used for Windows platforms.
+						<p>
+							<hr>
+							<strong>Compile Notes</strong>
+							<ul>
+								<li>
+								There are some warnings when compiling using Visual C++ 7.1
+								<li>
+									If using MPC to generate build files, then by default qos and ssl, and any
+									projects that depend on these libraries will not be generated. To enable these
+									features, simply create a text file called <tt>ACE_wrappers\bin\MakeProjectCreator\config\default.features</tt>
+									with the following contents.
+									<pre>
+ssl = 1
+qos = 1
+</pre>
+								<li>
+								When building static libraries you may have to build twice. The first time will
+								generate the IDL, and compile everything that didn't rely on idl-generated
+								files that don't exist. The second time will finish building files now that the
+								idl-generated files exist.
+								<li>
+									To use Visual C++ 7.1, you must use MakeProjectCreator (MPC) to generate the
+									project files. Assuming <tt>ACE_wrappers\bin</tt> is in your path, you can
+									simply run the following command from the <tt>ACE_wrappers</tt> directory.
+									<pre>
+mwc.pl -type vc71 -recurse
+</pre>
+									This will generate all Solutions and Project files. (Some tests and examples
+									are not finished yet, but will likely be included in a subsequent patch
+									release.) You can generate project files for Visual C++ 6 and other platforms
+									in exactly the same way except with a different -type.
+								</li>
+							</ul>
+						<p>
+							<hr>
+							<strong>Execution Notes</strong>
+							<ul>
+								<li>
+									The Itanium release build may not run on some older platforms. The build was
+									done with the Feburary 2003 SDK and it appears to be incompatible with our
+									earlier versions of the DLLs delivered with Itanium Windows 2002. The Itanium
+									debug build runs on the same platform.
+								</li>
+							</ul>
+						<p>
+							</hr>
+							<hr>
+							<strong>create_ace_build.pl</strong>
+						<p>
+							You can now use this perl script to set up a build for ACE/TAO, so that
+							multiple builds can share a single code base (this is a new feature with 1.3a).
+							You must run this command from within the <tt>ACE_wrappers</tt> directory, and <tt>
+								ACE_wrappers\bin</tt> should be in your path. Example:
+							<pre>
+create_ace_build.pl vc71
+</pre>
+							Running this command will create a directory called <tt>ACE_wrappers\builds\vc71</tt>.
+							Most of the directory structure under ACE_wrappers will be duplicated under
+							this directory, and hard links will be created back to the files under
+							ACE_wrappers. For example, if you modify <tt>ACE_wrappers\ace\OS.h</tt>, then <tt>
+								ACE_wrappers\builds\vc71\ace\OS.h</tt> will automatically be modified.
+							Windows does not support symbolic links, so that if you delete a file, it will
+							not automatically be deleted. If you then add a new file with the same name as
+							the old one, it will <em>not</em> be linked. To refresh your links in this
+							case, you can run <tt>create_ace_build.pl</tt>
+						without any options, and it will update all links for every build. You can set
+						up as many builds as you want by simply running the script again with a
+						different argument.
+						<p>
+						By default, it's assumed that you will use MPC to generate any project files
+						for the new build, so no project files or Makefiles are linked from
+						ACE_wrappers.
+						<p>
+							</hr>
+							<hr>
+							<strong>Tests</strong>
+						<p>
+						A scattering of ACE and TAO tests fail, but no test/feature fails across
+						platforms. In addition, the notify service will not load when building release
+						mode Borland 5.5. (This will likely be fixed in a subsequent patch release.)
+						<p>
+						<p>
+							</hr></p>
+					</td>
+				</tr>
+			</table>
+			<a href="#top">[Top]</a>
+			<!------------------------------ Tru64 --------------------------------->
+			<a name="Tru64"></a>
+			<table border="0" cellpadding="0" cellspacing="0" width="100%">
+				<tr>
+					<td colspan="2" bgcolor="#00cccc">
+						<h2 align="center">Tru64</h2>
+					</td>
+				</tr>
+				<tr>
+					<td valign="top">
+						<p>
+							The Tru64 builds used the recommended <a href="#buildflags">OCI build flags</a>
+						in addition to the platform_macros.GNU and config.h files already set up for
+						the Tru64 platform and compiler.
+						<p>
+							<strong>Files Used for Tru64 Builds</strong>
+							<table border="1" width="70%">
+								<tr>
+									<th>
+										Build</th><th>platform_macros.GNU</th><th>config.h</th>
+								</tr>
+								<tr>
+									<td>Tru64 5.1a with cxx V6.5-021</td>
+									<td>platform_tru64_cxx.GNU</td>
+									<td>config-tru64.h</td>
+								</tr>
+							</table>
+						<p>
+							<b>In addition</b>
+						</p>
+						<p>
+							The default <strong>ulimits</strong> on these platform are not sufficient to
+							build TAO. The problem is the virtual memory limits, <strong>vmemory</strong> and
+							<strong>data</strong> must be increased to the maximum allowed. For us, this is <tt>
+								vmemory=4194304</tt> and <tt>data=1048576</tt>
+						.
+						<p>
+							In addition the operating system must be configured to have larger limits for
+							semaphore operations.
+							<pre>
+ipc:
+  sem_mni = 250
+  sem_msl = 125
+  sem_opm = 100
+  sem_ume = 100
+</pre>
+						<p>
+							<hr>
+							<strong>CXX Notes</strong>
+						<p>
+						There is a problem with the Naming Service when built with Compaq C++ compilers
+						and optimization. The source in question is Bindings_Iterator_T.cpp and the
+						modules that use this are Persistent_Naming_Context.o and
+						Transient_Naming_Context.o in library libTAO_CosNaming.so. The problem exists
+						on C++ V6.2 to V6.5 and on UNIX 5.1 and 4.0F. The problem occurs at all
+						optimization levels from O1 through O4. It is unknown when a fix will be
+						available
+						<p>
+							</hr>
+							<hr>
+							<strong>Tests</strong>
+						<p>
+							2 ACE tests fail
+							<ul>
+								<li>
+								FIFO appears to be a problem in Tru64 itself. The feature itself is not used in
+								TAO, so does not affect normal TAO operation.
+								<li>
+									On the surface, the Multicast_Test seems to indicate that Tru64 works
+									differently than other systems (at least what Multicast_Test expects).
+								</li>
+							</ul>
+						A scattering of TAO tests fail, but no test/feature fails across platforms.
+						<p>
+						<p>
+							</hr></p>
+					</td>
+				</tr>
+			</table>
+			<a href="#top">[Top]</a>
+			<!------------------------------ AIX --------------------------------->
+			<a name="AIX"></a>
+			<table border="0" cellpadding="0" cellspacing="0" width="100%">
+				<tr>
+					<td colspan="2" bgcolor="#00cccc">
+						<h2 align="center">AIX</h2>
+					</td>
+				</tr>
+				<tr>
+					<td valign="top">
+						<p>
+							All of the AIX builds used the recommended OCI build flags <a href="#buildflags">OCI
+								build flags</a>
+						in addition to the platform_macros.GNU and config.h files already set up for
+						the AIX platform and compiler.
+						<p>
+						<p>
+							When using GNU Make that is part of <a href="http://www-1.ibm.com/servers/aix/products/aixos/linux/download.html">
+								AIX toolbox for Linux applications</a>, it may be necessary to modify the
+							file access permissions of the make executable to ensure the LIBPATH
+							environment variable is propagated to make system properly. This can be done as
+							follows:
+						</p>
+						<pre>
+chmod 755 /opt/freeware/bin/make
+</pre>
+						<p>
+							See this <a href="http://mail.gnu.org/archive/html/bug-make/2001-10/msg00009.html">
+								message</a> for further information.
+						</p>
+						<strong>Files Used for AIX Builds</strong>
+						<table border="1" width="70%">
+							<tr>
+								<th>
+									Build</th><th>platform_macros.GNU</th><th>config.h</th>
+							</tr>
+							<tr>
+								<td>AIX 5.1 with VA C++ 5.0.2.6</td>
+								<td>platform_aix_ibm.GNU</td>
+								<td>config-aix5.1.h</td>
+							</tr>
+						</table>
+						<p>
+						NOTE: The preprocessor for VA C++ 5 does not function correctly when used by
+						tao_idl. Therefore, the GNU Preprocessor was used for tao_idl by setting
+						TAO_IDL_PREPROCESSOR=g++ in platform_macros.GNU.
+						<p>
+							<hr>
+							<strong>Tests</strong>
+						<p>
+						No ACE tests fail on this platform. The AVStreams tests are known not to work
+						on this platform.
+						<p>
+							</hr></p>
+					</td>
+				</tr>
+			</table>
+			<a href="#top">[Top]</a>
+			<!------------------------------ HP-UX --------------------------------->
+			<a name="HP-UX"></a>
+			<table border="0" cellpadding="0" cellspacing="0" width="100%">
+				<tr>
+					<td colspan="2" bgcolor="#00cccc">
+						<h2 align="center">HP-UX</h2>
+					</td>
+				</tr>
+				<tr>
+					<td valign="top">
+						<p>
+							All of the HPUX builds used the recommended OCI build flags <a href="#buildflags">
+								OCI build flags</a>
+						in addition to the platform_macros.GNU and config.h files already set up for
+						the HPUX platform and compiler.
+						<p>
+							<strong>Files Used for HPUX Builds</strong>
+							<table border="1" width="70%">
+								<tr>
+									<th>
+										Build</th><th>platform_macros.GNU</th><th>config.h</th>
+								</tr>
+								<tr>
+									<td>HPUX 11.00 on PA-RISC2 with HP ANSI C++ B3910B A.03.27</td>
+									<td>platform_hpux_aCC.GNU</td>
+									<td>config-hpux-11.00.h</td>
+								</tr>
+								<tr>
+									<td>HPUX 11.20 on Itanium with HP ANSI C++ B3910B A.05.32</td>
+									<td>platform_hpux_aCC.GNU</td>
+									<td>config-hpux-11.00.h</td>
+								</tr>
+							</table>
+						<p>
+							<strong>Tests</strong>
+						<p>
+						No ACE tests fail on HP-UX 11.00. The ACE Multicast_Test fails on HPUX 11.20
+						due to platform implementation differences. The TAO RTCORBA tests fail due to
+						lack of support for the HP-UX thread priorities.
+						<p></p>
+					</td>
+				</tr>
+			</table>
+			<a href="#top">[Top]</a>
+			<!------------------------------ Irix --------------------------------->
+			<a name="Irix"></a>
+			<table border="0" cellpadding="0" cellspacing="0" width="100%">
+				<tr>
+					<td colspan="2" bgcolor="#00cccc">
+						<h2 align="center">Irix</h2>
+					</td>
+				</tr>
+				<tr>
+					<td valign="top">
+						<p>
+							The SGI IRIX build used the recommended <a href="#buildflags">OCI build flags</a>
+						in addition to the platform_macros.GNU and config.h files already set up for
+						the IRIX platform and compiler.
+						<p>
+							<strong>Files Used for IRIX Builds</strong>
+							<table border="1" width="70%">
+								<tr>
+									<th>
+										Build</th><th>platform_macros.GNU</th><th>config.h</th>
+								</tr>
+								<tr>
+									<td>IRIX 6.5 with MIPSpro Compilers: Version 7.4</td>
+									<td>platform_irix6.x_sgic++.GNU</td>
+									<td>config-irix6.5.x-sgic++.h</td>
+								</tr>
+							</table>
+						<p>
+							<strong>Tests</strong>
+						<p>
+							The ACE Multicast test fails due to platform implementation differences. A few
+							TAO tests fail. In many cases this is due to a possible bug in the way the
+							compiler deals with exceptions. For one test, <code>TAO/tests/AMH_Exceptions/</code>,
+							the test server locks up and cannot be killed. This test will not be executed
+							if <code>ACE_wrappers/bin/auto_run_tests.pl</code>
+						is used the run the tests.
+						<p></p>
+					</td>
+				</tr>
+			</table>
+			<a href="#top">[Top]</a>
+			<!------------------------------ MACOSX --------------------------------->
+			<a name="MACOSX"></a>
+			<table border="0" cellpadding="0" cellspacing="0" width="100%">
+				<tr>
+					<td colspan="2" bgcolor="#00cccc">
+						<h2 align="center">Mac OS X</h2>
+					</td>
+				</tr>
+				<tr>
+					<td valign="top">
+						<p>
+							All of the Mac OS X builds used the recommended <a href="#buildflags">OCI build
+								flags</a>
+						in addition to revised platform_macros.GNU and config.h files developed for the
+						Mac OS X platform and compiler.
+						<p>
+							<strong>Files Used for Mac OS X Builds</strong>
+							<table border="1" width="70%">
+								<tr>
+									<th>
+										Build</th><th>platform_macros.GNU</th><th>config.h</th>
+								</tr>
+								<tr>
+									<td>Mac OS X 10.2.6 with g++ 3.1</td>
+									<td>platform_macosx.GNU</td>
+									<td>config-macosx.h</td>
+								</tr>
+							</table>
+						<p>
+							<b>In addition</b>
+						</p>
+						<p>
+							The Apple Developer Kit Dec 2002 is required and two additional packages will
+							have to be loaded from open source available on the net.
+							<ul>
+								<li>
+									<tt>dlcompat</tt> is required for implementing dynamic library loading. It can
+									be obtained directly from <a href="http://www.opendarwin.org/projects/dlcompat/">http://www.opendarwin.org/projects/dlcompat/</a>
+									and built. Or a pre-built version may be loaded with fink (<a href="http://fink.sourceforge.net/">http://fink.sourceforge.net/</a>).
+									If the fink version is used, you will need to add:
+									<pre>
+      #define ACE_NEEDS_DL_UNDERSCORE
+</pre>
+								to your config.h file.
+								<li>
+									Certain parts of the TAO will not build with the version of gmake in the
+									versions of Mac OS X 10.2 available as of this writing. You will need to
+									download <tt>gmake</tt> version 3.80 (or better) <a href="http://ftp.gnu.org/pub/gnu/make/">
+										http://ftp.gnu.org/pub/gnu/make/</a>.
+								</li>
+							</ul>
+							<hr>
+							<b>Notes</b>
+						<p>
+						The major problem with getting TAO to run on Mac OS X was lack of full
+						initialization of static objects. About half of the tests were failing. Apple
+						is aware of the problem, but a fix does not appear to be imminent. Seems to be
+						somewhat difficult problem with some legacy implications. Thus, for ACE/TAO the
+						Mac will not be supportable for any earlier versions than 1.3a of ACE/TAO and
+						10.2.x of Mac OS X.
+						<p>
+						There are three or four environment variables that are required to be defined
+						in the user's environment.
+						<p>
+							<ul>
+								<li>
+									<tt>DYLD_LIBRARY_PATH</tt> which operates as <tt>LD_LIBRARY_PATH</tt>
+								on most other UNIX like systems.
+								<li>
+									<tt>DYLD_BIND_AT_LAUNCH=1</tt>
+								is required to make the dlcompat package work. This package is used to
+								implement the dynamic loading used by the Service Configurator. When this is
+								set, the dynamic linker binds all undefined symbols the program needs at launch
+								time. This includes function symbols that can are normally lazily bound at the
+								time of their first call. When Apple gets around to providing this capability
+								natively, we may be able to eliminate this variable; that would be good since
+								it adversely affects performance.
+								<li>
+									<tt>MACOSX_DEPLOYMENT_TARGET="10.2"</tt> is requires to get rid of a lot of
+									annoying warning. It might also fix a couple of things that we have worked
+									around.
+									<p>
+									And, if you are building ACE/TAO and wish to run the tests,
+									<p></p>
+								<li>
+									<tt>ACE_RUNTEST_DELAY</tt> provides a multiplier to the times specified in a
+									test. <tt>ACE_RUNTEST_DELAY=2</tt> is needed to make more than 20 tests run in
+									that the <tt>DYLD_BIND_AT_LAUNCH=1</tt> slows process startup beyond the 5
+									seconds allowed for startup.</li>
+							</ul>
+						<p>
+							</hr>
+							<hr>
+							<strong>Tests</strong>
+						<p>
+							2 ACE tests fail
+							<ul>
+								<li>
+								The Process_Mutex is broken on Mac OS X and has been reported to Apple. It is
+								needed in TAO for AV and some other places. The implementation uses a POSIX
+								named semaphore, as the OS does not implement either system level mutex or SYSV
+								style semaphores that are used in other implementations. Apple is looking at
+								this problem.
+								<li>
+									The MEM_Stream_Test fails since it uses a Process_Mutex.
+								</li>
+							</ul>
+							Several TAO tests fail.
+							<ul>
+								<li>
+								The exception part of the two Param_Tests fails. The problem here is that the
+								compiler interprets the exception spec literally. The test tries to trick the
+								compiler into throwing an exception that is not defined. What happens is the
+								unexpected exception is actually caught and, since it is not handled, the
+								process aborts.
+								<li>
+								10 orbsvcs tests fail in debug build but not in optimize build. This is likely
+								a timing issue, but will need further work.
+								<li>
+								4 AV tests fail and the tests that use SHMIIOP, probably because they require a
+								Process_Mutex, which is known to be broken.
+								<li>
+									Several RTCORBA tests fail due to the lack of get_prio.
+								</li>
+							</ul>
+						Conclusion: ACE/TAO and Mac OS X both need a bit more work, but 1.3a should be
+						usable for most CORBA applications with the restrictions noted in the test
+						section above.
+						<p>
+						<p>
+							</hr></p>
+					</td>
+				</tr>
+			</table>
+			<a href="#top">[Top]</a>
+			<!------------------------------ VxWorks --------------------------------->
+			<a name="VxWorks"></a>
+			<table border="0" cellpadding="0" cellspacing="0" width="100%">
+				<tr>
+					<td colspan="2" bgcolor="#00cccc">
+						<h2 align="center">VxWorks</h2>
+					</td>
+				</tr>
+				<tr>
+					<td valign="top">
+						<p>
+							The VxWorks builds used the recommended <a href="#buildflags">OCI build flags</a>
+						with static libraries only and no exceptions in addition to the
+						platform_macros.GNU and config.h files already set up for the VxWorks platform
+						and compiler.
+						<p>
+							<strong>Files Used for VxWorks Builds</strong>
+							<table border="1" width="70%">
+								<tr>
+									<th>
+										Build</th><th>platform_macros.GNU</th><th>config.h</th>
+								</tr>
+								<tr>
+									<td>Tornado 2.2 with g++ 2.96</td>
+									<td>platform_vxworks5.x_g++.GNU</td>
+									<td>config-vxworks5.x.h</td>
+								</tr>
+							</table>
+						<p>
+							The build was cross-compiled on a Solaris platform for a PPC 604 target. A
+							cross-compile using Windows for a PPC 604 target has also been done.
+						</p>
+						<hr>
+							<strong>Build Notes</strong>
+							<p>
+							The VxWorks build was for static libraries only, since that is the most common
+							use on this platform. Also, the build was without native exceptions again,
+							since that is the most common.
+							<p>
+							This build also uses "#define ACE_HAS_EXPLICIT_TEMPLATE_INSTANTIATION" in its
+							config.h since it was found that implicit template instantiation does not work
+							in all cases.
+							<p>
+							Not all of the orbsvcs and orbsvcs tests will build on VxWorks.
+						</hr>
+						<hr>
+							<strong>Tests</strong>
+							<p>
+							Basic ACE and TAO tests work on VxWorks.
+							<p>
+							<p>
+						</hr>
+		</p>
+		</td> </tr> </table> <a href="#top">[Top]</a>
+		<!------------------------------ Others --------------------------------->
+		<a name="Others"></a>
+		<table border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tr>
+				<td colspan="2" bgcolor="#00cccc">
+					<h2 align="center">Others</h2>
+				</td>
+			</tr>
+			<tr>
+				<td valign="top">
+					<p>
+					These are platforms for which some amount of work has been done. This does not
+					mean that these platforms are fully supported, only that they may be usable in
+					circumstances similar to those in which they were tested.
+					<p>
+					The 5.3a version of ACE has been built and tested with the Green Hills tool
+					kits versions 3.5 and 4.0 on both Solaris for Solaris, Solaris for VxWorks, and
+					Linux for Linux.
+					<p>
+					The 1.3a version of ACE/TAO has been built with the Green Hills Integrity
+					toolkit 4.0 running on Windows for the Green Hills Integrity OS. Green Hills
+					Integrity is a fairly new Real-Time OS for embedded systems. As such, systems
+					on which it runs are generally limited in the resources which they can provide.
+					For example, the system on which we tested was very limited in memory, so very
+					little of the standard tests could be run.
+					<p></HR></p>
+				</td>
+			</tr>
+		</table>
+		<a href="#top">[Top]</a>
+		<!------------------------------ Build Flags --------------------------------->
+		<a name="buildflags"></a>
+		<p>
+			<table border="0" cellpadding="0" cellspacing="0" width="100%">
+				<tr>
+					<td colspan="2" bgcolor="#cccc00">
+						<h2 align="center">BuildFlags</h2>
+					</td>
+				</tr>
+				<tr>
+					<td valign="top">
+						<p>
+						If you're doing your own build, you can have the following flags set which OCI
+						uses in its own builds. For UNIX and UNIX-like platforms that use GNU Make, use
+						platform_macros.GNU. For Windows/Visual C++ builds, use config.h. If an option
+						is not listed below, let it default.
+						<p>
+							Turned on:
+							<table border="1" width="70%">
+								<tr>
+									<th>
+										platform_macros.GNU</th><th>config.h</th></tr>
+								<tr>
+									<td>exceptions=1</td>
+									<td>#define ACE_HAS_EXCEPTIONS</td>
+								</tr>
+								<tr>
+									<td>inline=1</td>
+									<td>#define __ACE_INLINE__ (unless not supported by the compiler)</td>
+								</tr>
+								<tr>
+									<td>ami=1</td>
+									<td>#define TAO_HAS_AMI 1</td>
+								</tr>
+								<tr>
+									<td>rt_corba=1</td>
+									<td>#define TAO_HAS_RT_CORBA 1</td>
+								</tr>
+								<tr>
+									<td>smart_proxies=1</td>
+									<td>#define TAO_HAS_SMART_PROXIES 1</td>
+								</tr>
+								<tr>
+									<td>interceptors=1</td>
+									<td>#define TAO_HAS_INTERCEPTORS 1</td>
+								</tr>
+								<tr>
+									<td>interface_repo=1</td>
+									<td>#define TAO_HAS_INTERFACE_REPOSITORY 1</td>
+								</tr>
+								<tr>
+									<td>corba_messaging=1</td>
+									<td>#define TAO_HAS_CORBA_MESSAGING 1</td>
+								</tr>
+								<tr>
+									<td>shared_libs_only=1</td>
+									<td>no equivalent (If you plan on using static libraries, use static_libs_only=1)</td>
+								</tr>
+							</table>
+						<p>
+							Turned off:
+							<table border="1" width="70%">
+								<tr>
+									<th>
+										platform_macros.GNU</th><th>config.h</th></tr>
+								<tr>
+									<td>probe=0</td>
+									<td>no equivalent</td>
+								</tr>
+								<tr>
+									<td>profile=0</td>
+									<td>no equivalent</td>
+								</tr>
+								<tr>
+									<td>fakesvcconf=0</td>
+									<td>#undef TAO_PLATFORM_SVC_CONF_FILE_NOTSUP</td>
+								</tr>
+							</table>
+						<p>
+							Variable--dependent on platform and other settings:
+							<table border="1" width="70%">
+								<tr>
+									<td>debug=[1|0]</td>
+								</tr>
+								<tr>
+									<td>optimize=[0|1] (= !debug)</td>
+								</tr>
+								<tr>
+									<td>fast=1 ONLY FOR SUNOS C++, non-DEBUG builds instead of optimize=1</td>
+								</tr>
+							</table>
+						<p>
+					</td>
+				</tr>
+			</table>
+			<a href="#top">[Top]</a></p>
+	</body>
+</html>

@@ -1,0 +1,14 @@
+Q: Why doesn't using the Naming Service with Multicast work?
+
+A: >
+ At least
+ on some versions of Windows, there's a bug in which the TTL (Time-to-Live) field in multicast
+ IP packets is set to zero.  Thus, nobody pays attention to those packets.
+  This particular problem bit OCI in their training lab environment, and for
+ this reason we now use the Naming Service without multicasting as documented
+ in the TAO Developer's Guide (see LINK:004:).
+ <p>
+ The problem is documented in <a href="http://support.microsoft.com/support/kb/articles/Q234/9/80.ASP">http://support.microsoft.com/support/kb/articles/Q234/9/80.ASP</a>.  Although the notes say to get the latest Service Pack, our experience shows that this doesn't help as of Service Pack 6.
+ <br>
+ 
+ 

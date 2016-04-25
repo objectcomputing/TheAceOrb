@@ -1,0 +1,7 @@
+Q: Is it built automatically or do I have to do something special?
+
+A: >
+ Security and SSLIOP are not built in a default configuration.  You must add stuff to your platform_macros.GNU (see LINK:106:) as well as install additional software (see LINK:104:).
+ <br>
+ 
+ 

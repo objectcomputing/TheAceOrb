@@ -1,0 +1,12 @@
+Q: What's the recommended configuration when using thread-per-connection?
+
+A: >
+ If you wish to use the thread-per-connection server-side concurrency model, a few other settings should also be present in your svc.conf file.  Below is an example of this  (each directive should appear on one line):<br/><pre>
+ static Server_Strategy_Factory "-ORBConcurrency thread-per-connection"
+ static Client_Strategy_Factory "-ORBWaitStrategy rw -ORBTransportMuxStrategy exclusive
+                                 -ORBConnectStrategy blocked -ORBConnectionHandlerCleanup 1"
+ static Resource_Factory "-ORBFlushingStrategy blocking"
+ </pre><br/>
+ Note that -ORBConnectionHandlerCleanup is not available in versions of TAO prior to 1.4a_p11.<br/>
+ The rationale behind these settings is as follows: in thread-per-connection a thread is dedicated to servicing requests that come in on a given connection.  In order to keep this thread dedicated to its connection, we need to prevent the thread from entering the reactor or the leader-follows pool even in the event that the thread attempts to make a request on a remote object (see the Client_Strategy_Factory settings) or cannot write a large reply back to the socket all at once (the -ORBFlushingStrategy setting).  This is closely related to the <a href="#prevent_via_rw">use of the RW wait strategy in order to prevent nested upcalls</a>.
+ 

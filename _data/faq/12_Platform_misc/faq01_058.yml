@@ -1,0 +1,42 @@
+Q: What's the minimum set of directories I need to build to be able to develop applications with ACE and TAO?
+
+A: >
+ One common
+ way to build ACE and TAO (once you have your configuration set up) is to
+ simply run "make" in the $ACE_ROOT directory, then run "make" again in the
+ $TAO_ROOT directory.  However, running "make" from $ACE_ROOT not only builds
+ the ACE library, it also builds all of the examples, tests, and other things
+ you may not need.  Likewise, running "make" from $TAO_ROOT builds not only
+ the TAO and orbsvcs libraries, it also builds all the TAO and orbsvcs tests
+ and examples. <p> To build only what you need to develop applications with ACE and TAO
+ (and to save LOTS of disk space while building) you can run make in only
+ the following directories:<br>
+ </p><pre>  $ACE_ROOT/ace
+   $ACE_ROOT/apps/gperf/src
+   $TAO_ROOT/TAO_IDL
+   $ACE_ROOT/ACEXML
+   $TAO_ROOT/tao
+   $ACE_ROOT/protocols
+   $TAO_ROOT/orbsvcs/orbsvcs</pre>
+ <p> This will build only the ACE library, gperf executable (needed by the
+ IDL compiler), tao_idl executable, ACEXML library, protocol libraries (extensions
+ of the ACE framework), TAO libraries, and orbsvcs libraries.
+ </p><p> If you want to also build any of the orbsvcs executables (e.g.,
+ $TAO_ROOT/orbsvcs/Naming_Service), add their directories to the set of directories that you build.
+  For example: </p><p>
+ </p><pre>
+   cd $TAO_ROOT/orbsvcs/Naming_Service
+   make
+ </pre>
+ <p> You may also find the "nslist" and "catior" utilities very useful, so
+ you probably should also add these directories to the list of directories
+ in which to build:<br>
+ </p>
+ <pre>
+   $TAO_ROOT/utils/nslist
+   $TAO_ROOT/utils/catior
+ </pre>
+ <p>
+ Of course, you can always go back and build individual tests and examples if you want to.
+ <br>
+ 

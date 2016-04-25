@@ -1,0 +1,13 @@
+Q: Why is my application leaking memory when I use local objects?
+
+A: >
+ It is likely that your objects are using reference counting to manage
+ their life cycle.  The CORBA::LocalObject class provides an empty
+ implementation of the _add_ref() and _remove_ref() methods.  However, the
+ TAO_Local_RefCounted_Object implements real reference counting through these
+ methods.
+ <p>
+ The solution to your memory leak may be as simple as inheriting from
+ TAO_Local_RefCounted_Object instead of CORBA::LocalObject.
+ </p>
+ 

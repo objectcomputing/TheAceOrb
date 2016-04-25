@@ -1,0 +1,23 @@
+Q: Why I am getting errors when I try to initialize the first ACE    object in an application?
+
+A: >
+ The short answer is that you probably need to call <code>ACE::init()</code>
+    before initializing or using any ACE/TAO objects.
+    You should also be sure to call
+    <code>ACE::fini()</code> at the end of your application's
+    use of ACE.
+ 
+ <p>
+   When you include ACE/TAO headers from the file containing
+   the <code>main()</code> function, the <code>ACE::init()</code>
+   function is called automatically for you at the start of
+   <code>main()</code>.  <code>ACE::init()</code> initializes
+   the ACE Object Manager, and must be called before
+   initializing or using any ACE/TAO objects.  When you only use ACE/TAO from
+   libraries that are dynamically linked, you may need to
+   explicitly call <code>ACE::init()</code> beforehand.  Also,
+   you will need to call <code>ACE::fini()</code> to close down
+   the ACE Object Manager at the end of your application's use
+   of ACE/TAO (e.g., at an exit point from the code in your library).
+ </p>
+ 

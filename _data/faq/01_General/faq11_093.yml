@@ -1,0 +1,11 @@
+Q: Can I use version X of TAO with version Y of ACE?
+
+A: >
+ Only if
+ X and Y were the versions of TAO and ACE that were released together.  For
+ example, ACE 5.1/TAO 1.1 or ACE 5.1.12/TAO 1.1.12.  There is no attempt to
+ make the interface between ACE and TAO backward (or forward) compatible.
+  That being said, you may be able to coerce mismatched versions to work together,
+ but it is not something you really want to do. <br>
+ 
+ 

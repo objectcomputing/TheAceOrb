@@ -1,0 +1,93 @@
+Q: How can I prevent nested upcalls in my application?
+
+A: >
+ As discussed in entry <a href=#152>Why is my &quot;client&quot; thread
+ dispatching requests?</a> there are situations when we may want to
+ disable nested upcalls in our application. There are several techniques available
+ to prevent nested upcalls. These are:
+ 
+ <ul>
+ <li> <a href=#prevent_via_rw>Use the <i>Receive-Wait</i>(RW) wait strategy.</a>
+ <li> <a href=#prevent_via_t_orb>Employ the <i>Two-ORB</i> solution.</a>
+ <!--
+ <li> Using Custom Servant Dispatching.
+ <li> Using Asynchronous Method Dispatching.
+ -->
+ </ul>
+ 
+ <p><li> <a name="prevent_via_rw"></a>The RW wait strategy is the most popular and probably the
+ easiest mechanism to prevent nested upcalls. You can modify the default client
+ wait strategy via the
+ <code>-ORBWaitStrategy</code> (formerly known as the
+ <code>-ORBClientConnectionHandler</code>)
+ service configurator option.Specifying an "rw" wait strategy causes threads waiting
+ for replies to not enter the normal event loop and instead block for their
+ pending reply.  This keeps the ORB from dispatching incoming requests on
+ your "client" threads.  One side effect of this option is that your client
+ is now more susceptible to deadlocks as discussed in <a href=#152>Why is
+ my &quot;client&quot; thread dispatching requests?</a>.  Here are the required
+ directives (each directive should appear on one line): </p>
+ 
+ <pre>
+ static Client_Strategy_Factory "-ORBWaitStrategy rw -ORBTransportMuxStrategy exclusive
+ 			        -ORBConnectStrategy blocked -ORBConnectionHandlerCleanup 1"
+ 
+ static Resource_Factory "-ORBFlushingStrategy blocking"
+ </pre>
+ 
+ <p>Note that you should always set the
+ <code>-ORBTransportMuxStrategy</code> to <code>exclusive</code>, the
+ <code>-ORBConnectStrategy</code> to <code>blocked</code>, the
+ <code>-ORBFlushingStrategy</code> to <code>blocking</code> and the
+ <code>-ORBConnectionHandlerCleanup</code> to <code>1</code> when using
+ the <code>rw</code> wait strategy.</p>
+ 
+ <p>Also note that -ORBConnectionHandlerCleanup is not available in versions of TAO prior to 1.4a_p11.</p>
+ 
+ The reason for using exclusive
+ transport multiplexing is that you must not allow another request to
+ be sent over a connection if that connection is already being used by
+ another thread that is waiting for a reply.  The blocking connect and
+ flushing strategies are required because the event handler for a
+ connection used to send a request is not registered with the ORB's
+ Reactor. The Connection Handler Cleanup strategy needs to be enabled to
+ properly cleanup server side connection closure.
+ 
+ <p>Finally, <strong>it is important</strong> when using -ORBConnectionHandlerCleanup that the ORB event loop be run, at least periodically. The connection handler cleanup option works by using some internal reactor-based messaging. If this option is used and the ORB's event loop is not run, the application will eventually deadlock.</p>
+ 
+ <p><li> The <a name="prevent_via_t_orb"></a>Two-ORB technique relies upon all outbound invocations being made from a
+ designated 'client ORB'. This will prevent the client threads from entering the
+ 'server ORB' thread-pool and hence don't get dispatched for nested upcalls.
+ To make sure invocations on object references always go through
+ the "client" ORB, just make sure those object references are
+ always demarshalled using the client ORB. This can get tricky.
+ For example, if you receive an IOR for a callback object as an
+ in parameter to an operation, it will have been demarshalled
+ through the "server" ORB (the one that received the request).
+ To force the IOR to be demarshalled via the "client" ORB, you
+ have to play some trick like this:<br>
+ 
+ <pre>
+ // Assume the callback's IOR is in a Callback_var called cb.
+ 
+ // First, "remarshal" the callback IOR using the "server" ORB.
+ CORBA::String_var cbstr =
+     server_orb->object_to_string(cb.in());
+ 
+ // Then, demarshal it using the "client" ORB.
+ CORBA::Object_var new_ior =
+     client_orb->string_to_object(cbstr.in());
+ 
+ // Finally, narrow it to the derived interface type
+ // (can reuse cb).
+ cb = Callback::_narrow(new_ior.in());
+ </pre>
+ 
+ <p>Now, when your application makes an invocation on the callback
+ IOR, it will be sent via the "client" ORB, where it cannot be dispatched
+ for nested upcalls.
+ 
+ <p><b>Note:</b> Both Two-ORB and RW wait strategy are incompatible with
+  BiDirectional GIOP.
+ <br>
+ 

@@ -1,0 +1,34 @@
+Q: How can I use TAO with Java's tnameserv?
+
+A: >
+ <strong>Using tnameserv as the naming service implementation.</strong>
+ <p>
+ [From material originally posted to tao-users by Carlos O'Ryan.]<br>
+  Suppose that you have a CORBA application written with TAO, and you want
+ to use the Java naming service implementation (<strong>tnameserv</strong>): </p><pre>
+   $ tnameserv -ORBInitialPort 1050 &;
+ </pre>
+ <p> In order for your CORBA application to use this naming service instance,
+ you need to somehow get the IOR for the instance (exercise left to the reader).
+  Once you get it, you can provide it to your TAO-based CORBA application
+ using the <strong>-ORBInitRef NameService=...</strong> command line option.  For example,
+ if you have the IOR as a string, you can use: </p>
+ <pre>
+   $ app -ORBInitRef NameService=IOR:....
+ </pre>
+ Similarly, if the IOR is in a text file, you can use:
+ <pre>
+   $ app -ORBInitRef NameService=file://path/to/file.txt
+ </pre>
+ <p> Finally, if you were so lucky for your version of <strong>tnameserv</strong> to implement
+ the Interoperable Naming Service specification (doubtful at the moment),
+ you could use: </p><pre>
+   $ app -ORBInitRef NameService=corbaloc:iiop:host:port/NameService
+ </pre>
+ In older versions of TAO (before 1.1.10) this option takes the following form:
+ <pre>
+   $ app -ORBInitRef NameService=iioploc://host:port/NameService
+ </pre>
+ <br>
+ 
+ 

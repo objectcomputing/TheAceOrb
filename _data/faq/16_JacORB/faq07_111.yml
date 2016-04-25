@@ -1,0 +1,15 @@
+Q: JacORB is using the wrong Ethernet adapter address.  What should I do?
+
+A: >
+ You can inform JacORB which Ethernet adapter to use by specifing it in the 
+ jacorb.properties file (it could also be passed in on the command line).  
+ Just set the OAIAddr property to the IP address that you want JacORB to use.  
+ For example, on my Windows98 machine which has a DSL modem, JacORB was using 
+ the adapter Ethernet address 5.0.0.4 instead of the true public IP address.  
+ I modified OAIAddr property and everything worked fine.  BTW you can see what 
+ address JacORB is attempting to connect to by setting jacorb.verbosity to 2.<br>
+ For example:
+ <pre>  java -Djacorb.verbosity=2 -DOAIAddr=12.345.67.89 Client<br></pre>
+ <br>
+ 
+ 

@@ -1,0 +1,40 @@
+Q: What's the advantage to buying OCI's Distribution of TAO?
+
+A: >
+ Depending
+ upon your circumstances, there may be several advantages to buying OCI's
+ Distribtution of TAO rather than closely tracking the beta source code kits: 
+ <p>
+ <ul>
+ <li> <b>Stability</b>: OCI's Distribution of TAO is based on a stable, tested, and
+ supported release of TAO.  If you need a solid, consistent version of
+ TAO on which to base your product or project, this is the one for you.
+ If you need to stay abreast of new research directions or want to try
+ out the latest features, you can still obtain TAO beta kits in source
+ code form by visiting <a href="http://download.dre.vanderbilt.edu/">http://download.dre.vanderbilt.edu/</a>.<br>
+ <li> <b>Time Savings</b>: Buying and installing a prebuilt binary distribution of TAO, rather
+ than downloading source code and building it yourself, can save you
+ hours of work.  In addition, you can be sure that it has been built
+ correctly and tested across several platforms, operating systems, and
+ compilers, and in several different configurations.<br>
+ <li> <b>Installation Support</b>: OCI provides 90 days of installation support for registered purchasers
+ of prebuilt binary distributions of TAO.  We want to make sure
+ you are up and running with TAO as quickly as possible.<br>
+ <li> <b>Documentation</b>: Using OCI's Distribution of TAO is easy with OCI's <em>TAO Developer's Guide</em> (available for purchase at
+ <a href="{{site.baseurl}}/purchase/index.html">{{site.baseurl}}/purchase/index.html</a>).
+ In addition to the documentation set, you can view the latest TAO 
+ release notes at <a href="{{site.baseurl}}/releasenotes/index.html">{{site.baseurl}}/releasenotes/index.html</a>.<br>
+ <li> <b>Frequently Asked Questions</b>: OCI maintains a list of frequently asked questions about TAO.  This
+ list is updated regularly by our staff of distributed object computing
+ technology engineers to provide answers to common questions about
+ using TAO.  Anyone in the TAO user community can contribute questions
+ (and answers) to the FAQ.  Check it first to see if your question has
+ been asked before.  The FAQ is located at <a href="{{site.baseurl}}/faq/">{{site.baseurl}}/faq/</a><br>
+ <li> <b>Professional Support</b>: If you need further support, beyond installation issues or frequently
+ asked questions, such as object technology training, consulting,
+ mentoring, or application development, OCI has several service
+ offerings for you.  Visit <a href="http://www.ociweb.com/">http://www.ociweb.com</a> for more information.
+ </ul>
+ <br>
+ 
+ 

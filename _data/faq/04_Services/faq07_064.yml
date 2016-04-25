@@ -1,0 +1,7 @@
+Q: Does TAO's CosEvent Service support Typed Events?
+
+A: >
+ Yes, as of TAO 1.3.4.  See $TAO_ROOT/orbsvcs/examples/CosEC/TypedSimple for a
+ simple example using Typed Events.
+ 
+ 

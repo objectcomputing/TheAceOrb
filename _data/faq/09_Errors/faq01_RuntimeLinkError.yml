@@ -1,0 +1,39 @@
+Q: Why do I experience a run-time link error, even though my    path and environment variables are set correctly and I have a fresh    build tree?
+
+A: >
+ You may have an older version of one of the ACE, TAO, or CIAO
+    libraries somewhere in your library search path (e.g.,
+    <code>PATH</code> on Windows, <code>LD_LIBRARY_PATH</code> on
+    Linux) that you don't know about, even though you have only one
+    build tree of ACE+TAO+CIAO.  For example, the CoSMIC tool chain
+    installer ships with the ACE libraries and installs them on your
+    system.  The same is true of OCI's TAO distribution CDs.
+ 
+ <p>
+    If you do have an out-dated version of one of the ACE, TAO, or CIAO
+    libraries (e.g., <code>ACE.dll</code>), and  its path appears in
+    the library search path before <code>$ACE_ROOT/lib</code> from your
+    build tree, you will have run-time link errors.  The run-time
+    linker tries to link your program against the first occurrence of
+    the library that it finds in the library search path.
+ </p>
+ 
+ <p>
+    You can confirm that this is the problem you are having by moving
+    the problematic library in your build tree to a backup file and
+    re-running your application.  If you still experience the run-time
+    link error, then you probably have another (stale) version of the
+    problematic library on your system.  (The <code>ldd</code> command
+    on Linux and Unix can be very helpful in tracking down where the
+    out-dated library is located.)  To correct the problem, ensure that
+    <code>$ACE_ROOT/lib</code> comes first in the library search path.
+    On Windows, you will need to restart your terminal windows and
+    development environment.
+ </p>
+ 
+ <p>
+    Thanks to <strong>Stoyan Paunov</strong> for contributing this
+    question and answer.
+ </p>
+ 
+ 

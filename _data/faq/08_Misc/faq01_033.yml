@@ -1,0 +1,53 @@
+Q: How can I get TAO to use a transport protocol other than TCP/IP?
+
+A: >
+ TAO includes a "pluggable" transport protocol framework
+ that allows the ORB to be configured to work over transports
+ other than TCP/IP.  In fact, the standard Internet Inter-ORB
+ Protocol (IIOP) is implemented in TAO as a pluggable transport
+ protocol that is based on TCP/IP.  Besides IIOP, TAO comes
+ with several alternate transport protocol implementations,
+ including:
+ 
+ <ul>
+ <li>Unix Inter-ORB Protocol (UIOP), which is based on Unix Domain Sockets (or local IPC)</li>
+ <li>Shared Memory Inter-ORB Protocol (SHMIOP), which uses shared memory as a transport.</li>
+ <li>Datagram Inter-ORB Protocol (DIOP), which uses UDP for efficient message transfer in limited circumstances.</li>
+ <li>Secure Sockets Layer Inter-ORB Protocol (SSLIOP), which is based on SSL.</li>
+ <li>Multicast Inter-ORB Protocol (MIOP), implemented atop Unreliable IP Multicast (UIPMC).</li>
+ <li>Hypertext Inter-ORB Protocol (HTIOP), which uses HTTP tunneling.</li>
+ <li>Stream Control Transmission Protocol Inter-ORB Protocol (SCIOP), which is based on SCTP (IETF RFC 2960).</li>
+ </ul>
+ 
+ <p>
+ Currently, the UIOP, SHMIOP, DIOP, and SCIOP implementations
+ are all found in <code>$TAO_ROOT/tao/Strategies/</code> and
+ the TAO_Strategies library.  SSLIOP is implemented in the
+ TAO_SSLIOP library in
+ <code>$TAO_ROOT/orbsvcs/orbsvcs/SSLIOP/</code>, MIOP/UIPMC in the
+ TAO_PortableGroup library in
+ <code>$TAO_ROOT/orbsvcs/orbsvcs/PortableGroup/</code>, and
+ HTIOP in the TAO_HTIOP library in
+ <code>$TAO_ROOT/orbsvcs/orbsvcs/HTIOP/</code>.
+ </p>
+ 
+ <p>
+ The use of the underlying transport protocol is completely
+ transparent to the application.  In fact, the ORB can actually
+ be configured to use more than one transport protocol
+ simultaneously.
+ </p>
+ 
+ <p>
+ If one of the above built-in transport protocols does not meet
+ your needs, you may need to implement one yourself.  If done
+ correctly, it should require no changes to the TAO core.  Use
+ one of the existing pluggable transport protocol
+ implementations as guidance.
+ </p>
+ 
+ <p>
+ Using and developing pluggable protocols is documented in
+ detail in the <a href="{{site.baseurl}}/purchase/index.html"><em>TAO Developer's Guide</em></a>.
+ </p>
+ 

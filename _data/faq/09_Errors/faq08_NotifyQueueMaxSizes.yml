@@ -1,0 +1,7 @@
+Q: Why does one misbehaving Notification service consumer stop events to other consumers of the same channel?
+
+A: >
+ The channel's global queue was filled by the bad consumer.
+ <p>When the <code>MaxQueueLength</code> admin property is set on a channel without setting <code>MaxEventsPerConsumer</code> QoS property or setting <code>MaxEventsPerConsumer >= MaxQueueLength</code> then a single slow/misbehaving consumer's queue can fill up the entire channel's queue.  The full channel queue results in no events getting queued for some or all of the remaining consumers.  The events that are not enqueued can result in a memory leak.</p>
+ <p>When setting the <code>MaxQueueLength</code> admin property, set the <code>MaxEventsPerConsumer</code> QoS property to a value less than the <code>MaxQueueLength</code>.</p>
+ 

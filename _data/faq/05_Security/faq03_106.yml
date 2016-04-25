@@ -1,0 +1,12 @@
+Q: How do I build TAO to get security and SSLIOP?
+
+A: >
+ See <a
+ href="https://svn.dre.vanderbilt.edu/viewvc/Middleware/trunk/TAO/docs/Security/SSLIOP-INSTALL.html?view=co">https://svn.dre.vanderbilt.edu/viewvc/Middleware/trunk/TAO/docs/Security/SSLIOP-INSTALL.html?view=co</a>.
+ 
+ <p>
+ See also the "TAO Security" chapter of the <a
+ href="{{site.baseurl}}/purchase/index.html"><em>TAO Developer's Guide</em></a>
+ </p>
+ 
+ 

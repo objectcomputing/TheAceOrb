@@ -1,0 +1,30 @@
+Q: How do I export generated classes from DLLs?
+
+A: >
+ According
+ to the <a
+ href="{{site.baseurl}}/purchase/index.html"><em>TAO
+ Developer's Guide</em></a>, TAO IDL Compiler chapter, section on "Back End Options",
+ the way to export generated classes is as follows:<br>
+ <ol>
+ <li>Create an export header file using the perl script
+ <code>%ACE_ROOT%\bin\generate_export_file.pl</code>:
+ <pre>
+   generate_export_file.pl Foo &gt; FooExport.h
+ </pre>
+ <li>Use the <code>-Wb,export_macro</code> and
+ <code>-Wb,export_include</code> options to the TAO IDL
+ compiler to include the macros in the generated class declarations:
+ <pre>
+   tao_idl -Wb,export_macro=Foo_Export -Wb,export_include=FooExport.h Foo.idl
+ </pre>
+ <li>In the project settings, C/C++ tab, preprocessor options,
+ include <code>FOO_BUILD_DLL</code> in the list of definitions.<br>
+ (If you use MPC to generate your project settings, the last
+ step is done for you automatically.)
+ </ol>
+ <p>
+ See the <a href="{{site.baseurl}}/purchase/index.html"><em>TAO
+ Developer's Guide</em></a> for more information and examples.
+ 
+ 

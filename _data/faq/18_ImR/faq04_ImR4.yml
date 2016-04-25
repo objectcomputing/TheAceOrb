@@ -1,0 +1,4 @@
+Q: How can I avoid the cost of being redirected twice to my server when using the ImR?
+
+A: >
+ When using corbaloc URLs, the ImR simply redirects clients to the correct server, however the URL-based object reference doesn't contain enough information to actually do anything. Therefore the server must include an IORTable entry that will be used to redirect the client back to the server itself again with the correct full IOR-based object reference. This extra round-trip can be avoided by simply *not* using URLs to invoke the operations in the first place. This typically means that you'll have to run the server and have it either output the IOR or register it with a NameService. As long as you start the server on a consistent endpoint(s) then the IOR will remain valid.

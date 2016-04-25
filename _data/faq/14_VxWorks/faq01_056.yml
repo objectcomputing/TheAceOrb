@@ -1,0 +1,50 @@
+Q: I've just built the libraries and they're <strong>HUGE</strong>...how can I make them smaller?
+
+A: >
+ See LINK:019: for a more general discussion of TAO program/library sizes.
+ <p>
+ This all
+ depends upon your definition of "huge" and how you built the libraries. 
+ If you consider a few megabytes to be huge and you've built optimized, nodebug,
+ and minimum CORBA, then that's the way life is currently. <p> If, on the other hand, you're looking at the size of the files and you
+ built the defaults, then the first thing you need to do is understand that
+ the size of the file is NOT the same as the size of the code.  When compiling
+ with debug information, the compiler adds symbol information to the libraries,
+ and that symbol information is <em>massive</em>.  What you need to do is look at
+ the code size.  Using the WindRiver GNU toolchain, you can use <code>sizeppc</code>
+ to do this, e.g.,<br>
+ </p><pre>
+   $ sizeppc libACE.so
+   text    data    bss     dec     hex     filename
+   626392  65036   1316    692744  a9208   libACE.so
+ 
+   $ ls -l libACE.so
+   -rwxrwxr-x   1 cleeland distcomp 31181587 Mar 16 10:10 libACE.so*
+ </pre>
+ So, you can see that the file size is 30Mb, but the code size is 692k.  Quite a different number.  The "size" results can be compared to the available memory on the target system.  Use both the "memShow" and "adrSpaceShow" commands from the target-resident VxWorks shell to see how much memory is available.
+ <p>
+ There are various strategies for making the libraries smaller, and all involve rebuilding.  Specifically, you can build:
+ </p><p>
+ <ul>
+ <li> <strong>nodebug</strong> (debug=0) which will eliminate symbols and debugging messages<br>
+ <li> <strong>minimumCORBA</strong>, which will only compile functionality specified by the Minimum CORBA specification<br>
+ <li> <strong>ACE only for TAO</strong>, which will only compile the portions of ACE required by TAO
+ </ul>
+ <br>An often-used
+ technique for keeping library sizes small and still debuggable is to build
+ the entire library nondebug, then only build the pieces you need to debug
+ with debug on.  This allows you to debug those pieces, but not suffer through
+ the problems that large file sizes in libraries cause (e.g., longer download/boot
+ times). <br>
+ Here is a shortcut to rebuilding a lib with debug=0.
+ But:
+ <ol>
+ <li> It doesn't remove debugging statements.
+ <li> You have to be careful to not remove relocation symbols
+    on VxWorks, so that you can load the lib.  For example,
+    use something like stripppc --strip-unneeded, or
+    strip386 --strip-debug
+ <li> stripppc is broken on Tornado 2, Windows host.  It won't let
+    you create the output file, so it's not of any use.
+ </ol>
+ 

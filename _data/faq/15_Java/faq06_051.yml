@@ -1,0 +1,17 @@
+Q: How can I use TAO's Naming Service with my Java ORB?
+
+A: >
+ When I use the TAO name service, JavaORB returns an org.omg.CORBA.INV_OBJREF
+ in resolve_initial_references("NameService").
+ <p>
+ There's a file called NS_Resolve.java in<br>
+ </p><pre>    $TAO_ROOT/examples/Simulator/DOVEBrowser<br></pre> that contains
+ code which discovers TAO's Naming Service via the multicast discovery mechanism.
+  Hooking that into the initial references table is ORB-specific, however. 
+ <p> Alternately, you can bypass the TAO Naming Service's multicast mechanism
+ and connect your Java application to it directly.  For an example which uses
+ TAO and JacORB, see LINK:074:
+ </p><p>
+ <br>
+ 
+ 

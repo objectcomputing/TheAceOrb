@@ -1,0 +1,65 @@
+Q: How do I use a &quot;corbaloc&quot; object reference with a TAO server?
+
+A: >
+ Note:
+ The corbaloc style object reference was added to the CORBA standard via the
+ Interoperable Naming Service specification. For more information on "corbaloc",
+ see the CORBA 2.3.1 (or later) specification, section 13.6.6. <p> TAO added support for corbaloc references in version 1.1.10.  Prior
+ to that, TAO supported an earlier version of the specification that used
+ the iioploc format.  You can use corbaloc references to contact servers built
+ with any version of TAO (assuming the client ORB supports them). </p>
+ <p> To simplify use if corbaloc object references, you
+ can register your CORBA object in the server ORB's IOR table so
+ it can be located via a simple object key.  To bind an object reference to
+ this table in current versions of TAO (1.1.10 and later):<br>
+ </p><pre>
+   // Turn your object reference into an IOR string 
+   CORBA::String_var ior_string = orb->object_to_string(obj.in());
+ 
+   // Get a reference to the IOR Table 
+   CORBA::Object_var tobj = orb->resolve_initial_references("IORTable");
+   IORTable::Table_var table = IORTable::Table::_narrow(tobj.in());
+ 
+   // Bind your stringified IOR in the IOR Table 
+   table->bind("CORBABank", ior_string.in());
+ </pre>
+ You will also need to #include "tao/IORTable/IORTable.h" and link with the TAO_IORTable library.
+ <p>
+ In older versions of TAO (1.1.9 and prior) this binding is accomplished via the following code:<br>
+ </p><pre>
+   // Add our Bank object to the ORB's IOR table (TAO specific).
+   orb->_tao_add_to_IOR_table( "CORBABank", obj.in() );
+ </pre>
+ <p> Both of these techniques make it possible for corbaloc-style object references
+ to locate the specified CORBA object via a simple object key ("CORBABank").
+  The Bank's object reference doesn't necessarily have to be a persistent
+ object reference, but it can be.  For more information on persistent object
+ references, see LINK:094:.
+ </p><p> When we run the TAO server, we must ensure that it listens on a host
+ and port that are known to the client.  We use TAO's
+ -ORBListenEndpoints command-line option to do this.  The format of -ORBListenEndpoints is<br>
+ </p><pre>
+   -ORBListenEndpoints iiop://host:port
+ </pre>
+ For example, if I'm running my server on host "myhost", listening on port 11019:<br>
+ <pre>
+   server -ORBListenEndpoints iiop://myhost:11019
+ </pre>
+ When running the client, we'll use a "corbaloc" object reference.  The format of the "corbaloc" object reference is<br>
+ <pre>
+   corbaloc:protocol:host:port/ObjectKey
+ </pre>
+ For example:<br>
+ <pre>
+   corbaloc:iiop:myhost:11019/CORBABank
+ </pre>
+ connects to the server on host "myhost" at port 11019, and finds
+ the object reference in that server
+ corresponding to the "CORBABank" key.  This object reference can be passed
+ to <code>ORB::string_to_object()</code> and then is used like any
+ other object reference. 
+ <br>
+ 
+ 
+ 
+ 

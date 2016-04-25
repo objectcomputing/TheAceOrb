@@ -1,0 +1,13 @@
+Q: I'm having weird problems with the Naming Service.  How can I solve them?
+
+A: >
+ More than
+ likely you're having problems related to multicast discovery of the Naming
+ Service.  Multicast was the default mechanism for finding the
+ Naming Service in older versions of TAO.  Symptoms range
+ anywhere from a client not being able to find the Naming
+ Service at all, to finding it sometimes, to just completely bizarre and inexplicable behavior. <p>
+ So, before you do anything, try it all again, but this time turn off multicast discovery.  See LINK:004:.
+ <br>
+ 
+ 

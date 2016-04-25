@@ -1,0 +1,86 @@
+Q: How can I make access to some objects more secure than access to others?
+
+A: >
+ Use the Security service's AccessDecision interface. This is available in via <code>TAO/orbsvcs/orbsvcs/SecurityLevel2.idl</code>. An example of using this interface is provided in <code>TAO/orbsvcs/Security/mixed_security_test</code>.
+ 
+ <p> The AccessDecision interface gives the ability to weaken the security requirements for designated object references. Show here, its single operation is intended to be called from an interceptor, or perhaps from within a servant.
+ <pre>
+ module SecurityLevel2 {
+   local interface AccessDecision {
+ 
+ #   pragma version AccessDecision 1.8
+ 
+     boolean access_allowed (
+       in   SecurityLevel2::CredentialsList     cred_list,
+       in   Object                              target,
+       in   CORBA::Identifier                   operation_name,
+       in   CORBA::Identifier                   target_interface_name
+     );
+   };
+ };
+ </pre>
+ <p> TAO also extends this interface in order to allow for runtime configuration of the supplied AccessDecision object, for adding or removing objects for consideration.
+ <pre>
+ module TAO {
+   module SL2 {
+     local interface AccessDecision : SecurityLevel2::AccessDecision
+     {
+       /* TAO-specific access_allowed that works around deficiencies in
+          the SecurityLevel2::AccessDecision::access_allowed() operation. */
+       // Parameter object_id should be PortableInterceptor::ObjectId, but
+       // using that type would require including the PI_Forward.pidl file.
+       // By using the real type, we can avoid that dependency.
+       boolean access_allowed_ex (in ::CORBA::ORBid orb_id,
+                                  in ::CORBA::OctetSeq adapter_id,
+                                  in ::CORBA::OctetSeq object_id,
+                                  in ::SecurityLevel2::CredentialsList cred_list,
+                                  in ::CORBA::Identifier operation_name);
+ 
+       /*! Default value returned when a reference is not in the list. */
+       // Can't come up with a good name for this.
+       attribute boolean default_decision;
+ 
+       /*! Establish whether a particular object can be accessed via insecure
+         means. */
+       void add_object (in ::CORBA::ORBid orb_id,
+                        in ::CORBA::OctetSeq adapter_id,
+                        in ::CORBA::OctetSeq object_id,
+                        in boolean allow_insecure_access);
+       void remove_object (in ::CORBA::ORBid orb_id,
+                           in ::CORBA::OctetSeq adapter_id,
+                           in ::CORBA::OctetSeq object_id);
+     };
+   };
+ };
+ </pre>
+ <p> In addition to adding operations for adding or removing object references for consideration by the AccessDecision object, an extended access allowed operation is also provided, to work around a deficiency in comparing object references.  For TAO, serialized object references cannot be used for comparison because they are produced using CDR encoding. This encoding uses padding bytes for alignment of multibyte values, and the padding bytes are uninitialized, meaning they will contain random data, and thus cannot be used when comparing two serialized object references.
+ <p>Typically, your application will initialize the AccessDecision object by supplying it with information used to unambiguously identify the object reference, and rely on the built-in interceptor to make the call to access_allowed. TAO's security interceptor, supplied as part of the TAO_Security library, will first check with the AccessDecision object to see if unrestricted access is allowed, and if not will then evaluate the request based on the regular secure access rules.
+ <p>It is possible to implement your own AccessDecision object to provide even greater control, such as restriction based on the content of the supplied credentials, and even on a per-operation level.
+ <p>To use the AccessDecision interface, you must first obtain a reference to the Level 2 Security Manager from the ORB. From that you get the AccessDecision, and finally narrow that to a TAO::SL2::AccessDecision reference.
+ <pre>
+ #include <orbsvcs/SecurityLevel2C.h>
+ 
+ int main (int argc, char *argv[])
+ {
+   CORBA::ORB_var orb = ORB_init(argc,argv);
+   CORBA::Object_var obj =
+      orb->resolve_initial_references("SecurityLevel2:SecurityManager");
+ 
+   SecurityLevel2::SecurityManager_var secmgr =
+      SecurityLevel2::SecurityManager::_narrow (obj.in());
+ 
+   SecurityLevel2::AccessDecision_var ad = sl2sm->access_decision ();
+   TAO::SL2::AccessDecision_var tao_ad =
+       TAO::SL2::AccessDecision::_narrow (ad.in ());
+   //...
+ </pre>
+ 
+ <p>At this point, you supply object references for consideration. It is best to do this when you are creating the references so that you don't have to keep track of the required information.
+ <pre>
+       PortableServer::ObjectId_var oid = rootpoa->servant_to_id (server2);
+       CORBA::OctetSeq_var poaid = rootpoa->id();
+       CORBA::String_var orbid = orb->id();
+       sl2ad->add_object (orbid.in(), poaid.in(), oid.in(), true);
+ </pre>
+ <p>At this point, you are ready to go, the AccessDecision::access_allowed operation effectively adds a <code>-SSLNoProtection</code> SSLIOP attribute only on those object references you added to the AccessDecision object.
+ 

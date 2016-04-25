@@ -1,0 +1,13 @@
+Q: Does TAO support a Java binding?
+
+A: >
+ TAO is
+ a C++ ORB.  Any other CORBA compliant ORB can interoperate with TAO (as well
+ as other CORBA compliant ORBs).  There are several free Java ORBs available,
+ such as JacORB.  For more information on TAO and JacORB, see LINK:JacORB:.
+ <p>
+ Work on a real-time Java ORB, ZEN, is currently in progress.  For more information, see LINK:075: or <a href="http://www.zen.uci.edu/">http://www.zen.uci.edu/</a>.
+ </p><p>
+ <br>
+ 
+ 

@@ -1,0 +1,46 @@
+---
+layout: page
+title: TAO QOS
+categories: [ocitao]
+tags: []
+order: 22
+---
+
+<div id="contenttext">
+    <div class="bodytext" align="justify">
+        <span class="headertext">TAO Quality of Service</span>
+
+        <p>The ORB is only one (but an important one) element in a series of elements which together link distributed object systems. In order for the combined behavior to be predictable and of acceptable performance all elements must be carefully designed and configured consistently. QoS is an end to end issue. Some examples of the issues facing the system designer are: </p>
+        <ul>
+        <li>Client marshaling</li>
+        <li>Client protocol queuing</li>
+        <li>Network delay.</li>
+        <li>Server protocol queuing</li>
+        <li>Thread dispatching</li>
+        <li>Server dispatching</li>
+        <li>Server demarshaling</li>
+        <li>Method execution</li>
+        </ul>
+        <p>Therefore overall QoS cannot be resolved strictly within the domain of the ORB. However TAO can contribute two elements to the equation of end of end determinism and performance. The first is a design that is sensitive to real time requirements and ensures that features are implemented at every level of the ORB architecture, mindful of what is optimal. Such requirements can be: </p>
+        <ul>
+        <li>Meeting deadlines</li>
+        <li>Low latency</li>
+        <li>Bounding jitter (which is latency variation)</li>
+        <li>Avoiding priority inversions</li>
+        <li>Low overhead (efficiency)</li>
+        </ul>
+        <p>The second is to recognize there is no universal singular way of implementing the ORB to satisfy all needs and therefore provide choices that the designer can match to the specifics of the problem. Hard real time systems have needs different from, for instance, stream oriented systems such as Video on Demand, or Voice over IP. In all cases they have quality of service requirements, but they are fulfilled by different approaches. (Such as dynamically spawning new threads on each invocation.) TAO's configurability allows the software designer to select those options that are consistent with strategies the architect is employing in the application, with those of the network protocols and the (real time) operating systems. Such options must be able to collaborate harmoniously with the variety of options offered by the other elements in the system. This is achieved by using patterns which allow the behavior of TAO to be tailored for specific platforms and application requirements without requiring access to, or modification of, ORB source code. Patterns, which collaborate in this manner, avoid the drawbacks that arise when one applies them in isolation.</p>
+        <p>Strategies incorporated within TAO are adaptive and flexible. TAO enables the benefits of abstraction by the use of CORBA without compromising the designer's need for control of all elements in the chain. TAO can be used in variety of situations where quality of service is a requirement.</p>
+        <p><strong>Some words about Real-time</strong></p>
+        <p>In classic <u>hard</u> real-time systems the timing constraints are an integral part of the application. If these constraints are not met then the application is <u>not </u>correct. Speed or performance is not necessarily the issue. Predictability is. Speed and performance can contribute to meeting demanding timing constraints. However from a design standpoint the concern is that in the worst case situation the timing boundaries are not exceeded. Guaranteed behavior is required, best effort is not sufficient. Average performance is not meaningful, bounded limits are.</p>
+        <p>In static (or closed) applications the designer endeavors to eliminate anything which is superfluous and might contribute to variability. Machine tool cells or aircraft control systems are examples of static, predefined systems. Dynamic systems are more complex because they are subject to change. Here the real-time issues are most likely addressed by ensuring activities are prioritized. Telecom networks and other shared resources are examples where the loading is subject to environmental conditions. The designer has to ensure appropriate allocation of resources according to need and that any degradation in service, due to load or abnormal events, is implemented in accordance with a policy.</p>
+        <p>Real-time systems designers sometimes classify their systems in terms of hard, firm or soft needs. In a hard real-time system the activity has disastrous consequences if its constraints are violated. Transportation control, guidance and switching systems are classic examples. Firm real-time systems however have no value to the activity if the timing requirements are missed. Examples of such are stock trading systems that cannot keep up with market volatility. Soft real-time systems are those where missed constraints (of an occasional kind) decrease the value of the activity but do not totally invalidate it. Systems that report information by sampling from a source may occasionally miss a value. In that case the overall trend is still obtained, even though there is now a lower degree of confidence in a reading at a moment in time.</p>
+        <p>Systems can often contain a mix. The control loop of a critical process may have hard real time requirements, but the observation or monitoring application, which displays information to an operator, may be soft. In this case the operator is not expected to participate except as an observer.</p>
+        <p>Developers are increasingly finding themselves designing distributed applications, which compete for resources in shared environments. All applications are not created equal. Some must have priorities. An ORB that cannot distinguish amongst clients seeking services cannot guarantee quality of service. User satisfaction is best achieved when expectations can be set and met with some predictability. TAO's real-time design enables the designer to manage the variability in the chain of elements. Best effort ORBs are unable to support the designer in that goal.</p>
+        <p><strong>Embedded Systems</strong></p>
+        <p>The terms real-time and embedded are often used interchangeably. Systems can be both but they do not have to be. They are independent of each other. Embedded describes a computer that is a component of a much larger system. This computer has a narrowly defined purpose(s). This fixed environment enables the designer to focus the resources to the task, creating a static or bounded system. Exhaustive testing of such defined systems is possible and this results in a high degree of confidence in its behavior. Small footprint is not necessarily a requirement for an embedded system, but by bounding the system one can be more efficient and eliminate superfluous elements.</p>
+        <p>TAO's open source model and configurable design enables the developer to understand exactly the intent of the software, and to select only those elements that are required to solve the problem at hand. TAO can be configured and compiled to exactly match the need of an embedded systems designer. </p>
+
+
+    </div>
+</div>

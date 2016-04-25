@@ -1,0 +1,8 @@
+Q: Is TAO interoperable with JacORB?
+
+A: >
+ Yes, TAO is interoperable with JacORB.  In fact, several
+ versions of both TAO and JacORB have been tested together over
+ the last several years.
+ 
+ 

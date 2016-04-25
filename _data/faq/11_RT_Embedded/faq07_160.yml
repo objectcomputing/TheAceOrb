@@ -1,0 +1,26 @@
+Q: How can I reduce my compile time during development?
+
+A: >
+ Reducing compile time during development:<br>
+ <br><b>Disable Optimization</b>:
+ <p> When developing software that uses ACE+TAO you can reduce the time it
+ takes to compile your software by not enabling you compiler's optimizer
+ flags. These often take the form -O<n>.</p>
+ <p> Disabling optimization for your application will come at the cost of run
+ time performance, so you should normally only do this during
+ development, keeping your test and release build optimized.</p>
+ <br><b>Disable Inlining</b>:
+ <p> When compiler optimization is disabled, it is frequently the case that
+ no inlining will be performed. In this case the ACE inlining will be
+ adding to your compile time without any appreciable benefit. You can
+ therefore decrease compile times further by build building your
+ application with the -DACE_NO_INLINE C++ flag.</p>
+ <p> In order for code built with -DACE_NO_INLINE to link, you will need to
+ be using a version of ACE+TAO built with the "inline=0" make flag.</p>
+ <p> In order to accommodate both inline and non-inline builds of your
+ application it will be necessary to build two copies of your ACE+TAO
+ libraries, one with inlining and one without. You can then use your
+ ACE_ROOT and TAO_ROOT variables to point at the appropriate
+ installation.</p>
+ 
+ 

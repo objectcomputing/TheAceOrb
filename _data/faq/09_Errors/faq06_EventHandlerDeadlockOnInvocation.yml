@@ -1,0 +1,67 @@
+Q: Why does my multithreaded server deadlock when I make an invocation    from an event handler registered with the ORB's reactor?
+
+A: >
+ (Expanded question): I am running a server with a few threads in a
+    thread pool.  I have also registered an event handler with the
+    ORB's Reactor from which I am making remote invocations.  My server
+    is deadlocking.  Note: I am using the default configuration (i.e.,
+    default concurrency strategy, wait strategy, flushing strategy,
+    etc.)
+ 
+    <p>
+    (Answer): By default, the ORB uses a Leader Follower (LF) for
+    receiving requests and processing replies from remote targets.  It
+    uses a simple protocol that keeps track of the server threads that
+    are ready to process invocations and the client threads that are
+    waiting to process replies.
+    </p>
+ 
+    <p>
+    When you register your own event handlers with the reactor, the
+    reactor makes an upcall directly into your application code.  If
+    your event handler code then makes a remote call and waits for a
+    reply, the LF protocol breaks down since a thread marked as a
+    server thread becomes a client thread without the LF's knowledge.
+    The signature of the problem is a blocked server with stack
+    traces showing none of the threads in the <code>select()</code>
+    system call.
+    </p>
+ 
+    <p>
+    To fix this problem, you have to abide by the LF protocol.  Do the
+    following within your event handler code (e.g., in
+    <code>handle_timeout()</code> or the other <code>handle_*</code>
+    methods):
+    </p>
+ 
+ <pre>
+    TAO_ORB_Core *oc = my_orb->orb_core ();
+    oc->lf_strategy ().set_upcall_thread (this->orb_core_->leader_follower ());
+ </pre>
+ 
+    <p>
+    You may have to include the header files
+    <code>"tao/ORB_Core.h"</code> and <code>"tao/LF_Strategy.h"</code>
+    in your code to get the above code to compile cleanly. 
+    Also, when you make the above calls, remember to use the ORB within
+    whose reactor you registered your event handler.
+    </p>
+ 
+    <p>
+    Thanks to Milan Cvetkovic &lt;mcvetkovic@mpathix.com&gt; for
+    reporting the problem and to Balachandran Natarajan
+    &lt;bala@dre.vanderbilt.edu&gt; for providing the answer.
+    </p>
+ 
+    <p>
+    Note: You could also solve the problem by configuring the ORB to
+    use a different wait strategy other than the default Leader
+    Follower.<br>
+    See LINK:152: for more information.
+    </p>
+    
+    <p>
+    Or, you could use a different ORB (other than the server ORB) in
+    your event handler for making the outbound invocation.
+    </p>
+ 

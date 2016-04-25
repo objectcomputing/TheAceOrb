@@ -1,0 +1,14 @@
+Q: With which OMG CORBA specifications is TAO compliant? 
+A: >
+ Compliance, just like source code and the specifications
+ themselves, is a moving target.  Each version of TAO is
+ compliant with various OMG CORBA specifications.
+ 
+ <p>
+ Each version of the <a
+ href="{{site.baseurl}}/purchase/index.html"><em>TAO Developer's Guide</em></a>
+ includes an appendix that discusses compliance of that version
+ of TAO in detail.  These appendices are available via <a
+ href="{{site.baseurl}}/downloads/index.html">{{site.baseurl}}/downloads/index.html</a>.
+ </p>
+ 

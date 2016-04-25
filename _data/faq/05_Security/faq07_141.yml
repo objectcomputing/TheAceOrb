@@ -1,0 +1,43 @@
+Q: How can I use a non-security enabled Naming Service with a security (SSLIOP) enabled client?
+
+A: >
+ When security
+ is enabled in a CORBA client's ORB, all invocations will be attempted using
+ a secure connection.  However, the Naming Service for example may not be
+ set up to use security.  Invocations on that Naming Service will result in
+ a CORBA::INV_POLICY exception since the client is unable to make a secure/protected
+ invocation on that non-security enabled Naming Service.<br> To correct this
+ problem, protected invocations via the Naming Service's object reference
+ must be disabled.  This is achieved by setting a policy override on the Naming
+ Service's object reference like so:<br>
+ <pre>  // Disable protection on Naming Service invocations.<br>
+   Security::QOP qop = Security::SecQOPNoProtection;<br>
+   CORBA::Any no_protection;
+   no_protection &lt;&lt;= qop;<br>
+   // Create the Security::QOPPolicy.
+   CORBA::Policy_var policy =
+     orb-&gt;create_policy (Security::SecQOPPolicy,
+                         no_protection);<br>
+   CORBA::PolicyList policy_list (1);
+   policy_list.length (1);
+   policy_list[0] = CORBA::Policy::_duplicate (policy.in ());<br>
+   // Get a reference to Naming Context
+   CORBA::Object_var obj =
+   orb-&gt;resolve_initial_references ("NameService");<br>
+   // Create an object reference that uses plain IIOP (i.e. no
+   // protection).
+   CORBA::Object_var unprotected_obj =
+     naming_context_object-&gt;_set_policy_overrides (policy_list,
+                                                   CORBA::SET_OVERRIDE);<br>
+   // Narrow to a CosNaming::NamingContext
+   CosNaming::NamingContext_var naming_context =
+     CosNaming::NamingContext::_narrow (unprotected_obj.in ());<br></pre>
+  This is based on TAO's Secure_Invocation test client side code in $TAO_ROOT/orbsvcs/tests/Security/Secure_Invocation/client.cpp.
+  (TAO 1.2 or better)<br>
+  The above policy override code is standard and should be portable to all
+ ORBs that support the SecurityLevel2::QOPPolicy quality-of-protection client-side
+ policy. <br>Don't
+ forget to include "orbsvcs/SecurityC.h"  (this is TAO-specific) to pull in
+ the Security QoP policy related constants and types. <br>
+ 
+ 

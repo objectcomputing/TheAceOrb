@@ -1,0 +1,77 @@
+Q: Running a thread pool ORB
+
+A: >
+ The trick
+ is to configure TAO to use the thread pool reactor and then to call orb-&gt;run()
+ from a number of threads, thereby enabling each thread to service incoming
+ requests. <p> Selection of the reactor is done through the use of the resource factory,
+ a service config object. If you are using a service configuration file, such
+ as svc.conf, add a line: </p><p>
+ </p><pre>
+   static Resource_Factory '-ORBReactorType tp'
+ </pre>
+ <p>
+ If you cannot use a configuration file, add the following to your command line:
+ </p><p>
+ </p><pre>
+   -ORBServiceDirective "static Resource_Factory '-ORBReactor TP'"
+ </pre>
+ <p> Note that if you are already configuring the resource factory for any
+ other behavior, do not add a new directive line, just add "-ORBReactor TP"
+ to the arguments already passed to the resource factory. </p><p> Now that you have the correct reactor selected, you must invoke
+ ORB::run() from within the threads that are members of the thread pool. 
+ The easiest way to achieve this is to derive from ACE_Task, override the
+ svc() method to run the orb, and then use the activate method to start the
+ desired number of threads.<br>
+ For example:
+ </p><p>
+ </p><pre>
+   class my_ORB_Pool : public ACE_Task &lt;ACE_MT_SYNCH&gt;
+   {
+   public:
+     virtual int open (void *arg);
+     virtual int svc (void);
+   private:
+     CORBA::ORB_ptr orb_;
+   };
+ 
+   // A reference to the ORB must be supplied to the object, via open
+   int
+   my_ORB_Pool:: open (void *arg)
+   {
+     orb_ = ACE_static_cast (CORBA::ORB_ptr,arg); 
+     return 0;
+   }
+ 
+   // ACE_Task::activate calls svc() in as many threads as we specify
+   int
+   my_ORB_Pool::svc (void)
+   {
+     orb_->run();
+     return 0;
+   }
+ 
+   //Now, start it going
+ 
+   int
+   main (int argc, char ** argv)
+   {
+     // normal program initialization business
+     my_ORB_Pool orb_pool;
+ 
+     // initialize the orb, which also loads the correct reactor
+     CORBA::ORB_var orb = CORBA::ORB_init(argc, argv);
+   
+     int nthreads = 42; // the number of threads in the pool
+ 
+     orb_pool.open(orb);
+     orb_pool.activate (ACE_NEW_LWP,nthreads); // nthreads = 1 is normal 
+                                           // reactive behavior
+ 
+     ACE_Thread_Manager::instance->wait(); // wait for all threads
+     return 0;
+   }
+ 
+ </pre>
+ <br>
+ 

@@ -1,0 +1,6 @@
+Q: When I use the ACE_Process_Manager to launch my process, why does the reactor fail to initialize?
+
+A: >
+ Either inherit the environment (via ProcessInfo) or set the SystemRoot environment variable to C:\WINDOWS or the appropriate place for windows install.
+ 
+ 

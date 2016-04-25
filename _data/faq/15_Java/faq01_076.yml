@@ -1,0 +1,13 @@
+Q: Is there a Java version of TAO?
+
+A: >
+ Yes, and no.  It's called Zen.
+ <p>
+ Check out LINK:075:.
+ </p><p>
+ Note that you can use any CORBA compliant ORB with TAO.  
+ The most popular Java-based ORB used with TAO is JacORB.  
+ See LINK:JacORB: for more details.<br>
+ <br>
+ 
+ 

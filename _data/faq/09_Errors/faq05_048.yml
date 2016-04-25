@@ -1,0 +1,74 @@
+Q: Why does my application fail when the client and server are on different hosts?
+
+A: >
+ When an
+ application works with the client and server on the same host, but fails
+ when they are on different hosts, the usual culprit is some sort of naming
+ problem between the hosts.  One simple way to test this is to use the ping
+ command to attempt to ping each host from the other (using the host name).
+  You need to ping in both directions as TAO will require both paths. <p> Another way to test this (and even make it work) is to tell TAO to use
+ decimal addresses (i.e. 128.252.120.1) instead of host names.  You can do
+ this by passing <code>-ORBDottedDecimalAddresses 1</code> via
+ <code>argv[]</code> to <code>CORBA::ORB_init()</code> in each process
+ of your application.  Note that you need to do this for every CORBA server in
+ your system.  Because many <em>client</em> applications are also CORBA
+ <em>servers</em>, it is best to use this option for all processes.  Assuming your
+ code passes command line options to
+ <code>CORBA::ORB_init()</code>, you can do this from the command line:<br>
+ </p>
+ 
+ <pre>
+   server -ORBDottedDecimalAddresses 1
+   client -ORBDottedDecimalAddresses 1
+ </pre>
+ 
+ Even if this works, you still probably want to get your system administrators
+ to fix the naming problems.  If you want to always force use of decimal addresses
+ add the following to your <code>$ACE_ROOT/ace/config.h</code>: 
+ 
+ <pre>
+   #define TAO_USE_DOTTED_DECIMAL_ADDRESSES 1
+ </pre>
+ 
+ <p>
+ Note: In recent versions of TAO, on Windows, the default is to
+ use dotted decimal addresses rather than hostnames.
+ </p>
+ 
+ <p>
+ You may also run into the problem described in this question
+ if your server happens to be listening on the address
+ associated with the loopback device.
+ The IP address for this "host" is 127.0.0.1 and often
+ (especially on Linux-based hosts), the hostname is set to
+ <code>localhost.localdomain</code>.  Thus, when your client
+ tries to resolve the hostname, it resolves it correctly but
+ connects <em>to itself</em> rather than the host on which the
+ server is actually running.
+ </p>
+ 
+ <p> Use <code>catior</code> (in <code>$TAO_ROOT/utils/catior</code>) to "peek inside" your TAO-generated
+ IORs; if you see <code>localhost.localdomain</code> (or something similar) in the output,
+ then you might have this problem!  Use the
+ <code>-ORBListenEndpoints</code> option (also called the
+ <code>-ORBEndpoint</code> option) to specify the hostname on
+ which the server should listen for requests (and, thus, the
+ hostname that it encodes in the IORs it generates).
+ </p>
+ 
+ <p>
+ The <code>-ORBListenEndpoints</code> option takes many
+ arguments and modifiers.  See <a
+ href="https://svn.dre.vanderbilt.edu/viewvc/Middleware/trunk/TAO/docs/ORBEndpoint.html?view=co">https://svn.dre.vanderbilt.edu/viewvc/Middleware/trunk/TAO/docs/ORBEndpoint.html?view=co</a>
+ and the <a
+ href="{{site.baseurl}}/purchase/index.html"><em>TAO
+ Developer's Guide</em></a> for more details on the the
+ <code>-ORBListenEndpoints</code> option.
+ </p>
+ 
+ <p>
+ Thanks to Tim Fry <code>&lt;tfry at imoney dot com&gt;</code> for posting to the tao-users mailing list the raw material from which this entry was created.
+ </p>
+ 
+ 
+ 

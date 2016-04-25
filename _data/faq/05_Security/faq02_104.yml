@@ -1,0 +1,9 @@
+Q: What additional software do I need to install?
+
+A: >
+ You'll need OpenSSL (<a href="http://www.openssl.org/">http://www.openssl.org</a>).
+ <p>
+ In addition, you might need a way of getting good random numbers.
+ <br>
+ 
+ 

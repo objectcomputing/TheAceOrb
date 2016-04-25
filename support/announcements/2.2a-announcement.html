@@ -1,0 +1,176 @@
+---
+layout: page
+title: TAO 2.2a
+order: 64
+categories: [ocitao]
+---
+<div id="contenttext">
+    <div class="bodytext" align="justify">
+
+
+	<h1>TAO 2.2a Release Announcement</h1>
+
+
+
+
+
+
+
+	<p>ACE+TAO 2.2a is now available for download.&nbsp; Please see
+<a href="http://download.ociweb.com/TAO-2.2a"> http://download.ociweb.com/TAO-2.2a</a> for the download.
+Our sincere thanks to the large community of ACE+TAO users and
+contributors, without whom this release would not have been possible.
+</p><p>TAO 2.2a derives from the DOC TAO 2.2.0 micro kit with bugfix-related
+patches selectively applied to enhance stability. A record of applied
+patches can be found in OCIChangeLog files installed with the
+distribution.
+</p><p>Many important new features and bug fixes have been introduced in TAO
+2.2a. They are described briefly here. These and many other features of
+TAO 2.2a are detailed in OCI's TAO Developer's Guide, Version 2.2a,
+which will be available separately.
+For a detailed description of the motivation for and implementation of
+a particular change, see the appropriate OCIChangeLog or ChangeLog file
+in the TAO 2.2a source code distribution, such as
+ACE_wrappers/OCIChangeLog, ACE_wrappers/TAO/OCIChangeLog,
+ACE_wrappers/TAO/CIAO/OCIChangeLog and
+ACE_wrappers/TAO/DAnCE/OCIChangeLog.
+Some ChangeLog entries may include a "ticket" number (e.g., [RT
+12345]), to help customers track specific changes they have sponsored.
+</p><p><b>Features added since TAO 2.2a</b>
+</p><p>Many features have been added to ACE and TAO since the release of TAO
+2.0a. A comprehensive listing is available in the NEWS files of each of
+the major package root directories. See in particular summaries from the
+top of the file down to the x.0.4 release.
+</p><p>The following list provides some highlights.
+</p>
+<UL>
+  <LI>Many performance improvements to the ACE/TAO core libraries.
+    <UL>
+      <LI>Generated skeleton code presents a smaller footprint, saving between 10 and 60% depending on use.</LI>
+       <LI>There is now a TIME_POLICY strategy manager allowing for dynamic selection of either system time or highres time</LI>
+       <LI>ZIOP compressed data performance is improved</LI>
+       <LI>Generated ValueType OBV_* classes now provide a _copy_value() hook method for better duplication support.</LI>
+       <LI>Multiple retries on invocation failures is now configurable. This works in conjunction with fault tolerant services to allow for transparent selection of the backup server if the primary fails</LI>
+       <LI>Improved MIOP implementation to support message fragmentation.</LI>
+       <LI>Added OpenSSL configuration options SSLCipherList and SSLServerCipherOrder to the SSLIOP_Factory. This allows the SSL/TLS BEAST exploit to be mitigated.</LI>
+       <LI>Extended CosNotifyFilter::FilterFactory to allow removal of filters created by the factory.</LI>
+     </UL>
+   </LI>
+   <LI>A new Dynamic Thread Pool is available for non-RT ORBs and POAs. This allows for automatic spawning of threads at runtime to some configured maximum as well as the destruction of spawned threads as load is reduced. Multiple thread pool definitions can be supplied via service configuration directives, then used by the ORB or POA. POAs may also be supplied dynamic thread pool configuration through new policy objects. Dynamic thread pools may be configured with a minimum and maximum thread counts, and an idle timeout. WHen the configured ORB or POA is activated, the minimum number of threads are spawned. The thread pool grows to the maximum count as load increases, then shrinks back to the minimum as threads sit idle. POA thread pools also accept a configurable message queue limit, above which requests are rejected.</LI>
+   <LI>The Naming Service and Implementation repository are now Fult Tolerant, supporting a dual-redundant configuration which provides replication and seamless failover between primary and back up servers.</LI>
+   <LI>Fault Tolerance is available for Naming and Implementation Repository services. This makes use of shared persistent state and communication between a primary and backup instance. CLients make use of automatic retry to switch from a failed primary to a back up server without application intervention.</LI>
+   <LI>Implementation Repository now uses asynchronous messaging to improve efficiency under heavy use conditions.</LI>
+   <LI>Implementation Repository is now able to register and launch JacORB servers. Requires JacORB 3.3 or later</LI>
+   <LI>New ORB initialization arguments:
+     <UL>
+       <LI>-ORBForwardOn<I>Exception</I>Limit <I>count</I> supercedes -ORBForwardOnceOn<I>Exception</I> to accept a count of retries. <I>Exception</I> in this case is CommFail, Transient, ObjectNotExist, InvObjref, ReplyClosed</LI>
+       <LI>-ORBForwardDelay <I>msecs</I></LI>
+       <LI>-ORBDynamicThreadPoolName <I>name</I></LI>
+     </UL>
+   </LI>
+   <LI>New Client Strategy Factory options:
+     <UL>
+       <LI>Client strategies -ORBWaitStrategy RW and -ORBTransportMuxStrategy Exclusive now work with AMI</LI>
+       <LI>-ORBCollocationStrategy best selects the best available strategy.</LI>
+     </UL>
+   </LI>
+   <LI>Other factory options
+     <UL>
+       <LI>UIPMC transport -ORBPreferredInterfaces, -ORBListenOnAll</LI>
+       <LI>MIOP transport -ORBSendThrottling and -ORBEagerDequeueing</LI>
+     </UL>
+     See TAO/docs/options.html or the TAO Developer's Guide 2.2a for details about these new options.</LI>
+   <LI>IDL Compiler Improvments:
+     <UL>
+       <LI>Fixed a bug related to compnent initialization.</LI>
+       <LI>Fixed a bug related to processing multiple files in a single execution.</LI>
+     </UL>
+   </LI>
+ </UL>
+
+<p><b>Important bug fixes since TAO 2.0a</b>
+</p><p>Many bugs have been fixed or work-arounds provided since TAO 1.6a. For
+more details, see the release announcements for the intervening DOC
+group beta kits (from 2.0.4 to 2.2.0), the ChangeLogs, and the DOC group
+Bugzilla bug database found at http://bugzilla.dre.vanderbilt.edu. A
+summary and selection of the more important fixes are listed below.
+</p>
+<p>Fixed ACE bugs: </p>
+<UL>
+  <LI>bug #897 Extend ACE_Sig_Handler to call handle_close (SIGNAL_MASK) on unregister signal</LI>
+  <LI>bug #1405 Race condition in ACE_Connector</LI>
+  <LI>bug #2368 Handle_close not called for event handlers register for signals</LI>
+  <LI>bug #3051 High_Res_Timer_Test fails within virtual machine</LI>
+  <LI>bug #3703 ACE_High_Res_Timer runs too slow, when compared to the standard system time function: ACE_OS::gettimeofday().</LI>
+  <LI>bug #3706 Locking strategy hard-coded for reactor timer queues</LI>
+  <LI>bug #3707 Reduce overhead for gettimeofday() policy in Timer_Queue</LI>
+  <LI>bug #3958 debian doesn't ship sslv2 anymore</LI>
+  <LI>bug #3994 Reduce condition code</LI>
+  <LI>bug #3996 Move ADBC to its own repository</LI>
+  <LI>bug #3999 Build ACE+TAO for ARM processor using cross compilation toolchain</LI>
+  <LI>bug #4002 MPC should always install .inl files</LI>
+  <LI>bug #4008 Service_Gestalt fails open_i() when loading statics only and a default svc.conf is not present</LI>
+  <LI>bug #4015 Dev_Poll_Reactor::resumeable_handler should return 1</LI>
+  <LI>bug #4019 Dev_Poll_Reactor::mask_ops_i should return -1 on error</LI>
+  <LI>bug #4020 Remove tandem nsk support</LI>
+  <LI>bug #4021 useless use of dynamic format in ACE_Thread_ID::to_string()</LI>
+  <LI>bug #4029 ACE_Cache_Map_Manager::find(const KEY&) compile error</LI>
+  <LI>bug #4055 ACE conditions with pthread and time shift fail</LI>
+</UL>
+
+<p>Fixed TAO bugs: </p>
+<UL>
+  <LI>Addressed several Coverity reported issues.</LI>
+  <LI>bug #1391 _copy_value() not implemented for valuetypes</LI>
+  <LI>bug #2241 Crash when specifying direct collocation with no direct collocation generated</LI>
+  <LI>bug #2460 Eliminate hand-crafting of code generated from .pidl files</LI>
+  <LI>bug #2623 Add ZIOP support to TAO</LI>
+  <LI>bug #2667 TAO/tests/Nested_Upcall_Crash failing for a long time now (Windows, mainly)</LI>
+  <LI>bug #3000 Handle leak upon oneway invocation with RW wait startegy</LI>
+  <LI>bug #3019 Make methods in TAO_ServantBase optional</LI>
+  <LI>bug #3384 Oneway_Timeouts test failure</LI>
+  <LI>bug #3531 client leader threads can't give up leadership via set_upcall_thread</LI>
+  <LI>bug #3608 CompressionFactory should store compressors</LI>
+  <LI>bug #3610 ZIOP has to be enabled by default</LI>
+  <LI>bug #3679 ORB should be able to use high res timers</LI>
+  <LI>bug #3698 Valgrind reports use of uninitialized value</LI>
+  <LI>bug #3763 alternative C++ mapping - std strings & vectors for IDL strings & sequences</LI>
+  <LI>bug #3768 Multi-threaded CORBA application can be deadlocked inside TAO</LI>
+  <LI>bug #3774 Disable upcalls on a per-thread basis</LI>
+  <LI>bug #3991 major footprint reduction possible in generate skeletons</LI>
+  <LI>bug #4004 Proposed new Run Length Encoding (RLE) compressor package for TAO</LI>
+  <LI>bug #4006 Notification service memory growth</LI>
+  <LI>bug #4009 problem with generating ciao executor</LI>
+  <LI>bug #4010 Wait_On_Read leaves socket unmonitored after oneway operation</LI>
+  <LI>bug #4022 SSLIOP enhancement needed to mitigate BEAST attack.</LI>
+  <LI>bug #4075 Not installing ObjRefTemplate library can lead to a deadlock</LI>
+  <LI>bug #4080 MIOP servants are still serialized when running in a thread pool</LI>
+  <LI>bug #4082 Any extraction to equivalent type</LI>
+  <LI>bug #4086 IDL compiler do not generate "set_attributes" if rw attributes in indirect supports interface</LI>
+  <LI>bug #4090 Problem generating ostream operator for enums</LI>
+  <LI>bug #4091 Implement Fault Tolerant Implementation Repository</LI>
+  <LI>bug #4092 Implement Fault Tolerance for Naming Service</LI>
+  <LI>bug #4093 Implement Dynamic Thread Pools in ORB</LI>
+  <LI>bug #4094 Managing Dynamic Thread Pools in POA</LI>
+  <LI>bug #4095 Provide Load Balancing in Naming Service</LI>
+  <LI>bug #4096 Enhanced TAO Invocation Retry Mechanism</LI>
+  <LI>bug #4099 TAO_Service_Type_Repository list_types leaks memory.</LI>
+  <LI>bug #4100 Several memory leaks in the Trader and fix its tests.</LI>
+  <LI>bug #4101 Extend TAO's Implementation Repository to allow it to manage JacORB application servers.</LI>
+  <LI>bug #4103 Bogus Timeouts for large payload RMIs</LI>
+</UL>
+
+<p>Fixed CIAO/DAnCE bugs: </p>
+<UL>
+  <LI>bug #1716 Direct collocation and components do not mix.</LI>
+  <LI>bug #2530 Doubt about the need for dynamic servant activation</LI>
+  <LI>bug #3777 Investigate usage of inheritance of generated servants</LI>
+  <LI>bug #3987 cif common leaks exception</LI>
+  <LI>bug #4087 tao_idl3_to_idl2 handle mirror port improperly</LI>
+  <LI>bug #4089 DDS_Base_Connector_T.cpp seems to have a program flow error</LI>
+</UL>
+
+
+
+    </div>
+</div>

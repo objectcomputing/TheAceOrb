@@ -1,0 +1,32 @@
+Q: How do I keep Cos Event Service consumers from blocking suppliers?
+
+A: >
+ By default,
+ the COS event channel delivers an event to a consumer using the same thread
+ that received it from the supplier.  When suppliers publish or emit events,
+ they do so using a two-way invocation.  When the event channel delivers an
+ event, it also uses a two-way invocation.  Since these are both two-way calls,
+ and the delivery invocation is initiated during the publishing invocation,
+ this causes the supplier to block (waiting for the response to its two-way
+ publication invocation) while the consumers process the event.<br> This behavior
+ can be avoided by directing the event channel to use a separate dispatching
+ thread for the push to the consumers.  This is accomplished differently depending
+ on which COS EC is being used.  <br>
+  When using the "native" COS EC, the -CECDispatching option can be used to
+ change the dispatching strategy.  A dispatching strategy of "mt" (multithreaded)
+ will start a second thread and use it for the push calls to the consumer.
+  Placing the following option in the service configurator file does the trick:<br>
+ <pre>   static CEC_Factory "-CECDispatching mt"<br></pre>
+ For example, if this line was placed in ec.conf, then the event channel
+ server can be started with the following command:<br>
+ <pre>   CosEvent_Service_Native -ORBSvcConf ec.conf<br></pre>
+ The -CECDispatchingThreads option is used to control the number of threads
+ used for consumer deliveries.  <br>
+  When using the COS EC that wraps the RTEC (which is the only COS EC in older
+ versions of TAO), the same effect can be accomplished by using the analogous
+ options on the RTEC (-ECDispathing and -ECDispatchingThreads on the EC_Factory).<br>
+  For more information about these and other event channel options, see the
+ <em>TAO Developer's Guide</em>, 14.8 and the online documentation at $TAO_ROOT/docs/cec_options.html
+ and $TAO_ROOT/docs/ec_options.html. <br>
+ 
+ 

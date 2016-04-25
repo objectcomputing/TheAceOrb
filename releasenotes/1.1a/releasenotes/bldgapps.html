@@ -1,0 +1,2089 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+  <head>
+    <style>
+<!--
+      h1 { font-family: Arial,Helvetica; font-size: 24pt; }
+      h3 { font-family: Arial,Helvetica; font-size: 18pt; }
+      h4 { font-family: Arial,Helvetica; font-size: 14pt; }
+      h5 { font-family: Arial,Helvetica; font-size: 12pt; }
+      pre { margin-left: 0.5in }
+      dt { font-style: italic; }
+      div.out { font-family: fixed; margin-bottom: 2em; font-size: 12pt;}
+      .l1 { font-weight: bold; font-family: Arial,Helvetica; font-size: 24pt;}
+      .l2 { font-weight: bold; font-family: Arial,Helvetica; font-size: 18pt;}
+      .l3 { font-weight: bold; font-family: Arial,Helvetica; font-size: 14pt;}
+-->
+    </style>
+    <title>Building Applications</title>
+  </head>
+<body>
+
+<h2 CLASS="ChapterNum">
+</h2>
+
+<h1 align="center">Building Applications</h1>
+
+<span class="l3">Jump directly to:
+<ul>
+  <li class="l3"><span class="l3"><a href="#visualc">Getting Started with Visual C++</a></span></li>
+  <li class="l3"><span class="l3"><a href="#visualc">Getting Started on UNIX and UNIX-like Platforms</a></span></li>
+</ul>
+</span>
+
+<hr>
+<h1 CLASS="Head1"><a name="visualc"></a>
+Getting Started Using Visual
+C++</h1>
+
+<h3 CLASS="Head2">
+Introduction</h3>
+
+<ul>
+This chapter guides you through the process
+of building and running a simple client and server example using TAO with
+Visual C++ (Version 6.0, Service Pack 3) on Windows platforms. If you are
+using UNIX or a UNIX-like platform, see the <a href="#UNIX_Section">Unix
+Section</a>.
+If you are new to CORBA, you
+may find it helpful to read Chapter 3 of <i>Advanced CORBA Programming</i>
+before proceeding.
+<p>
+In this chapter, you will learn how to
+<ul>
+<li CLASS="Numbered">
+Set up your environment for using ACE and TAO.</li>
+<ul>
+<li CLASS="Bullet2">
+We describe the process of setting up your operating
+system and Visual C++ environments for using ACE and TAO.</li>
+</ul>
+<li CLASS="Numbered">
+Develop a simple client and server using TAO.</li>
+<ul>
+<li CLASS="Bullet2">
+We show the steps involved in building and running
+a simple client and server example.</li>
+</ul>
+</ul>
+<p>
+All ACE and TAO source code files are located
+in subdirectories within the <i>ACE_wrappers</i> directory tree. After
+ACE and TAO are built, all of the newly-built library, include, and executable
+files are also located within this tree. Throughout this chapter it will
+be assumed that this directory is installed at the root level of the <i>C:</i>
+drive. Thus the entire ACE and TAO installation will be located within
+the <i>C:\ACE_wrappers</i> directory tree.
+</ul>
+
+<h3 CLASS="Head2">
+Setting Up Your Environment</h3>
+
+<ul>
+Before building or using ACE and TAO, you must
+ensure that your operating environment provides access to the necessary
+library, include, and executable files that are used by the compiler, linker
+and application programs. In <a href="#Setting_UNIX_Env_Vars" CLASS="XRef">See
+Setting Environment Variables</a> , you will learn how to set environment
+variables to enable access to these files at build and run time. In <a href="#Setting_Visual_CPP_Options" CLASS="XRef">See
+Setting Visual C++ Options</a> , we describe how to set Visual C++ options
+to accommodate building applications with TAO.
+</ul>
+
+<a name="Setting_UNIX_Env_Vars"></a>
+<h4 CLASS="Head3">
+Setting Environment Variables</h4>
+
+<ul>
+Since <i>C:\ACE_wrappers</i> is the root of
+the ACE directory tree, we refer to it as <i>ACE_ROOT</i>and
+define the environment variable
+<h5 CLASS="Bullet1">
+<i>ACE_ROOT = C:\ACE_wrappers</i></h5>
+
+All TAO source code files are located within
+subdirectories of the <i>ACE_wrappers\TAO</i> directory tree. Since <i>C:\ACE_wrappers\TAO</i>
+is the root of this tree, we define the environment variable
+
+Once ACE and TAO are built, the libraries<a href="#pgfId=112322" CLASS="footnote">
+1</a> , the TAO IDL compiler (<i> tao_idl.exe</i> ), and the hashing function
+used by the IDL compiler (<i> gperf.exe</i> ) are all in <i>ACE_wrappers\bin</i>
+. In order to expedite access to these files, we define the environment
+variable
+
+<h5 CLASS="Bullet1">
+<i>Path = %ACE_ROOT%\bin</i> (or add to existing
+<i>Path</i> )</h5>
+
+Instructions are given in the following pages
+for setting these environment variables in Windows NT, Windows 2000, and
+Windows 98.
+</ul>
+
+<h4 CLASS="Head4">
+Setting Windows NT Environment Variables</h4>
+
+<ul>
+Right-click on <i>My Computer</i> , then select
+<i>Properties</i> .
+</ul>
+<ul>
+<img src="images/my_computer_properties_NT.GIF">
+</ul>
+<ul>
+In the <i>System Properties</i> dialog box,
+select the <i>Environment</i> tab.
+</ul>
+<ul>
+<img src="images/system_properties_NT.GIF">
+</ul>
+<ul>
+On the <i>Environment</i> property page
+</ul>
+
+<ul>
+<h5 CLASS="Bullet1">
+If a variable in <i>System Variables:</i> is
+highlighted,<br>
+</ul>
+<ul>
+<img src="images/system_variables_NT.GIF">
+</ul>
+<ul>
+then click below the last entry in <i>User Variables<br>
+</ul>
+<ul>
+<img src="images/user_variables_NT.GIF">
+</ul>
+<ul>
+</i>to ensure that your added variables will appear there.</h5>
+</ul>
+<!-- <hr> -->
+<ul>
+<h5 CLASS="Bullet1">
+To set <i>ACE_ROOT</i></h5>
+
+<ul>
+<li CLASS="Bullet2">
+In the <i>Variable:</i> box, type <i>ACE_ROOT</i>
+.</li>
+
+<li CLASS="Bullet2">
+In the <i>Value:</i> box, type <i>C:\ACE_wrappers</i>
+.</li>
+</ul>
+
+<img src="images/set_ace_root_NT.GIF">
+
+<ul>
+<li CLASS="Bullet2">
+Click on <i>Set</i> (Or press <i>Enter</i> ).</li>
+</ul>
+
+<h5 CLASS="Bullet1">
+To set <i>TAO_ROOT</i></h5>
+
+<ul>
+<li CLASS="Bullet2">
+In the <i>Variable:</i> box, type <i>TAO_ROOT</i>
+.</li>
+
+<li CLASS="Bullet2">
+In the <i>Value:</i> box, type <i>%ACE_ROOT%\TAO</i>
+.</li>
+
+<li CLASS="Bullet2">
+Click on <i>Set</i> (Or press <i>Enter</i> ).</li>
+</ul>
+
+<h5 CLASS="Bullet1">
+If <i>Path</i> already appears as a user variable...</h5>
+<ul>
+<li CLASS="Bullet2">
+Click on <i>Path</i></li>
+</ul>
+<img src="images/existing_paths_NT.GIF">
+<ul>
+<li CLASS="Bullet2">
+In the <i>Value:</i> box, add <i>;%ACE_ROOT%\bin</i>
+.</li>
+</ul>
+</ul>
+<ul>
+<img src="images/add_to_path_NT_small.GIF">
+
+<ul>
+<li CLASS="Bullet2">
+Click on <i>Set</i> (Or press <i>Enter</i> ).</li>
+</ul>
+
+<h5 CLASS="Bullet1">
+If <i>Path</i> does not already appear as a
+user variable...</h5>
+
+<ul>
+<li CLASS="Bullet2">
+In the <i>Variable:</i> box, type <i>Path</i>
+.</li>
+
+<li CLASS="Bullet2">
+In the <i>Value:</i> box, type <i>%ACE_ROOT%\bin</i>
+.</li>
+
+<li CLASS="Bullet2">
+Click on <i>Set</i> (Or press <i>Enter</i> ).</li>
+</ul>
+
+<h5 CLASS="Bullet1">
+The three variables should now appear in the
+user variables box.</h5>
+
+<table>
+<td>
+<img src="images/unresolved_variables_NT.GIF">
+</td>
+<td>
+<img src="images/unresolved_variables_existing_NT.GIF">
+</td>
+</table>
+
+<h5 CLASS="Bullet1">
+Click on <i>OK</i> .</h5>
+
+Follow the above steps to open the <i>Environment</i>
+property page again.
+
+<h5 CLASS="Bullet1">
+The new variables should now be fully resolved.</h5>
+
+<table>
+<td>
+<img src="images/resolved_variables_NT.GIF">
+</td>
+<td>
+<img src="images/resolved_variables_existing_NT.GIF">
+</td>
+</table>
+<br>
+Close the <i>System Properties</i> dialog box.
+</ul>
+
+<h4 CLASS="Head4">
+Setting Windows
+2000 Environment Variables</h4>
+
+<ul>
+Right-click on <i>My Computer</i> , then select
+<i>Properties</i> .
+</ul>
+
+<ul>
+<img src="images/my_computer_properties_2000.GIF">
+</ul>
+
+<ul>
+In the <i>System Properties</i> dialog box,
+select the <i>Advanced</i> tab.
+</ul>
+<ul>
+<img src="images/system_properties_2000.GIF">
+</ul>
+<ul>
+On the <i>Advanced</i> page, click on <i>Environment
+Variables...</i>
+</ul>
+<ul>
+<img src="images/choose_Environment_variables_2000.GIF">
+</ul>
+<ul>
+In the user variables area of the <i>Environment
+Variables</i> dialog box, click on <i>New...</i>
+</ul>
+<ul>
+<img src="images/click_on_new_2000.GIF">
+</ul>
+<ul>
+In the <i>New User Variable</i> dialog box...
+
+<h5 CLASS="Bullet1">
+For <i>Variable Name:</i> , type <i>ACE_ROOT</i>
+.</h5>
+
+<h5 CLASS="Bullet1">
+For <i>Variable Value:</i> , type <i>C:\ACE_wrappers</i>
+.</h5>
+
+<img src="images/new_user_variable_2000.GIF">
+
+<h5 CLASS="Bullet1">
+Click on <i>OK</i> .</h5>
+
+
+In the user variables area of the <i>Environment
+Variables</i> dialog box, click on <i>New...</i>
+
+
+<h5 CLASS="Bullet1">
+In the <i>New User Variable</i> dialog box,</h5>
+
+<ul>
+<li CLASS="Bullet2">
+For <i>Variable Name:</i> , type <i>TAO_ROOT</i>
+.</li>
+
+<li CLASS="Bullet2">
+For <i>Variable Value:</i> , type <i>%ACE_ROOT%\TAO</i>
+.</li>
+
+<li CLASS="Bullet2">
+Click on <i>OK</i> .</li>
+</ul>
+
+If <i>Path</i> already appears as a user variable
+in the <i>Environment Variables</i> dialog box...
+
+
+<h5 CLASS="Bullet1">
+Click on <i>Path</i></h5>
+
+
+<img src="images/existing_paths_2000.GIF">
+
+
+<h5 CLASS="Bullet1">
+Click on <i>Edit...</i></h5>
+
+<h5 CLASS="Bullet1">
+In the <i>Edit User Variable</i> dialog box...</h5>
+
+<img src="images/edit_user_variable_2000.GIF">
+<ul>
+<li CLASS="Bullet2">
+In <i>Variable Value:</i> , add <i>;%ACE_ROOT%\bin</i>
+to the existing paths.</li>
+
+<li CLASS="Bullet2">
+Click on <i>OK</i> .</li>
+
+If <i>Path</i> does not already appear as a
+user variable in the <i>Environment Variables</i> dialog box...
+</ul>
+<h5 CLASS="Bullet1">
+Click on <i>New...</i></h5>
+
+<li CLASS="Bullet2">
+In the <i>New User Variable</i> dialog box...</li>
+<ul>
+<li CLASS="Bullet3">
+For <i>Variable Name:</i> , type <i>Path</i>
+.</li>
+
+<li CLASS="Bullet3">
+For <i>Variable Value:</i> , type <i>%ACE_ROOT%\bin</i>
+.</li>
+
+<li CLASS="Bullet3">
+Click on <i>OK</i> .</li>
+</ul>
+The three variables should now appear in the
+user variables box.
+</ul>
+<img src="images/unresolved_variables_2000.GIF">
+or
+<img src="images/unresolved_variables_existing_2000.GIF">
+<ul>
+In the <i>Environment Variables</i> dialog box,
+click on <i>OK</i> .
+
+In the <i>System Properties</i> dialog box,
+click on <i>OK</i> .
+
+Follow the above steps to open <i>Environment
+Variables</i> again.
+
+The new variables should now be fully resolved.
+</ul>
+<img src="images/resolved_variables_2000.GIF">
+or
+<img src="images/resolved_variables_existing_2000.GIF">
+<ul>
+Close <i>Environment Variables</i> and <i>System
+Properties</i>.
+</ul>
+
+<h4 CLASS="Head4">
+Setting Windows
+98 Environment Variables</h4>
+<ul>
+<table>
+<td valign=top>
+From the Taskbar, select <i>Start->Run...</i>
+</td>
+<td>
+<img src="images/start_98.gif">
+</td>
+</table>
+<p>
+<table>
+<td valign=top>
+In the <i>Run</i> dialog box<br>
+<li>Type <i>sysedit</i></li>
+<li>Clock on <i>OK</i>.</li>
+</td>
+<td>
+<img src="images/run_98.gif">
+</td>
+</table>
+
+If <i>Path</i> is not already set, type
+<li><i>SET Path=%ACE_ROOT%\bin</i></li><br>
+<img src="images/autoexec_98.gif">
+<br>
+<br>
+If <i>Path</i> is already set, add
+<li><i>;%ACE_ROOT%\bin</i> to the existing path(s)</li><br>
+<img src="images/autoexec_existing_paths_98.gif">
+
+
+<h5 CLASS="Bullet1">
+On the <i>System Configuration Editor</i> menu
+bar</h5>
+
+<ul>
+<li CLASS="Bullet2">
+Select <i>File->Save</i> , then <i>File->Exit</i>
+.</li>
+</ul>
+
+<h5 CLASS="Bullet1">
+From the Taskbar, select <i>Start->Shut Down...</i></h5>
+
+<ul>
+<li CLASS="Bullet2">
+In the <i>Shut Down Windows</i> dialog box</li>
+
+<li CLASS="Bullet3">
+Select <i>Restart</i> .</li>
+
+<li CLASS="Bullet3">
+Click on <i>OK</i> .</li>
+</ul>
+
+<h5 CLASS="Bullet1">
+</h5>
+</ul>
+<a name="Setting_Visual_CPP_Options"></a>
+<h4 CLASS="Head3">
+Setting Visual C++ Options</h4>
+
+<ul>
+You must first modify the Visual
+C++ settings so that the compiler and linker will be able to access the
+appropriate TAO files. These changes will apply to <i>all</i> Visual C++
+sessions.
+
+<h5 CLASS="Bullet1">
+Start a Visual C++ session.</h5>
+
+<h5 CLASS="Bullet1">
+Select the menu option <i>Tools->Options.</i></h5>
+
+<h5 CLASS="Bullet1">
+In the <i>Options</i> dialog box</h5>
+<ul>
+<li CLASS="Bullet2">
+Select the <i>Directories</i> tab.</li>
+
+<li CLASS="Bullet2">
+On the <i>Directories</i> property page</li>
+
+<li CLASS="Bullet3">
+In the <i>Show directories for</i> drop-down
+box , select <i>Include Files</i> .</li><br>
+
+<img src="images/include_files.GIF">
+<li CLASS="Bullet4">
+In the <i>Directories:</i> box, add<a href="#pgfId=83151" CLASS="footnote">
+2</a> :</li>
+
+<br><i>C:\ACE_wrappers</i>
+<br><i>C:\ACE_wrappers\TAO</i>
+<br><i>C:\ACE_wrappers\TAO\tao</i>
+<br><i>C:\ACE_wrappers\TAO\orbsvcs</i>
+<br><i>C:\ACE_wrappers\TAO\orbsvcs\orbsvcs</i>
+
+<li CLASS="Bullet3">
+In the <i>Show directories for</i> drop-down
+box,select <i>Library Files</i> .</li><br>
+
+<img src="images/library_files.GIF">
+
+<li CLASS="Bullet4">
+In the <i>Directories</i> box, add<i> :</i></li>
+
+<br><i>C:\ACE_wrappers\ace</i>
+<br><i>C:\ACE_wrappers\TAO\tao</i>
+<br><i>C:\ACE_wrappers\TAO\orbsvcs\orbsvcs</i>
+<li CLASS="Bullet3">
+In the <i>Show directories for</i> drop-down
+box, select <i>Executable Files</i> .</li>
+<li CLASS="Bullet4">
+In the <i>Directories:</i> box, add:
+<i>C:\ACE_wrappers\bin</i></li>
+<li CLASS="Bullet3">
+Click on the <i>OK</i> button.</li>
+</ul>
+</ul>
+
+<h3 CLASS="Head2">
+A Simple Example
+</h3>
+
+<ul>
+We now describe the steps needed to build a
+simple example using Visual C++ 6.0. Our example consists of a single server
+called <i>MessengerServer</i> that implements a simple <i>Messenger</i>
+interface, and a client called <i>MessengerClient</i> that accesses and
+uses a <i>Messenger</i>CORBA object provided
+by the <i>MessengerServer</i> . You can imagine that a full implementation
+of the <i>MessengerServer</i> might send e-mail, access a pager, or even
+make a phone call using voice synthesizer technology. To keep our example
+simple, we just write out the message to standard output. This same example
+will be expanded in later chapters to illustrate various features of TAO.
+<p>
+There are a variety of ways to set up the projects
+inside a Visual C++ workspace to work with IDL files and client/server
+programs. The approach we use here is to create a separate project that
+targets a library consisting of all the code generated by the IDL compiler.
+Although this approach may not be needed when just one IDL file is involved,
+it scales well when adding more IDL files to the workspace. In this example,
+ACE and TAO are installed in <i>C:\ACE_wrappers</i> .
+<p>
+<ul>
+<li CLASS="Numbered">
+Create a Workspace</li>
+
+<li CLASS="Numbered">
+Create Projects within the Workspace</li>
+
+<li CLASS="Numbered">
+Interface Definition Language (IDL) File</li>
+
+<li CLASS="Numbered">
+Create the <i>Messenger</i> class</li>
+
+<li CLASS="Numbered">
+Create the Interface Library</li>
+
+<li CLASS="Numbered">
+Server</li>
+
+<li CLASS="Numbered">
+C++ Implementation
+of the Client</li>
+
+<li CLASS="Numbered">
+Run the Client and Server</li>
+</ul>
+</ul>
+
+<h4 CLASS="Head3">
+Create a Workspace</h4>
+<ul>
+<h5 CLASS="Bullet1">
+Select the menu option <i>File->New.</i></h5>
+
+<h5 CLASS="Bullet1">
+In the <i>New</i> dialog box (See <a href="#38801" CLASS="XRef">Figure 4-1
+</a>)</h5>
+
+<ul>
+<li CLASS="Bullet2">
+Select the <i>Workspaces</i> tab.</li>
+
+<li CLASS="Bullet2">
+On the <i>Workspaces</i> property page</li>
+
+<li CLASS="Bullet3">
+In the <i>Location:</i> box, type <i>C:\</i>
+.</li>
+
+<li CLASS="Bullet3">
+In the <i>Workspace name:</i> box, type <i>Messenger</i>
+.</li>
+
+<li CLASS="Bullet3">
+Visual C++ will add the name of the workspace
+to the location.</li>
+
+<li CLASS="Bullet3">
+Click on the <i>OK</i> button.</li>
+</ul>
+
+<h5 CLASS="Bullet1">
+At the top of the workspace window, the following
+will appear:
+</h5>
+Workspace 'Messenger': 0 project(s)
+
+<a name="38801"></a>
+<img src="images/workspace.GIF">
+</ul>
+
+<h4 CLASS="Head3">
+<a name="createproject"></a>Create Projects within the Workspace</h4>
+
+<ul>
+We create the following three projects within
+the Messenger workspace:
+
+
+<h5 CLASS="Bullet1">
+The Interface project contains the code generated
+by the IDL compiler.</h5>
+
+<h5 CLASS="Bullet1">
+The MessengerServer project contains the servant
+implementation code as well as the server code.</h5>
+
+<h5 CLASS="Bullet1">
+The MessengerClient project contains the client
+code.</h5>
+
+<!-- 
+<li CLASS="NoteBody">
+</li>
+-->
+
+<hr>As you create a project, Visual C++ automatically
+appends the name of the project to the workspace directory path, creating
+a subdirectory under the directory containing the workspace file. When
+building TAO applications, however, it is preferable to locate the files
+for all of the projects within one directory. For this reason, each time
+you create a project, you will be instructed to remove the appended project
+name from the directory path.
+<hr>
+
+<h5 CLASS="Head4">
+Create a Project for
+Code Generated by the IDL Compiler</h5>
+<ul>
+<h5 CLASS="Bullet1">
+Right-click on <i>Workspace 'Messenger': 0 project(s)</i>
+</h5>
+
+<ul>
+<li CLASS="Bullet2">
+Select <i>Add New Project to Workspace...</i></li>
+</ul>
+
+<h5 CLASS="Bullet1">
+In the <i>New</i> dialog box</h5>
+
+<ul>
+<li CLASS="Bullet2">
+On the <i>Projects</i> property page</li>
+<ul>
+<li CLASS="Bullet3">
+<i>Win32 Static Library</i> (See <a href="#89314" CLASS="XRef">Figure 4-2
+</a>).</li>
+
+<li CLASS="Bullet3">
+In the <i>Project name:box, type Interface.</i></li>
+
+<li CLASS="Bullet3">
+The project name is automatically appended to
+the directory path in the <i>Location:</i> box, thus constructing the path<i>
+C:\Messenger\Interface</i> .</li>
+<ul>
+<li CLASS="Bullet4">
+Remove <i>\Interface</i> from this directory
+path.</li>
+</ul>
+<li CLASS="Bullet3">
+Click on the <i>OK</i> button.</li>
+</ul>
+</ul>
+<h5 CLASS="Bullet1">
+Click <i>Finish</i> in the next dialog box that
+appears.</h5>
+
+<h5 CLASS="Bullet1">
+Click <i>OK</i> in the next dialog box that appears.</h5>
+
+<h5 CLASS="Bullet1">
+The project appears in the workspace window as
+<i>Interface files</i> .</h5>
+<a name="89314"></a>
+<img src="images/remove_Interface.GIF">
+</ul>
+
+<h5 CLASS="Head4">
+Create the MessengerServer Project
+Project</h5>
+<ul>
+<h5 CLASS="Bullet1">
+Right-click on <i>Workspace 'Messenger': 1 project(s)</i>.
+</h5>
+
+<ul>
+<li CLASS="Bullet2">
+Select <i>Add New Project to Workspace...</i></li>
+</ul>
+
+<h5 CLASS="Bullet1">
+In the <i>New</i> dialog box</h5>
+
+<ul>
+<li CLASS="Bullet2">
+On the <i>Projects</i> property page (See <a href="#40657" CLASS="XRef">Figure 4-3
+</a>)</li>
+<ul>
+<li CLASS="Bullet3">
+Select <i>Win32 Console Application</i> .</li>
+
+<li CLASS="Bullet3">
+In the <i>Project Name:box, type MessengerServer.</i></li>
+
+<li CLASS="Bullet3">
+The project name is automatically appended to
+the directory path in the <i>Location:</i> box, thus constructing the path<i>
+C:\Messenger\MessengerServer</i> .</li>
+<ul>
+<li CLASS="Bullet4">
+Remove <i>\MessengerServer</i> from this directory
+path.</li>
+</ul>
+<li CLASS="Bullet3">
+Click on the <i>OK</i> button.</li>
+</ul>
+</ul>
+<h5 CLASS="Bullet1">
+Click <i>Finish</i> in the next dialog box that
+appears.</h5>
+
+<h5 CLASS="Bullet1">
+Click <i>OK</i> in the next dialog box that appears.</h5>
+
+<h5 CLASS="Bullet1">
+The project will appear in the workspace window
+as <i>MessengerServer files</i> .</h5>
+<a name="40657"></a>
+<img src="images/remove_Server.GIF">
+</ul>
+
+<h5 CLASS="Head4">
+Create the MessengerClient Project</h5>
+<ul>
+<h5 CLASS="Bullet1">
+Right-click on <i>Workspace 'Messenger': 2 project(s)</i>
+.</h5>
+
+<ul>
+<li CLASS="Bullet2">
+Select <i>Add New Project to Workspace...</i></li>
+</ul>
+
+<h5 CLASS="Bullet1">
+In the <i>New</i> dialog box</h5>
+
+<ul>
+<li CLASS="Bullet2">
+On the <i>Projects</i> property page</li>
+<ul>
+<li CLASS="Bullet3">
+Select <i>Win32 Console Application</i> .</li>
+
+<li CLASS="Bullet3">
+In the <i>Project Name:box, type MessengerClient.</i></li>
+
+<li CLASS="Bullet3">
+The project name is automatically appended to
+the directory path in the <i>Location:</i> box, thus constructing the path<i>
+C:\Messenger\MessengerClient</i> .</li>
+<ul>
+<li CLASS="Bullet4">
+Remove <i>\MessengerClient</i> from this directory
+path.</li>
+</ul>
+<li CLASS="Bullet2">
+Click on the OK button.</li>
+</ul>
+</ul>
+<h5 CLASS="Bullet1">
+Click <i>Finish</i> in the next dialog box that
+appears.</h5>
+
+<h5 CLASS="Bullet1">
+Click OK in the next dialog box that appears.</h5>
+
+<h5 CLASS="Bullet1">
+The project will appear in the workspace window
+as <i>MessengerClient files</i> .</h5>
+</ul>
+<h5 CLASS="Head4">
+Modify the Project Settings for all the Projects</h5>
+<ul>
+<h5 CLASS="Bullet1">
+Select the menu option <i>Project->Settings</i>
+.</h5>
+
+<h5 CLASS="Bullet1">
+In the <i>Project Settings</i> dialog box</h5>
+
+<ul>
+<li CLASS="Bullet2">
+In the <i>Settings For</i> drop-down box</li>
+<ul>
+<li CLASS="Bullet3">
+Select <i>Win32 Debug</i></li>
+</ul>
+<li CLASS="Bullet2">
+Select all three projects.</li>
+
+<li CLASS="Bullet2">
+Select the <i>General</i> tab.</li>
+
+<li CLASS="Bullet2">
+On the <i>General</i> property page</li>
+<ul>
+<li CLASS="Bullet3">
+In the <i>Intermediate files:</i> box, type
+<i>Debug</i> .</li>
+
+<li CLASS="Bullet3">
+In the <i>Output files:</i> box, type <i>Debug</i>
+.</li>
+</ul>
+<li CLASS="Bullet2">
+Select the <i>C/C++</i> tab.</li>
+
+<li CLASS="Bullet2">
+On the <i>C/C++</i> property page</li>
+<ul>
+<li CLASS="Bullet3">
+In the <i>Category:</i> drop-down box, select
+<i>Code Generation</i></li>
+<ul>
+<li CLASS="Bullet4">
+In the <i>Use run time library:</i> drop-down
+box,</li>
+</ul>
+</ul>
+<br>select <i>Debug Multithreaded DLL</i> .
+<li CLASS="Bullet2">
+Now select only the <i>MessengerServer</i> and
+<i>MessengerClient</i> projects.</li>
+
+<li CLASS="Bullet2">
+Select the <i>Link</i> tab.</li>
+
+<li CLASS="Bullet2">
+On the <i>Link</i> property page</li>
+<ul>
+<li CLASS="Bullet3">
+In the <i>Object/library modules:</i> box,</li>
+
+<br>add the following libraries:
+<br><i>aced.lib</i>
+<br><i>TAOd.lib</i>
+</ul>
+<li CLASS="Bullet2">
+Click on the <i>OK</i> button.</li>
+</ul>
+</ul>
+</ul>
+
+<h4 CLASS="Head3">
+Interface Definition Language (IDL) File</h4>
+<ul>
+<h5 CLASS="Bullet1">
+In the workspace window, right-click on <i>Interface
+files</i></h5>
+
+<ul>
+<li CLASS="Bullet2">
+Select <i>Set as Active Project</i> .</li>
+</ul>
+
+<h5 CLASS="Bullet1">
+Select the menu option <i>File->New</i> .</h5>
+
+<h5 CLASS="Bullet1">
+In the <i>New</i> dialog box</h5>
+
+<ul>
+<li CLASS="Bullet2">
+On the <i>Files</i> property page, select <i>Text
+File</i> .</li>
+
+<ul>
+<li CLASS="Bullet3">
+In the <i>File name:</i> box, type <i>Messenger.idl</i>
+.</li>
+</ul>
+
+<li CLASS="Bullet2">
+Click on the OK button.</li>
+
+<li CLASS="Bullet2">
+Because <i>Interface files</i> is the active
+project, <i>Messenger.idl</i> will automatically be added to it.</li>
+</ul>
+
+<h5 CLASS="Bullet1">
+</i>Type the following code into the Messenger.idl file box.</h5>
+<pre>
+      // Messenger.idl
+
+      interface Messenger
+      {
+      boolean send_message(in string user_name,
+                           in string subject,
+                           inout string message);
+      };
+</pre>
+<h5 CLASS="Bullet1">
+Select the menu option <i>File->Save.</i></h5>
+
+<h5 CLASS="Head4">
+Specify How C++ Code is Generated from IDL</h5>
+
+<ul>
+Specify a custom build
+command for the IDL file.
+
+<h5 CLASS="Bullet1">
+In the workspace window</h5>
+
+<li CLASS="Bullet2">
+Double-click on <i>Interface files</i> .</li>
+
+<li CLASS="Bullet2">
+Double-click on the <i>Source Files</i> folder
+that now appears below <i>Interface files</i> .</li>
+
+<li CLASS="Bullet2">
+The <i>Messenger.idl</i> file will appear below
+the folder.</li>
+
+<li CLASS="Bullet2">
+Right click on <i>Messenger.idl</i></li>
+<ul>
+<li CLASS="Bullet3">
+Select <i>Settings...</i></li>
+</ul>
+
+<h5 CLASS="Bullet1">
+In the <i>Project Settings</i> dialog box</h5>
+
+<li CLASS="Bullet2">
+In the <i>Settings For</i> drop-down box, select
+<i>Win32 Debug</i></li>
+
+<li CLASS="Bullet2">
+Select the <i>Custom Build</i> tab (See <a href="#68376" CLASS="XRef">Figure 4-4
+</a>).</li>
+
+<li CLASS="Bullet2">
+On the <i>Custom Build</i> property page</li>
+<ul>
+<li CLASS="Bullet3">
+In the <i>Description:</i> box, replace the
+existing text with:</li>
+
+<br><i>Invoking TAO IDL compiler on $(InputPath)</i>
+<li CLASS="Bullet3">
+In the <i>Commands</i> box, type:</li>
+
+<br><i>$(ACE_ROOT)\bin\tao_idl.exe -GI $(InputPath)<a href="#pgfId=147468" CLASS="footnote">3</a></i>
+<li CLASS="Bullet3">
+In the <i>Outputs</i> box, type<a href="#pgfId=78074" CLASS="footnote">
+4</a> :</li>
+
+<br><i>$(InputName)C.cpp</i><br>
+
+<i>$(InputName)C.h</i><br>
+<i>$(InputName)C.i</i><br>
+<i>$(InputName)S.cpp</i><br>
+<i>$(InputName)S.h</i><br>
+<i>$(InputName)S.i</i><br>
+<i>$(InputName)S_T.cpp</i><br>
+<i>$(InputName)S_T.h</i><br>
+<i>$(InputName)S_T.i</i><br>
+<li CLASS="Bullet3">
+Click on the <i>OK</i> button.</li>
+</ul>
+
+<a name="68376"></a>
+<img src="images/custom_build.GIF">
+
+<h5 CLASS="Head4">
+Run the IDL compiler on Messenger.idl</h5>
+
+Use the custom build command to compile <i>Messenger.idl</i>
+(<a href="#68376" CLASS="XRef"> Figure 4-4</a>)
+
+<h5 CLASS="Bullet1">
+In the workspace window, right-click on <i>Messenger.idl</i></h5>
+
+<li CLASS="Bullet2">
+Select <i>Compile Messenger.idl</i> .</li>
+</ul>
+</ul>
+<h4 CLASS="Head3">
+Create the Messenger_i Implementation Class</h4>
+
+<ul>
+Among the files created by the IDL compiler and
+stored in <i>C:\Messenger</i> are the files <i>MessengerI.h</i> and <i>MessengerI.cpp</i>
+. These two files are created by the IDL compiler in response to the <i>-GI</i>
+option specified in the <i>Custom Build</i> command above (See <a href="#68376" CLASS="XRef">Figure 4-4
+</a>). They contain starter code that you will use to create the <i>Messenger_i</i>
+class header and implementation files.
+
+In order to prevent the IDL compiler from overwriting
+changes you make to these files, rename them as follows:
+
+<h5 CLASS="Bullet1">
+Rename <i>MessengerI.h</i> as <i>Messenger_i.h</i>
+.</h5>
+
+<h5 CLASS="Bullet1">
+Rename <i>MessengerI.cpp</i> as <i>Messenger_i.cpp</i>
+.</h5>
+
+<h5 CLASS="Head4">
+C++ Header for the Messenger_i Class</h5>
+
+The file <i>Messenger_i.h</i> generated by the
+IDL compiler contains the complete class definition for our <i>Messenger_i</i>
+class that implements the Messenger interface defined in <i>Messenger.idl</i>
+.
+</ul>
+
+<pre>
+      // ****** Code generated by the The ACE ORB (TAO) IDL Compiler *******
+      // TAO and the TAO IDL Compiler have been developed by the Center for
+      // Distributed Object Computing at Washington University, St. Louis.
+      //
+      // Information about TAO is available at:
+      // http://www.cs.wustl.edu/~schmidt/TAO.html
+
+      #ifndef MESSENGER_I_H_
+      #define MESSENGER_I_H_
+
+      #include "MessengerS.h"
+
+      #if !defined (ACE_LACKS_PRAGMA_ONCE)
+      #pragma once
+      #endif /* ACE_LACKS_PRAGMA_ONCE */
+
+      //Class Messenger_i
+      class Messenger_i : public virtual POA_Messenger
+      {
+      public:
+        //Constructor
+        Messenger_i (void);
+
+        //Destructor
+        virtual ~Messenger_i (void);
+
+        virtual CORBA::Boolean send_message (
+            const char * user_name,
+            const char * subject,
+            char *&amp; message
+          )
+          ACE_THROW_SPEC ((
+            CORBA::SystemException
+          ));
+
+      };
+
+      #endif /* MESSENGERI_H_ */
+</pre>
+
+<h5 CLASS="Head4">
+C++ Implementation of the Messenger_i Class</h5>
+
+<ul>
+The file <i>Messenger_i.cpp</i> generated by
+the IDL compiler contains nearly all the code needed for the <i>Messenger_i</i>class
+implementation file. You need make only the following changes:
+
+<h5 CLASS="Bullet1">
+Add the line <i>#include &lt;ace/streams.h></i>
+above the class definition.</h5>
+
+<h5 CLASS="Bullet1">
+Change <i>#include "MessengerI.h"</i> to <i>#include
+"Messenger_i.h"</i> .</h5>
+
+<h5 CLASS="Bullet1">
+Replace the line "<i> //Add your implementation
+here</i> " in the body of the <i>Messenger_i::send_message()</i> operation
+with</h5>
+<pre>
+cout &lt;&lt; "Message from: " &lt;&lt; user_name &lt;&lt; endl;
+cout &lt;&lt; "Subject: " &lt;&lt; subject &lt;&lt; endl;
+cout &lt;&lt; "Message: " &lt;&lt; message &lt;&lt; endl;
+return 1;
+</pre>
+
+The file <i>Messenger_i.cpp</i> should now appear
+as follows:
+</ul>
+<pre>
+      #include "Messenger_i.h"
+      #include &lt;ace/streams.h>
+
+      // Implementation skeleton constructor
+      Messenger_i::Messenger_i (void){}
+
+      // Implementation skeleton destructor
+      Messenger_i::~Messenger_i (void){}
+
+      CORBA::Boolean Messenger_i::send_message (
+          const char * user_name,
+          const char * subject,
+          char *&amp; message
+        )
+        ACE_THROW_SPEC ((
+          CORBA::SystemException
+        ))
+        {
+          cout &lt;&lt; "Message from: " &lt;&lt; user_name &lt;&lt; endl;
+          cout &lt;&lt; "Subject: " &lt;&lt; subject &lt;&lt; endl;
+          cout &lt;&lt; "Message: " &lt;&lt; message &lt;&lt; endl;
+          return 1;
+        }
+</pre>
+
+<h4 CLASS="Head3">
+Create the Interface Library</h4>
+<ul>
+<h5 CLASS="Bullet1">
+In the workspace window, right-click on <i>Interface
+files</i> .</h5>
+
+<ul>
+<li CLASS="Bullet2">
+Select <i>Add Files to Project...</i></li>
+</ul>
+
+<h5 CLASS="Bullet1">
+In the <i>Insert Files into Project</i> dialog
+box</h5>
+
+<ul>
+<li CLASS="Bullet2">
+Select both <i>MessengerC.cpp</i> and <i>MessengerS.cpp</i>
+.</li>
+
+<li CLASS="Bullet2">
+Click on the <i>OK</i> button.</li>
+
+<li CLASS="Bullet2">
+These files will now appear in the workspace
+window below <i>Messenger.idl</i> .</li>
+</ul>
+
+<h5 CLASS="Bullet1">
+In the workspace window, right-click on <i>Interface
+files</i>.</h5>
+
+<ul>
+<li CLASS="Bullet2">
+Select <i>Build</i> .</li>
+
+<li CLASS="Bullet2">
+Wait for the build to complete.</li>
+</ul>
+</ul>
+
+<h4 CLASS="Head3">
+C++ Implementation of the MessengerServer</h4>
+
+<ul>
+Our <i>MessengerServer</i> will give our Messenger
+object a place to live. It will create an instance of our <i>Messenger_i</i>
+servant class, activate it in the <i>RootPOA</i> , then wait for requests
+from clients.
+
+<pre>
+#include "Messenger_i.h"
+#include &lt;ace/streams.h>
+
+int
+main(int argc, char * argv[])
+{
+  try {
+    // Initialize the ORB.
+    CORBA::ORB_var orb = CORBA::ORB_init(argc, argv);
+
+    // Get a reference to Root POA.
+    CORBA::Object_var obj = orb->resolve_initial_references("RootPOA");
+    PortableServer::POA_var poa = PortableServer::POA::_narrow(obj.in());
+    // Activate the POA manager.
+    PortableServer::POAManager_var mgr = poa->the_POAManager();
+    mgr->activate();
+
+    // Create a Messenger_i servant.
+    Messenger_i messenger_servant;
+
+    // Register the servant with the RootPOA, obtain its object reference,
+    // stringify it, and write it to a file
+
+    PortableServer::ObjectId_var oid =
+      poa->activate_object( &amp;messenger_servant );
+
+    CORBA::Object_var messenger_obj = poa->id_to_reference( oid.in() );
+    CORBA::String_var str = orb->object_to_string( messenger_obj.in() );
+    ofstream iorFile("Messenger.ior");
+    iorFile &lt;&lt; str.in() &lt;&lt; endl;
+    iorFile.close();
+    cout &lt;&lt; "IOR written to file Messenger.ior" &lt;&lt; endl;
+
+    // Accept requests from clients.
+    orb->run();
+
+    // Release resources.
+    orb->destroy();
+  }
+  catch (const CORBA::Exception &amp; ex) {
+    cerr &lt;&lt; "Caught a CORBA exception: " &lt;&lt; ex &lt;&lt; endl;
+    return 1;
+  }
+  return 0;
+}
+</pre>
+</ul>
+<h4 CLASS="Head3">
+C++ Implementation of the MessengerClient</h4>
+
+<ul>
+Our <i>MessengerClient</i> will obtain an object
+reference to the Messenger and send it a message via its <i>send_message()</i>
+operation.
+
+<pre>
+#include "MessengerC.h"
+#include &lt;ace/streams.h>
+
+int
+main(int argc, char * argv[])
+{
+  try {
+    // Initialize the ORB
+    CORBA::ORB_var orb = CORBA::ORB_init(argc, argv);
+
+    // Convert the contents of the file to an object reference.
+    CORBA::Object_var obj = orb->string_to_object("file://Messenger.ior");
+    if (CORBA::is_nil(obj.in())) {
+      cerr &lt;&lt; "Nil Messenger reference" &lt;&lt; endl;
+      throw 0;
+    }
+
+    // Narrow the object reference to a Messenger object reference.
+    Messenger_var messenger = Messenger::_narrow(obj.in());
+    if (CORBA::is_nil(messenger.in ())) {
+      cerr &lt;&lt; "Not a Messenger object reference" &lt;&lt; endl;
+      throw 0;
+    }
+
+    // Create a message and send it to the Messenger.
+    CORBA::String_var message = CORBA::string_dup("Howdy!");
+    messenger->send_message ("rick", "Test", message.inout());
+
+    // Release resources.
+    orb->destroy();
+  }
+  catch (const CORBA::Exception &amp; ex) {
+    cerr &lt;&lt; "Caught a CORBA exception: " &lt;&lt; ex &lt;&lt; endl;
+    return 1;
+  }
+  catch (...) {
+    return 1;
+  }
+  cout &lt;&lt; "Message was sent" &lt;&lt; endl;
+  return 0;
+}
+</pre>
+</ul>
+
+<h4 CLASS="Head3">
+Build the MessengerServer and MessengerClient</h4>
+<ul>
+<h5 CLASS="Head5">
+Add the client and server code to their projects</h5>
+<ul>
+<h5 CLASS="Bullet1">
+Copy <i>MessengerServer.cpp</i> and <i>MessengerClient.cpp</i>
+into the<i> Messenger</i> folder.</h5>
+
+<h5 CLASS="Bullet1">
+In the workspace window, right-click on <i>MessengerServer
+files</i> .</h5>
+
+<ul>
+<li CLASS="Bullet2">
+Select <i>Add Files to Project...</i></li>
+</ul>
+
+<h5 CLASS="Bullet1">
+In the <i>Insert Files into Project</i> dialog
+box</h5>
+
+<ul>
+<li CLASS="Bullet2">
+Select both of the following files:</li>
+
+<br><i>Messenger_i.cpp</i>
+<br><i>MessengerServer.cpp</i>
+<li CLASS="Bullet2">
+Click on the <i>OK</i> button.</li>
+</ul>
+
+<h5 CLASS="Bullet1">
+In the workspace window, right-click on <i>MessengerClient
+files</i> .</h5>
+
+<ul>
+<li CLASS="Bullet2">
+Select <i>Add Files to Project...</i></li>
+</ul>
+
+<h5 CLASS="Bullet1">
+In the <i>Insert Files into Project</i> dialog
+box</h5>
+
+<ul>
+<li CLASS="Bullet2">
+Select <i>MessengerClient.cpp</i></li>
+
+<li CLASS="Bullet2">
+Click on the <i>OK</i> button.</li>
+</ul>
+</ul>
+
+<h5 CLASS="Head5">
+Set up dependencies on the Interface library</h5>
+
+<ul>
+Both the MessengerServer and the MessengerClient
+are dependent on the Interface library. The following instructions set
+up these dependencies.
+
+<h5 CLASS="Bullet1">
+Select the menu option <i>Project->Dependencies</i>
+.</h5>
+
+<h5 CLASS="Bullet1">
+In the <i>Project->Dependencies</i> dialog box</h5>
+
+<li CLASS="Bullet2">
+In the <i>Select project to modify</i> drop-down
+box</li>
+
+<ul>
+<li CLASS="Bullet3">
+Select <i>MessengerServer</i></li>
+</ul>
+<li CLASS="Bullet2">
+In the <i>Dependent on the following project(s)</i>
+box</li>
+<ul>
+<li CLASS="Bullet3">
+Select <i>Interface</i></li>
+</ul>
+<li CLASS="Bullet2">
+In the <i>Select project to modify</i> drop-down
+box</li>
+<ul>
+<li CLASS="Bullet3">
+Select <i>MessengerClient</i></li>
+</ul>
+<li CLASS="Bullet2">
+In the <i>Dependent on the following project(s)</i>
+box</li>
+<ul>
+<li CLASS="Bullet3">
+Select <i>Interface</i></li>
+</ul>
+<li CLASS="Bullet2">
+Click on the <i>OK</i> button.</li>
+</ul>
+</ul>
+
+<h5 CLASS="Head5">
+Build the projects</h5>
+<ul>
+<h5 CLASS="Bullet1">
+In the workspace window, right-click on <i>MessengerServer
+files</i></h5>
+
+<ul>
+<li CLASS="Bullet2">
+Select <i>Set as Active Project</i> .</li>
+</ul>
+
+<h5 CLASS="Bullet1">
+In the workspace window, right-click on <i>MessengerServer
+files</i></h5>
+
+<ul>
+<li CLASS="Bullet2">
+Select <i>Build</i> .</li>
+
+<li CLASS="Bullet2">
+Wait for the build to complete.</li>
+</ul>
+
+<h5 CLASS="Bullet1">
+In the workspace window, right-click on <i>MessengerClient
+files</i></h5>
+
+<ul>
+<li CLASS="Bullet2">
+Select <i>Set as Active Project</i> .</li>
+</ul>
+
+<h5 CLASS="Bullet1">
+In the workspace window, right-click on <i>MessengerClient
+files</i></h5>
+
+<ul>
+<li CLASS="Bullet2">
+Select <i>Build</i> .</li>
+
+<li CLASS="Bullet2">
+Wait for the build to complete.</li>
+</ul>
+</ul>
+</ul>
+
+<h4 CLASS="Head3">
+Running the Application</h4>
+
+<ul>
+We are now ready to run the <i>MessengerServer</i>
+and <i>MessengerClient</i> . The server must be running before the client
+is started.
+
+Run the <i>MessengerServer</i> in one window
+with the following command:
+
+<pre>MessengerServer</pre>
+
+Wait for the message "<i> IOR written to file
+Messenger.ior</i> ." Then, in another window, in the same directory, run
+the <i>MessengerClient</i> with the following command:
+
+<pre>MessengerClient</pre>
+
+You should see the following messages in the
+server window:
+
+</pre>
+Message from: rick
+Subject:      Test
+Message:      Howdy!
+</pre>
+
+You should see the message "<i> Message was
+sent</i> " in the client window. The client then terminates and your normal
+command prompt appears. You can kill the server with <i>CTRL-C</i> .
+</ul>
+
+<h3>Footnotes for Visual C++ Section</h3>
+<blockquote>
+<div CLASS="footnotes">
+<div CLASS="footnote">
+<a name="pgfId=112322"></a>
+<div CLASS="Footnote"><span CLASS="footnoteNumber">1. </span>The
+release libraries are <i>ace.lib</i> and <i>tao.lib</i> . The debug libraries
+are: <i>aced.lib</i> and <i>taod.lib</i> .</div>
+</div>
+<a name="pgfId=83151"></a>
+<div CLASS="footnote">
+<div CLASS="Footnote"><span CLASS="footnoteNumber">2. </span>Instead
+of typing in each directory path, you may double-click on the empty entry
+at the bottom of the list, click on the box containing "..." that appears
+to the right, then select from the Choose Directory dialog box.</div>
+</div>
+<a name="pgfId=147468"></a>
+<div CLASS="footnote">
+<div CLASS="Footnote"><span CLASS="footnoteNumber">3. </span>The
+command is <i>$(ACE_ROOT)\bin\release\tao_idl.exe -GI $(InputPath)</i>
+for the Win32 Release configuration.</div>
+</div>
+<a name="pgfId=78074"></a>
+<div CLASS="footnote">
+<div CLASS="Footnote"><span CLASS="footnoteNumber">4. </span>To
+reduce the amount of typing required, use the <i>Files</i> button to generate
+<i>$(InputPath)</i> and <i>$(InputName)</i> .</div>
+
+
+<p CLASS="zFootnote"></div>
+</div>
+</blockquote>
+
+
+<hr>
+<a name="UNIX_Section"></a>
+
+<h1 CLASS="Head1">
+Getting Started on UNIX and UNIX-like Platforms</h1>
+
+<h3 CLASS="Head2">
+Introduction</h3>
+
+<ul>This chapter guides you through the process of building and running
+a simple client/server application using TAO on a UNIX or UNIX-like operating
+system. If you are new to CORBA, you may find it helpful to read Chapter
+3 of <i>Advanced CORBA Programming</i> before proceeding.
+<p>In this chapter, you will learn how to
+
+<h5 CLASS="Numbered">
+Set up your environment for using ACE and TAO.</h5>
+
+<ul>
+<li CLASS="Bullet2">
+We describe the process of setting up your operating system environment
+for using ACE and TAO.</li>
+</ul>
+
+<h5 CLASS="Numbered">
+Develop a simple client and server using TAO.</h5>
+
+<ul>
+<li CLASS="Bullet2">
+We show the steps involved in building and running a simple client and
+server example.</li>
+</ul>
+<p>All ACE and TAO source code files are located in subdirectories within
+the <i>ACE_wrappers</i> directory tree. After ACE and TAO are built, all
+of the newly-built library, include, and executable files are also located
+within this tree. In this chapter, we will often refer to this location,
+though we make no assumptions as to where it might be installed on your
+system.</ul>
+
+<h3 CLASS="Head2">
+Setting Up Your Environment</h3>
+
+<h4 CLASS="Head3">
+Environment Variables</h4>
+
+<ul>There are certain environment variables used by ACE and TAO during
+both the compilation and execution of applications:
+<ul>
+<li CLASS="Bullet1">
+<i>ACE_ROOT=&lt;installed_location>/ACE_wrappers</i></li>
+<ul>
+<li CLASS="Bullet2">
+This is the base path for the ACE installation. <i>&lt;installed_location></i>
+is the directory into which the distribution was installed.</li>
+</ul>
+<li CLASS="Bullet1">
+<i>TAO_ROOT=$ACE_ROOT/TAO</i></li>
+<ul>
+<li CLASS="Bullet2">
+The base path for all TAO-related code. Since TAO is a member of the ACE
+family of software, its base path is <i>ACE_wrappers/TAO</i> . This preserves
+the relationship between TAO and ACE.</li>
+</ul>
+<li CLASS="Bullet1">
+<i>LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$ACE_ROOT/ace</i></li>
+<ul>
+<li CLASS="Bullet2">
+This path may already exist. You need to add the location of the ACE and
+TAO libraries to it.</li>
+</ul>
+<li CLASS="Bullet1">
+<i>MAKEFLAGS="debug=0 exceptions=1"</i></li>
+<ul>
+<li CLASS="Bullet2">
+This variable is optional. These parameters may be specified in other places.
+The actual parameters may be different than those shown above. Some of
+the available choices will be explained later.</li>
+</ul>
+</ul>
+</ul>
+
+<h3 CLASS="Head2">
+A Simple Example</h3>
+
+<ul>We now describe the steps needed to build a simple example using the
+C++ compiler and GNU Make. Currently, only GNU Make can be used to build
+ACE/TAO applications. This should not be a problem as GNU Make is available
+on any UNIX or UNIX-like platform on which ACE and TAO are available. The
+approach used will be to create all the code in the same directory and
+provide a Makefile in that directory to build the application executables.
+Larger projects may use a different structure, such as libraries and nested
+subdirectories, but that is not covered in this example.
+<p>Our example consists of a server called <i>MessengerServer</i> that
+implements a simple <i>Messenger</i>interface, plus a client called <i>MessengerClient</i>
+that accesses and uses a <i>Messenger</i> CORBA object that <i>MessengerServer</i>
+provides. Imagine that a full implementation of the <i>MessengerServer</i>
+might send e-mail, access a pager, or even make a phone call using voice
+synthesizer technology. To keep our example simple, we just write out the
+message to standard output. This same example will be expanded in later
+chapters to illustrate various features of TAO.</ul>
+
+<h4 CLASS="Head3">
+Create a Workspace</h4>
+
+<ul>First, create a directory in which to work. This directory does not
+need to be in any particular place. That is, it does not need to be located
+within the ACE and TAO source tree, nor your home directory; it can be
+anywhere. Change your current directory to this newly-created one.</ul>
+<pre>
+      mkdir Messenger
+      cd Messenger
+</pre>
+<h4 CLASS="Head3">
+Messenger Interface Definition Language (IDL) File</h4>
+
+<ul>Using your favorite editor, create a file called <i>Messenger.idl</i>to
+contain the interface definition for a simple Messenger:</ul>
+
+<pre>      // Messenger.idl
+
+      interface Messenger
+      {
+        boolean send_message(in string user_name,
+                             in string subject,
+                             inout string message);
+      };</pre>
+
+<ul>For this example we use the IDL compiler to build a skeleton of the
+class implementation module, so we run the IDL compiler manually now.</ul>
+
+<h5 CLASS="Head4">
+Run the IDL Compiler</h5>
+
+<ul>The IDL compiler generates stub and skeleton code from the IDL interface
+definitions contained in the <i>a Messenger.idl</i> file. Details of using
+the IDL compiler are found in . To generate stub and skeleton code from
+the IDL definition above, type the following command:</ul>
+
+<pre>
+      $TAO_ROOT/TAO_IDL/tao_idl -GI Messenger.idl
+</pre>
+
+<ul>The <i>-GI</i> option specifies that the IDL compiler should generate
+starter code for our implementation of the Messenger interface.</ul>
+
+<h4 CLASS="Head3">
+Create the Messenger_i Implementation Class</h4>
+
+<ul>Among the files created by the IDL compiler and stored in the current
+directory are the files <i>MessengerI.h</i> and
+<i>MessengerI.cpp</i> .
+These two files are created by the IDL compiler in response to the <i>-GI</i>
+option specified in the command above. They contain starter code that you
+will use to create the <i>Messenger_i</i> class header and implementation
+files.
+<p>The remainder of the files generated by the IDL compiler will be used
+later. The naming convention is that the files with a "<i> C</i> " appended
+to their name are client side, and files with an "<i> S</i> " appended
+are server side. However, the files ending with "<i> C</i> " are actually
+used by both client and server. The files ending with "<i> .i</i> " and
+"<i> _T.*</i> " are included by others, so we will not deal with them directly.In
+order to prevent the IDL compiler from overwriting changes you make to
+the starter implementation files, rename them as follows:
+<p>
+<ul>
+<li CLASS="Bullet1">
+Rename <i>MessengerI.h</i> to <i>Messenger_i.h</i> .</li>
+<pre>
+mv MessengerI.h Messenger_i.h
+</pre>
+
+<li CLASS="Bullet1">
+Rename <i>MessengerI.cpp</i> to <i>Messenger_i.cpp</i> .</li>
+<pre>
+mv MessengerI.cpp Messenger_i.cpp
+</pre>
+</ul>
+</ul>
+
+<h5 CLASS="Head4">
+C++ Header for the Messenger_i Class</h5>
+
+<ul>generated by the IDL compiler contains the complete class definition
+for our <i>Messenger_i</i> class that implements the Messenger interface
+defined in <i>Messenger.idl</i> .</ul>
+
+<pre>
+     // ******  Code generated by the The ACE ORB (TAO) IDL Compiler *******
+     // TAO and the TAO IDL Compiler have been developed by the Center for
+     // Distributed Object Computing at Washington University, St. Louis.
+     //
+     // Information about TAO is available at:
+     //                 http://www.cs.wustl.edu/~schmidt/TAO.html
+
+     #ifndef MESSENGER_I_H_
+     #define MESSENGER_I_H_
+
+     #include "MessengerS.h"
+
+     #if !defined (ACE_LACKS_PRAGMA_ONCE)
+     #pragma once
+     #endif /* ACE_LACKS_PRAGMA_ONCE */
+
+     //Class Messenger_i
+
+     class  Messenger_i : public virtual POA_Messenger
+     {
+     public:
+       //Constructor
+       Messenger_i (void);
+
+       //Destructor
+       virtual ~Messenger_i (void);
+
+       virtual CORBA::Boolean send_message (
+         const char * user_name,
+         const char * subject,
+         char *&amp; message
+       )
+       ACE_THROW_SPEC ((
+         CORBA::SystemException
+       ));
+
+     };
+
+
+     #endif /* MESSENGERI_H_  */</pre>
+
+<h5 CLASS="Head4">
+C++ Implementation of the Messenger_i Class</h5>
+
+<ul>The file <i>Messenger_i.cpp</i> generated by the IDL compiler contains
+nearly all the code needed for the <i>Messenger_i</i> class implementation
+file. You need make only the following changes:
+<ul>
+<li CLASS="Bullet1">
+Add the line <i>#include &lt;ace/streams.h></i> above the class definition.</li>
+
+<li CLASS="Bullet1">
+Change <i>#include &lt;MessengerI.h> </i>to <i>#include &lt;Messenger_i.h></i>
+.</li>
+
+<li CLASS="Bullet1">
+Replace the line that reads "<i> //Add your implementation here</i> " in
+the body of the <i>Messenger_i::send_message()</i> operation with the following:</li>
+</ul>
+</ul>
+
+<pre>
+     CORBA::Boolean Messenger_i::send_message (
+         const char * user_name,
+         const char * subject,
+         char *&amp; message
+       )
+       ACE_THROW_SPEC ((
+         CORBA::SystemException
+       ))
+
+       {
+         cout &lt;&lt; "Message from: " &lt;&lt; user_name &lt;&lt; endl;
+         cout &lt;&lt; "Subject:      " &lt;&lt; subject &lt;&lt; endl;
+         cout &lt;&lt; "Message:      " &lt;&lt; message &lt;&lt; endl;
+         return 1;
+       }
+
+</pre>
+
+<h4 CLASS="Head3">
+C++ Implementation of the MessengerServer</h4>
+
+<ul>Our <i>MessengerServer</i> gives our Messenger object a place to live.
+It creates an instance of our <i>Messengers</i> servant class, activates
+it in the <i>RootPOA</i> , and waits for requests from clients.
+<p>Using your favorite editor, create the <i>MessengerServer.cpp</i> file
+with the following content.</ul>
+
+<pre>
+      #include "Messenger_i.h"
+      #include &lt;ace/streams.h>
+
+      int
+      main(int argc, char * argv[])
+      {
+        try {
+          // Initialize the ORB.
+          CORBA::ORB_var orb = CORBA::ORB_init(argc, argv);
+
+          // Get a reference to Root POA.
+          CORBA::Object_var obj = orb->resolve_initial_references("RootPOA");
+          PortableServer::POA_var poa = PortableServer::POA::_narrow(obj.in());
+
+          // Activate the POA manager.
+          PortableServer::POAManager_var mgr = poa->the_POAManager();
+          mgr->activate();
+
+          // Create a Messenger_i servant.
+          Messenger_i messenger_servant;
+
+          // Register the servant with the RootPOA, obtain its object reference,
+          // stringify it, and write it to a file
+          PortableServer::ObjectId_var oid =
+            poa->activate_object( &amp;messenger_servant );
+          CORBA::Object_var messenger_obj = poa->id_to_reference( oid.in() );
+          CORBA::String_var str = orb->object_to_string( messenger_obj.in() );
+          ofstream iorFile( "Messenger.ior" );
+          iorFile &lt;&lt; str.in() &lt;&lt; endl;
+          iorFile.close();
+          cout &lt;&lt; "IOR written to file Messenger.ior" &lt;&lt; endl;
+
+          // Accept requests from clients.
+          orb->run();
+
+          // Release resources.
+          orb->destroy();
+        }
+        catch (const CORBA::Exception &amp; ex) {
+          cerr &lt;&lt; "Caught a CORBA exception: " &lt;&lt; ex &lt;&lt; endl;
+          return 1;
+        }
+        return 0;
+      }
+</pre>
+
+<h4 CLASS="Head3">
+C++ Implementation of the MessengerClient</h4>
+
+<ul>Our <i>MessengerClient</i> obtains an object reference to the Messenger
+and sends it a message via its <i>send_message()</i> operation.Using your
+favorite editor, create the <i>MessengerClient.cpp</i> file with the following
+content.</ul>
+<pre>
+     #include "MessengerC.h"
+     #include &lt;ace/streams.h>
+
+
+     int
+     main(int argc, char * argv[])
+     {
+       try {
+         // Initialize the ORB
+         CORBA::ORB_var orb = CORBA::ORB_init(argc, argv);
+
+         // Convert the contents of the file to an object reference.
+         CORBA::Object_var obj = orb->string_to_object("file://Messenger.ior");
+         if (CORBA::is_nil(obj.in())) {
+           cerr &lt;&lt; "Nil Messenger reference" &lt;&lt; endl;
+           throw 0;
+         }
+
+         // Narrow the object reference to a Messenger object reference.
+         Messenger_var messenger = Messenger::_narrow(obj.in());
+         if (CORBA::is_nil(messenger.in ())) {
+           cerr &lt;&lt; "Not a Messenger object reference" &lt;&lt; endl;
+           throw 0;
+         }
+
+         // Create a message and send it to the Messenger.
+         CORBA::String_var message = CORBA::string_dup("Howdy!");
+         messenger->send_message ("rick", "Test", message.inout());
+
+         // Release resources.
+         orb->destroy();
+       }
+       catch (const CORBA::Exception &amp; ex) {
+         cerr &lt;&lt; "Caught a CORBA exception: " &lt;&lt; ex &lt;&lt; endl;
+         return 1;
+       }
+       catch (...) {
+         return 1;
+       }
+
+       cout &lt;&lt; "Message was sent" &lt;&lt; endl;
+       return 0;
+     }
+</pre>
+
+<h4 CLASS="Head3"><a name="makefileexample"></a>
+Create a Makefile to Build the Example</h4>
+
+<ul>All that remains is to create a Makefile that is read by GNU Make to
+build our <i>MessengerServer</i> and <i>MessengerClient</i> , and create
+executables. Here, we show a basic Makefile that can be used to build this
+simple server and client example. For more information on Makefiles used
+to build applications that use TAO, see .Using your favorite editor, create
+the Makefile with the following content:</ul>
+
+<pre>
+     # IDL_SRCS contains a list of the basenames of the IDL files.
+     IDL_SRCS = Messenger
+
+     # SERVER_SRCS contains a list of the source files for building the server.
+     SERVER_SRCS = MessengerC.cpp MessengerS.cpp Messenger_i.cpp MessengerServer.cpp
+     SERVER_OBJS = $(SERVER_SRCS:.cpp=.o)
+     SERVER_BIN = server
+
+     # CLIENT_SRCS contains a list of the source files for building the client.
+     CLIENT_SRCS = MessengerC.cpp MessengerClient.cpp
+     CLIENT_OBJS = $(CLIENT_SRCS:.cpp=.o)
+     CLIENT_BIN = client
+
+     # LDLIBS contains a list of libraries to link with the client and server.
+     LDLIBS = -lTAO
+
+     # BIN lists the executables to be built.
+     BIN = $(SERVER_BIN) $(CLIENT_BIN)
+
+     # Use .PRECIOUS to preserve certain generated files.
+     .PRECIOUS: MessengerC.h MessengerC.i MessengerC.cpp
+     .PRECIOUS: MessengerS.h MessengerS.i MessengerS.cpp
+
+     #----------------------------------------------------------------------------
+     # Include macros and targets (provided with ACE+TAO)
+     #----------------------------------------------------------------------------
+
+     include $(ACE_ROOT)/include/makeinclude/wrapper_macros.GNU
+     include $(ACE_ROOT)/include/makeinclude/macros.GNU
+     include $(TAO_ROOT)/rules.tao.GNU
+     include $(ACE_ROOT)/include/makeinclude/rules.common.GNU
+     include $(ACE_ROOT)/include/makeinclude/rules.nonested.GNU
+     include $(ACE_ROOT)/include/makeinclude/rules.local.GNU
+     include $(TAO_ROOT)/taoconfig.mk
+
+     # Target to build the server.
+     $(SERVER_BIN): $(addprefix $(VDIR),$(SERVER_OBJS))
+     $(LINK.cc) $(LDFLAGS) -o $@ $^ $(VLDLIBS) $(POSTLINK)
+
+     # Target to build the client.
+     $(CLIENT_BIN): $(addprefix $(VDIR),$(CLIENT_OBJS))
+     $(LINK.cc) $(LDFLAGS) -o $@ $^ $(VLDLIBS) $(POSTLINK)
+</pre>
+
+<ul>This Makefile deserves some explanation. Some of the macro names and
+some of the lines are predefined.
+<ul>
+<li CLASS="Bullet1">
+<i>IDL_SRCS</i> defines the source files to the IDL compiler. This name
+is predefined. These files will automatically be processed by the TAO IDL
+compiler whenever they change.</li>
+
+<li CLASS="Bullet1">
+The next three lines define our server. These names are arbitrary.</li>
+
+<li CLASS="Bullet2">
+The first line defines the sources that build our server. The file <i>MessengerC.cpp</i>
+contains the <i>Messenger</i> stub class used by the client to invoke operations
+on Messenger CORBA object references. The <i>MessengerS.cpp</i> file contains
+skeleton class and related definitions. Our implementation of the <i>Messenger_i</i>
+servant class is contained in the file <i>Messenger_i.cpp</i> . Our server's
+<i>main()</i> function that gives our Messenger object a place to live
+is contained in the file <i>MessengerServer.cpp</i> .</li>
+
+<li CLASS="Bullet2">
+The second line builds object file names from the source file names.</li>
+
+<li CLASS="Bullet2">
+The third line names the executable for the server.</li>
+
+<li CLASS="Bullet1">
+The next three lines define our client in much the same way as the server.</li>
+
+<li CLASS="Bullet1">
+<i>LDLIBS</i> is a predefined macro name that holds the list of libraries
+to be passed to the link editor. Since this is a TAO program, we need to
+specify the TAO library. (The ACE library is always included.)</li>
+
+<li CLASS="Bullet1">
+<i>BIN</i> is a predefined macro name that lists all the executables to
+be built.</li>
+
+<li CLASS="Bullet1">
+The two <i>.PRECIOUS</i> lines tell GNU Make to not delete these files
+after it uses them. This allows us to go back and look at them if we need
+to. This is optional, the application will build and run without these
+lines.</li>
+
+<li CLASS="Bullet1">
+The group of <i>include</i> statements are boilerplate, so just copy them
+as is.</li>
+
+<li CLASS="Bullet1">
+The last four lines tell GNU Make how to build the executables.</li>
+
+<li CLASS="Bullet2">
+The names with <i>SERVER</i> or <i>CLIENT</i> in them match your choice
+of name above.</li>
+
+<li CLASS="Bullet2">
+The <i>addprefix</i> function picks up the compiled object files from a
+separate subdirectory (<i> .obj/</i> by default). Object files are placed
+there to avoid cluttering the source directory.</li>
+
+<li CLASS="Bullet2">
+The <i>LINK.cc</i> macro invokes the appropriate linker for your platform
+(the linker command may in fact be the same as the command for the C++
+compiler).</li>
+</ul>
+<br>One final note on the included Makefiles. Their position in this Makefile
+is not arbitrary, so put them as shown. They use some of the macros defined
+above them as arguments and define other macros that are used in the lines
+that follow them.
+<p>
+By using these Makefile include files, the first target
+found will be <i>all</i> . Just typing <i>make</i> on the command line
+will build your complete application as expected. There are several additional
+targets defined in the various Makefile include files. Two that are particularly
+useful are
+<i>clean</i> , which removes all the object files and some other
+temporary intermediate files, and <i>realclean</i> , which removes even
+more files including your target executable For more information about
+TAO application Makefiles, see .</ul>
+
+<h4 CLASS="Head3">
+Build the MessengerServer and MessengerClient</h4>
+
+<ul>To build the server and client, simply type
+<i>make</i> or <i>gmake</i>
+, whichever will run GNU Make on your system.
+<p>
+You will see several compile
+and link operations. If any of the modules fails to compile or link, make
+will stop. Using the error messages provided by the compiler and linker,
+fix the source and try again, just as for any other program you write.</ul>
+
+<h4 CLASS="Head3">
+Running the Application</h4>
+
+<ul>We are now ready to run the <i>MessengerServer</i> and <i>MessengerClient</i>
+. The server must be running before the client is started.Run the <i>MessengerServer</i>
+in the background with the following command:</ul>
+<pre>
+      ./MessengerServer &amp;
+</pre>
+
+<ul>Wait for the message "<i> IOR written to file Messenger.ior,</i> "
+then run the <i>MessengerClient</i> with the folowing command:</ul>
+
+<pre>
+      ./MessengerClient
+</pre>
+
+<ul>You should see the following messages:</ul>
+<pre>
+      Message from: rick
+      Subject: Test
+      Message: Howdy
+      message was sent
+</pre>
+<ul>The first three are from the <i>MessengerServer</i> (running in the
+background), and the last one is from the <i>MessengerClient</i> . The
+client then terminates, and your normal prompt appears.
+<p>
+Note that the <i>MessengerServer</i>
+is still running, waiting for more client requests. To kill the <i>MessengerServer</i>
+, just type <i>kill %1</i> or the number of the background process.</ul>
+
+
+</body>
+</html>

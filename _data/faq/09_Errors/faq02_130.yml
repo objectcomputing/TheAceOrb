@@ -1,0 +1,16 @@
+Q: My server IOR contains the address 127.0.0.1 and my client, running on a different machine, can't connect.  What do I do?
+
+A: >
+ When determining
+ the endpoint for a server, TAO chooses an interface from the interfaces available
+ to the system and encodes its address within the IOR.  If TAO chooses 127.0.0.1
+ (the local loop back) as the endpoint address, then it could not find any
+ other suitable interfaces.  Since this address is only visible to local machine,
+ no other machine will be able to connect to the local machine through that
+ address.<br> If there are dynamic interfaces that are available to the system,
+ you may need to explicitly specify that TAO should use that interface with
+ the -ORBListenEndpoints command line option:<br>
+ <pre>  -ORBListenEndpoints iiop://&lt; hostname or ip address &gt;:&lt; port &gt;<br></pre>
+ <br>
+ 
+ 

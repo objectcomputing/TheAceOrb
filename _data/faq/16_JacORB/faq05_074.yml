@@ -1,0 +1,82 @@
+Q: How do I use JacORB with TAO's Naming Service?
+
+A: >
+ JacORB
+ applications can use TAO's Naming Service.  Applications implemented with
+ Java JDK 1.2 or later require a workaround to avoid using Sun's org.omg.CosNaming
+ stubs, which are buggy.  We'll use the -Xbootclasspath/p runtime option to
+ eliminate that problem, as described below. <p>
+ The steps for using TAO's Naming Service from JacORB clients are as follows: 
+ </p>
+ <ol>
+ <li> Start TAO's Naming Service, specifying a well-known listening endpoint<br>
+ <pre>
+ $TAO_ROOT/orbsvcs/Naming_Service/Naming_Service \
+   -ORBListenEndpoints iiop://myhost:2809
+ </pre>
+ <li> Write your JacORB Naming Service clients as you normally would, using
+ orb.resolve_initial_references("NameService") to find the Naming Service.<br>
+ <pre>
+   import org.omg.CORBA.ORB;
+   import org.omg.CosNaming.*;
+   import org.omg.CosNaming.NamingContextPackage.*;
+ 
+   public class NSTest {
+     public static void main(String args[]) {
+       try{
+         ORB orb = ORB.init(args, null);
+         
+         org.omg.CORBA.Object o = 
+           orb.resolve_initial_references( "NameService" );
+         NamingContext rootNC = NamingContextHelper.narrow( o );
+ 
+         // ...etc...
+ 
+       } catch ( Exception e ) {
+         System.err.println("ERROR : " + e) ;
+         e.printStackTrace( System.err );
+       }
+     }
+   }
+ </pre>
+ <li> Run your Java application using the -ORBInitRef command-line option
+ to tell JacORB where to find the Naming Service.  If the Java application
+ is implemented using Java JDK 1.2 or later, then the -Xbootclasspath/p option
+ will be needed to use JacORB's CosNaming stubs instead of the Sun's.
+ </ol>
+ <p>
+ For the sake of our example, assume JacORB is installed in /usr/don/JacORB-1_2_3.<br>
+ </p>
+ <pre>
+   Java 1.2 or later:
+ 
+     java -Xbootclasspath/p:/usr/don/JacORB-1_2_3/lib/jacorb.jar
+          -DORBInitRef.NameService=corbaloc:iiop:myhost:2809/NameService
+          NSTest
+ 
+   Java 1.1:
+     java -DORBInitRef.NameService=corbaloc:iiop:myhost:2809/NameService
+          NSTest
+ </pre>
+  Note that the host and port -- "myhost" and "2809" -- in these object references
+ match the host and port passed into the TAO Naming Service's "-ORBListenEndpoints"
+ argument. <p>
+ You can also use JacORB's jacorb.properties file to set the Naming Service IOR:<br>
+ </p><pre>    #
+     # jacorb.properties
+     #
+     ORBInitRef.NameService=corbaloc:iiop:myhost:2809/NameService
+ </pre>
+ And then run the client and server without the -DORBInitRef:<br>
+ <pre>
+   Java 1.2 or later:
+ 
+     java -Xbootclasspath/p:/usr/don/JacORB-1_2_3/lib/jacorb.jar NSTest
+ 
+ 
+   Java 1.1:
+     java NSTest
+ </pre>
+ <br>
+ 
+ 

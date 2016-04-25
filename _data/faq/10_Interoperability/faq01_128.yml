@@ -1,0 +1,13 @@
+Q: Why does Orbix 2000 reject large messages from TAO?
+
+A: >
+ (as related by Balachandran Natarajan <a href="mailto:bala@cs.wustl.edu">bala@cs.wustl.edu</a>)
+ <p>
+ By default, Orbix 2000 will reject any message larger than 512 KB.
+ </p><p>
+ Orbix 2000 users can get around this by setting a run time policy in their
+ configuration file. The policy is<br>
+ </p><pre>  policies:iiop:buffer_sizes_policy:max_buffer_size = "-1";<br></pre>
+ <br>
+ 
+ 

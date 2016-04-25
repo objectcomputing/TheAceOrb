@@ -1,0 +1,22 @@
+Q: How can my TAO clients and servers communicate when the network goes down?
+
+A: >
+ Assuming that the clients and servers are local to one machine, it is
+ possible by using "localhost".  For instance, you could have a Name Service
+ running that is listening on the ethernet adapter and localhost:
+ 
+ <pre>
+   Naming_Service -ORBListenEndpoints "iiop://hostname:11223;iiop://localhost:11223"
+ </pre>
+ 
+ If the network for "hostname" goes down, this Name Service could still be
+ accessed by a server running locally using the following:
+ 
+ <pre>
+   server -ORBInitRef NameService=corbaloc:iiop:hostname:11223,iiop:localhost:11223/NameService
+ </pre>
+ 
+ Regardless of the state of the network on which "hostname" is registered, the
+ server will be able to communicate with the Name Service due to the
+ localhost endpoint.
+ 

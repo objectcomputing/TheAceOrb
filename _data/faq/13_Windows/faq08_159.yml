@@ -1,0 +1,63 @@
+Q: How do I instantiate a singleton from a DLL?
+
+A: >
+ Singletons in DLLs on Windows<br>
+ 
+  If you want to instantiate a singleton in a DLL on Windows, follow these steps:
+ <ol>
+  <li>  Use generate_export_file.pl (found in ACE_wrappers/bin) to generate the proper Win32 export directives for your dll. For example, "perl generate_export_file.pl MyLib >MyLib_Export.h" generates the following output in the file "MyLib_Export.h":
+ 
+ <pre><code>
+   // -*- C++ -*-
+   // generate_export_file.pl,v 1.8 2001/03/04 09:16:29 nanbor Exp
+   // Definition for Win32 Export directives.
+   // This file is generated automatically by generate_export_file.pl
+   // ------------------------------
+   #ifndef MYLIB_EXPORT_H
+   #define MYLIB_EXPORT_H
+ 
+   #include "ace/config-all.h"
+ 
+   #if !defined (MYLIB_HAS_DLL)
+   #  define MYLIB_HAS_DLL 1
+   #endif /* ! MYLIB_HAS_DLL */
+ 
+   #if defined (MYLIB_HAS_DLL) && (MYLIB_HAS_DLL == 1)
+   #  if defined (MYLIB_BUILD_DLL)
+   #    define MyLib_Export ACE_Proper_Export_Flag
+   #    define MYLIB_SINGLETON_DECLARATION(T) \
+                 ACE_EXPORT_SINGLETON_DECLARATION (T)
+   #    define MYLIB_SINGLETON_DECLARE(SINGLETON_TYPE, CLASS, LOCK) \
+                 ACE_EXPORT_SINGLETON_DECLARE(SINGLETON_TYPE, CLASS, LOCK)
+   #  else /* MYLIB_BUILD_DLL */
+   #    define MyLib_Export ACE_Proper_Import_Flag
+   #    define MYLIB_SINGLETON_DECLARATION(T) \
+                 ACE_IMPORT_SINGLETON_DECLARATION (T)
+   #    define MYLIB_SINGLETON_DECLARE(SINGLETON_TYPE, CLASS, LOCK) \
+                 ACE_IMPORT_SINGLETON_DECLARE(SINGLETON_TYPE, CLASS, LOCK)
+   #  endif /* MYLIB_BUILD_DLL */
+   #else /* MYLIB_HAS_DLL == 1 */
+   #  define MyLib_Export
+   #  define MYLIB_SINGLETON_DECLARATION(T)
+   #  define MYLIB_SINGLETON_DECLARE(SINGLETON_TYPE, CLASS, LOCK)
+   #endif /* MYLIB_HAS_DLL == 1 */
+ 
+   #endif /* MYLIB_EXPORT_H */
+ 
+   // End of auto generated file.
+ </code></pre>
+ </li>
+  <li>  When declaring your singleton, make sure and use the right export directive that you generated for your dll.  For instance, if you create a class that is meant to be a singleton in MyLib.dll, you'd typically do this:
+ 
+ <pre><code>
+   class MyLib_Export MyClass
+   {
+   };
+ 
+   typedef ACE_Singleton&lt;MyClass, ACE_Null_Mutex&gt; MY_CLASS_SINGLETON;
+   MYLIB_SINGLETON_DECLARE(ACE_Singleton, MyClass, ACE_Null_Mutex);
+ </code></pre>
+ </li>
+ </ol>
+ 
+ 

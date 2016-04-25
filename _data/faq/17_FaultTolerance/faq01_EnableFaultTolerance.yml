@@ -1,0 +1,9 @@
+Q: How do I enable Fault Tolerance features in the ORB?
+
+A: >
+ Make sure the FTORB library is loaded.  See <code>$TAO_ROOT/orbsvcs/tests/FaultTolerance/IOGR/svc.conf</code> or <code>svc.conf.xml</code> for an example.<br/>
+ <br/>
+ <b style="color: red">Note:</b> The FT CORBA capabilities of TAO are still under development.  The information in this category is subject to change. The status of TAO's Fault Tolerance support is summarized
+ <a href="https://svn.dre.vanderbilt.edu/viewvc/Middleware/trunk/TAO/docs/releasenotes/index.html?view=co#fault_tolerance">here</a>.
+ 
+ 

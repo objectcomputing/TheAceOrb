@@ -1,0 +1,40 @@
+Q: Is it possible to register more than one object per POA with the ImR?
+
+A: >
+ This is a trick question, because the ImR doesn't know anything about your object references. Any objects activated in a persistent POA will automatically use indirect object references (assuming -orbuseimr 1). However, if you want to support corbaloc URLs such as those generated using "tao_imr ior" then you will need to additionally register your IORs in an IORTable in the server. This is actually completely orthogonal to whether your object references are indirect. However, you *can* avoid unnecessary additional performance overhead by registering *direct* IORs in your IORTable.
+
+ Here's a short example that registers two objects with one POA.
+ <code>
+     const char* poa_name = "MessengerService";
+
+     POA_var poa = createPersistentPOA(root_poa.in(), poa_name);
+
+     Messenger_i servant1, servant2;
+
+     ObjectId_var id1 = string_to_ObjectId("Object1");
+     poa->activate_object_with_id(id1.in(), &servant1);
+     ObjectId_var id2 = string_to_ObjectId("Object2");
+     poa->activate_object_with_id(id2.in(), &servant2);
+
+     obj = poa->id_to_reference(id1.in());
+     String_var ior1 = orb->object_to_string(obj.in());
+     obj = poa->id_to_reference(id2.in());
+     String_var ior2 = orb->object_to_string(obj.in());
+
+     obj = orb->resolve_initial_references("IORTable");
+     IORTable::Table_var ior_table = IORTable::Table::_narrow(obj.in());
+     ior_table->bind("MessengerService/Object1", ior1.in());
+     ior_table->bind("MessengerService/Object2", ior2.in());
+ </code>
+
+ The problem with the above code is that the ImR will redirect clients to the correct server, but then because you are using a corbaloc URL, the server will redirect the clients to the IOR registered in the IORTable. Since these object use inderect references, you'll end up being redirected *back* to the ImR again, which will then finally forward you back to the server where your invocation can continue. The solution is to modify the program to register *direct* object references with the IORTable.
+ <code>
+     TAO_Root_POA* tpoa = dynamic_cast<TAO_Root_POA*>(poa.in());
+     bool use_indirect = false;
+     obj = tpoa->id_to_reference_i(id1.in(), use_indirect);
+     String_var ior1 = orb->object_to_string(obj.in());
+     obj = tpoa->id_to_reference_i(id2.in(), use_indirect);
+     String_var ior2 = orb->object_to_string(obj.in());
+ </code>
+
+ Now the ImR will redirect clients to the correct server, and then the server will redirect clients back to itself without going back through the ImR.

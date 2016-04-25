@@ -1,0 +1,11 @@
+Q: What is TransportCurrent library used for ?
+
+A: >
+ It provides an implementation of an interface(Transport::Current) for obtaining common transport
+ information and an implementation of IIOP specific interface (Transport::IIOP::Current) for obtaining
+ IIOP specific transport information. On the other hand it also is a framework for implementing
+ transport-specific plug-ins (for querying specific transport, other than IIOP).
+ <p>
+ Please see $TAO_ROOT/docs/transport_current/index.html for description of the Transport Current feature.
+ </p>
+ 

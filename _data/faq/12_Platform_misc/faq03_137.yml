@@ -1,0 +1,20 @@
+Q: What issues are involved when using MFC  with ACE/TAO?
+
+A: >
+ You can add an ACE_HAS_MFC conditional #define to your ace/config.h file.<br>
+  It is only necessary to use ACE_HAS_MFC if you wish threads created and
+  managed by ACE to be able to make MFC calls. The ACE_HAS_MFC setting causes
+  ACE to use CWinThread worker thread objects for all threads. ACE will still
+  manage these threads just the same as threads created by _beginthreadex().
+  The only difference is the extra thread-local data stored in the threads.
+  Refer to the many articles on MSDN for when to use AfxBeginThread vs  _beginthread,
+ and which MFC functions require CWinThreads. There are quite a few subtle
+ problems. For instance, you typically can't use an MFC wrapper  object created
+ in one thread in another. (By wrapper object, I mean those  that wrap windows
+ handles. CDC, CWnd, ...) (The typical solution is to pass  the handles betweeen
+ threads.) --- In summary, if you find that you really do need to make MFC
+ calls from ACE  threads then use the MFC build of the ACE library, however
+ it is typically not necessary because the layer of software using ACE/TAO
+ is often separated from the layer using MFC.  <br>
+ 
+ 

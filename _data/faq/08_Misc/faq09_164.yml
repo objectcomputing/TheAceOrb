@@ -1,0 +1,61 @@
+Q: How can my TAO application obtain endpoint information (e.g., IP address and port for IIOP) of the client during a request invocation?
+
+A: >
+ The TransportCurrent(see LINK:163:) library provides the IIOP specific interface 
+ (TAO::Transport::IIOP::Current) and implementation. The TAO::Transport::IIOP::Current interface
+ provides access to the information of the local and remote endpoints. 
+  <p>
+  Here is an example to obtain endpoint information via TAO::Transport::IIOP::Current interface. 
+  </p> 
+   <pre>
+   
+   // Get the IIOP Current object.
+   CORBA::Object_var tcobject =
+     orb->resolve_initial_references (ACE_TEXT_ALWAYS_CHAR
+ ("TAO::Transport::IIOP::Current"));
+ 
+   Transport::IIOP::Current_var tc =
+     Transport::IIOP::Current::_narrow (tcobject.in ());
+ 
+   if (CORBA::is_nil (tc.in ()))
+     {
+       ACE_ERROR ((LM_ERROR,
+                   ACE_TEXT ("Tester (%P|%t) ERROR: Could not resolve ")
+                   ACE_TEXT ("TAO::Transport::IIOP::Current object.\n")));
+ 
+       throw CORBA::INTERNAL ();
+     }
+ 
+   // Access the host and the port of the remote endpoint.
+   ::CORBA::String_var rhost (tc->remote_host ());
+   ::CORBA::Long rport = tc->remote_port ();
+   
+   // Access the host and the port of the local endpoint.
+   ::CORBA::String_var lhost (tc->local_host ());
+   ::CORBA::Long lport = tc->local_port ();
+   </pre>
+ 
+ Note the transport information is only available on server-side at interception 
+ points or inside a servant up-call. Specifically, the code above must be called
+ within interceptor hooks(e.g. receive_request_service_contexts(), receive_request(),
+ send_reply() and etc.) or inside a servant implementation method.
+ 
+ <p>
+ To use the Transport Current features, the TransportCurrent library must be loaded 
+ via Service Configurator, or be statically linked . Here is an example of the 
+ Service Configuration file. 
+ </p>
+ 
+ <pre>
+ 
+   dynamic TAO_Transport_Current_Loader Service_Object *
+         TAO_TC:_make_TAO_Transport_Current_Loader() ""
+ 
+ </pre>
+ (Note that this has been split across lines for the purpose of display on this web page.  The actual service configuration file should have the above contents all on one line.)
+ 
+ <p>
+ One could achieve the same, by using -ORBSvcConfDirective with the
+ above as a parameter.
+ </p>
+ 

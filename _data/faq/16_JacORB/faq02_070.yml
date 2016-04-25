@@ -1,0 +1,79 @@
+Q: How can I ensure that the Java JDK is using JacORB rather than its own ORB?
+
+A: >
+ Java uses
+ a properties file called "orb.properties" to determine which ORB to use.
+  If the Java runtime doesn't find an orb.properties file, it uses the JDK's
+ ORB. <p> JacORB's orb.properties file is located in the top-level JacORB directory.
+  Copy JacORB's orb.properties file into the Java JDK's ${java.home}/lib directory
+ to enable JacORB.  If you're not sure which directory this is, compile and
+ run the following Java program: </p><p>
+ </p><pre>
+   public class InstallHelper
+     {           
+        public static void main( String[] args )
+        {
+            System.out.print("orb.properties should be copied to ");
+            System.out.print( System.getProperty("java.home") );
+            System.out.print( System.getProperty("file.separator")
+                              + "lib" );
+        }
+     }
+ </pre>
+ <p> A sure sign that the Java runtime is not using JacORB is that an exception
+ is thrown, and the stack trace contains methods with the prefix "com.sun.corba". 
+ </p><p>
+ <br>An alternative way to specify which ORB to use is to specify it directly to the Java runtime.
+ <p>
+ Instead of the orb.properties file in the lib directory you can just pass
+ the following to the virtual machine:
+ </p><p>
+ JacORB 1.3.11 or earlier:
+ </p><p>
+ </p><pre>
+   -Dorg.omg.CORBA.ORBClass=jacorb.orb.ORB
+   -Dorg.omg.CORBA.ORBSingletonClass=jacorb.orb.ORBSingleton
+ </pre>
+ <p>
+ JacORB 1.3.21 or later:
+ </p><p>
+ </p><pre>
+   -Dorg.omg.CORBA.ORBClass=org.jacorb.orb.ORB
+   -Dorg.omg.CORBA.ORBSingletonClass=org.jacorb.orb.ORBSingleton
+ </pre>
+ <p>
+ For example:
+ </p><p>
+ </p><pre>
+   java -classpath %CLASSPATH%;C:\Java\JacORB1_3_21\lib\jacorb.jar
+      -Dorg.omg.CORBA.ORBClass=org.jacorb.orb.ORB 
+      -Dorg.omg.CORBA.ORBSingletonClass=org.jacorb.orb.ORBSingleton 
+      com.ociweb.appname.Main
+ </pre>
+ <br>A second alternative way to specify which ORB to use is to specify it directly in your code when you initialize the ORB.
+ <p>
+ Instead of copying the orb.properties file in the ${java.home}/lib directory, put the following in your main program:
+ </p><p>
+ JacORB 1.3.11 or earlier: 
+ </p><p>
+ </p><pre>
+   java.util.Properties props = new java.util.Properties();
+   props.put( "org.omg.CORBA.ORBClass", 
+              "jacorb.orb.ORB" );
+   props.put( "org.omg.CORBA.ORBSingletonClass", 
+              "jacorb.orb.ORBSingleton" );
+   org.omg.CORBA.ORB orb = org.omg.CORBA.ORB.init( args, props );
+ </pre>
+ <p>
+ JacORB 1.3.21 or later: 
+ </p><p>
+ </p><pre>
+   java.util.Properties props = new java.util.Properties();
+   props.put( "org.omg.CORBA.ORBClass", 
+              "org.jacorb.orb.ORB" );
+   props.put( "org.omg.CORBA.ORBSingletonClass",
+              "org.jacorb.orb.ORBSingleton" );
+   org.omg.CORBA.ORB orb = org.omg.CORBA.ORB.init( args, props );
+ </pre>
+ <br>
+ 

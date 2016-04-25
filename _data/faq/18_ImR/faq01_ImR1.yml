@@ -1,0 +1,13 @@
+Q: How can I minimize the overhead of using both the IORTable and ImR?
+
+A: >
+ Simply register a direct object reference with the IORTable instead of the indirect one.
+ To obtain the direct object reference you must call a special version of POA::id_to_reference():
+ <code>
+ TAO_Root_POA* tpoa = dynamic_cast<TAO_Root_POA*>(poa.in());
+ bool use_indirect = false;
+ Object_var obj = tpoa->id_to_reference_i(oid.in(), use_indirect);
+ String_var direct_ior = orb->object_to_string(obj.in());
+ ior_table->bind("POAName/ObjectName", direct_ior.in());
+ </code>
+ 

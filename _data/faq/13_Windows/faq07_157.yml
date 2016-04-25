@@ -1,0 +1,10 @@
+Q: Which project settings should I change to ensure acemfc.lib is built?
+
+A: >
+ <p><b>Change the active configuration</b>:
+ <br>From the "Build" pull down menu choose "Set Active Configuration...".  In the Configuration popup choose the appropriate (Debug or Release) MFC configuration.</p>
+ 
+ <p><b>Batch build</b>:
+ <br>Go to the Build pull-down in MSC++ and select the Batch Build option.  When the batch build window pops up select the ACE MFC build option and deselect all the other options.  This will build the acemfc.lib for you.  Using batch build option you can build all the flavors of the various ACE and TAO libraries you need.</p>
+ 
+ 

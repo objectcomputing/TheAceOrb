@@ -1,0 +1,11 @@
+Q: Is it possible to install debug and release versions of TAO on the same Windows machine?
+
+A: >
+ It is
+ possible to install both debug and release versions of TAO on one Windows machine
+ by selecting a different installation directory for each installation and
+ setting $ACE_ROOT and $TAO_ROOT appropriately. More efficienty, the debug
+ and release versions of TAO can be installed in the same directory since
+ the different versions of the libraries have slightly different names. <br>
+ 
+ 

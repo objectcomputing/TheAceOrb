@@ -1,0 +1,18 @@
+Q: How I can enter the certificate password using an API rather than requiring a user to type in the password?
+
+A: >
+ The ACE_SSL wrappers don't provide an API or wrapper method(s) to do
+ this.  However, you can set a password callback function by manually
+ using the OpenSSL functions.  For example, something like the
+ following should work:<br>
+ <pre>        SSL_CTX *ctx = ACE_SSL_Context::instance ()-&gt;context ();<br>
+         // SSL_CTX_set_default_passwd_cb() is from OpenSSL.
+         SSL_CTX_set_default_passwd_cb (ctx, your_callback);<br></pre>
+ where "your_callback" is a pointer to your PEM passwork callback
+ function.  See &lt;openssl/ssl.h&gt; and &lt;openssl/pem.h&gt; for the required
+ callback function signature.
+ <br>
+ 
+ 
+ 
+ 

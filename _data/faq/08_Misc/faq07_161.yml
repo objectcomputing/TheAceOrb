@@ -1,0 +1,25 @@
+Q: Why don't signals work with the ORB's reactor? 
+
+A: >
+ Signals and the ORB reactor:<br>
+ <p>
+ By default ACE uses the ACE_Select reactor, which works with
+ signals. TAO defaults to use the thread pool (TP) reactor, which does
+ not currently work with signals.  See DOC Bug 1031:<br><br>
+ 
+ <a
+ href="http://deuce.doc.wustl.edu/bugzilla/show_bug.cgi?id=1031">http://deuce.doc.wustl.edu/bugzilla/show_bug.cgi?id=1031</a>
+ </p>
+ 
+ <p>
+ The call <code>ACE_Reactor::instance()</code> returns an ACE_Select_Reactor.
+ The call <code>TAO_ORB_Core_instance()->reactor()</code> returns an
+ ACE_TP_Reactor.
+ </p>
+ 
+ <p>
+ Another possible approach for handling signals in a TAO
+ application that uses the default TP reactor would be to 
+ spawn a separate thread and use <code>ACE_OS::sigwait()</code> to handle the signals.
+ </p>
+ 

@@ -1,0 +1,40 @@
+Q: Why is my &quot;client&quot; thread dispatching requests?
+
+A: >
+ By default,
+ TAO attempts to efficiently use all the threads that are given to it.  This
+ includes "client" threads that have sent a request and are waiting for a
+ reply from the server.  While waiting, these threads enter the normal thread
+ pool reactor event loop.  This means that any incoming requests (assuming
+ that the process is also a server) may be dispatched using that thread. Such
+ a situation is referred to as a &quot;nested upcall&quot;.
+ 
+ <p> This has a couple of side effects that surpise many people.  First,
+ it is possible for even a single threaded server to process more than one
+ request at the same time.  Second, if you try to allocate threads exclusively
+ as "server" threads and "client" threads, the ORB will pay no attention to
+ your idea of what these threads are and dispatch requests on both. </p>
+ 
+ <p> Why is this the default behavior of TAO?  Mainly because nested upcalls avoid
+ many potential deadlock situations.  One example is a simple callback operation
+ with a single threaded client.  When the client sends a request to the server,
+ the server sends a callback request back to the client.  If the client's
+ only thread is waiting for the reply and not dispatching incoming requests,
+ then a deadlock is now in place.  The default behavior allows the client
+ ORB to process the callback request and send a reply to the server which
+ frees the server ORB to send its reply back to the client. </p>
+ 
+ <p> There however are situations where you may wish to prevent nested upcalls
+ in your application. Some common reasons are:
+ <ul>
+ <li>Real-time applications which impose strict response times.
+ <li>Resource limitations which impose concurrency limitations.
+ <li>Short response time. The response will be buffered until the nested upcall
+ unwinds.
+ <li>Recursive nested upcalls may lead to unbounded stack growth, which will
+ eventually crash the application.
+ </ul><br>
+ See entry <a href="#prevent_nested_upcalls">How can I
+ prevent nested upcalls in my application?</a> for techniques to prevent nested upcalls.
+ <br>
+ 

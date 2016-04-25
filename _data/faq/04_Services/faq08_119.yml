@@ -1,0 +1,32 @@
+Q: What is the difference between TAO's Real-Time Event Service and the OMG Notification Service?
+
+A: >
+ The Notification
+ Service is an implementation of the OMG's Notification Service specification,
+ which originally came out of the Telecommunications working group within
+ the OMG.  See <a href="http://www.omg.org/cgi-bin/doc?formal/2000-06-20">http://www.omg.org/cgi-bin/doc?formal/2000-06-20</a> for the specification.  The Notification Service is backwards compatible with the OMG Event Service.
+ <p> The Real-Time Event Service is TAO specific.  It was developed prior
+ to the adoption of the OMG Notification Service specification.  The RT Event
+ Service was designed to meet the real-time and quality of service needs of
+ certain sponsors of the DOC group, but has applicability in a wide variety
+ of domains. </p><p> On the surface, the two services provide several similar features,
+ though the specifics of their interfaces and implementations are quite different:<br>
+ <ul>
+ <li> similar communications model
+ <li> support for structured events
+ <li> filtering of events
+ <li> support for subscriptions
+ <li> mechanisms for specifying QoS requirements
+ <li> support for delivery of sequences of events
+ </ul>
+ <p> In addition, the RT Event Service provides some features that are not
+ part of the Notification Service, such as event channel federations, event
+ correlation, suspension and resumption of consumer connections, and integration
+ with a scheduling service. </p><p> The RT Event Service is older and perhaps more "mature" in that
+ it has been through multiple iterations of development and is in active use
+ by many real world applications.  However, the Notification Service is also
+ quite good and since the Notification Service is based on an OMG specification,
+ it may be a better choice for your application, depending upon your needs. 
+ <br>
+ 
+ 

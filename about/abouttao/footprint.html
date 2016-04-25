@@ -1,0 +1,61 @@
+---
+layout: page
+title: Footprint
+categories: [ocitao]
+tags: []
+order: 21
+---
+
+<div id="contenttext">
+	<div class="bodytext" align="justify">
+        <span class="headertext">TAO Footprint Considerations</span>
+
+        <h3>Background</h3>
+        <p>For many years, builders of large-scale distributed object systems have relied on CORBA for implementing their infrastructure needs, in a time and cost effective manner. Middleware was the optimum place to share functionality, rather than duplicating it in every application. These systems were implemented at a time when the resources available to them, such as memory, processing power and expanded bandwidth became very cost effective. In this environment CORBA gained acceptance, more features were added, platform support extended and performance optimizations incorporated. TAO&rsquo;s position in the market bears testimony to its leveraging of the growth in these resources to take CORBA beyond the best effort limitations of first generation CORBA products.</p>
+        <h4>A New Emerging Market</h4>
+        <p>The features of TAO have made it very appealing to a wide variety of users. Now that its users are convinced of the benefits of CORBA in general, and of TAO in particular, they are seeking to extend its use. There are a new group of target hardware and software systems for object technologies, beyond the traditional desk-top and server systems. These new applications and their platforms are aimed at network control equipment, telephony devices, hand-held products, sensors, airborne systems, orbiting vehicles, industrial controllers and the like. This new class of computing machinery does not have the luxury of supporting such large shared objects. They have limitations on heat dissipation, unit costs, power consumption, battery size and weight, all of which make a small memory footprint a desirable characteristic. Configuring TAO for small memory usage by makes it attractive in a wider range of circumstances because it reduces initial cost, power consumption, heat emitted, physical size etc.</p>
+        <h4>TAO&rsquo;s Response to this Market</h4>
+        <p>Footprint implications are a prime consideration in TAO&rsquo;s continued development.</p>
+        <p>To see the latest progress in TAO&rsquo;s footprint check with the web site <a href="http://www.dre.vanderbilt.edu/stats/footprint.shtml">
+        <font color="#660000">http://www.dre.vanderbilt.edu/stats/footprint.shtml</font>
+        </a>. All builds include an analysis of footprint size to encourage parsimonious coding practices, and to provide users with an open and transparent way of tracking status. Improvements today to the betas will manifest themselves in the next release product.</p>
+        <p>OCI has already contributed to TAO&rsquo;s memory footprint reduction activities through sponsors. We are actively seeking additional sponsors to continue this activity.</p>
+        <p>One way to meet the need of this market is by making TAO more configurable, so that it can be tailored specifically for the embedded systems designer. This allows the OEM to derive the middleware from a standards compliant open source code base, and yet know the code is configured specific to the need at hand. Such tailoring is still cost effective compared with developing code from scratch. As TAO continues to add and evolve functionality, the OEM will still have a source of contemporary technology from which to refresh the product line.</p>
+        <p>The embedded and wireless systems market is presently undergoing dramatic change to meet the opportunities offered. New battery and other power source technologies, the latest software for power management, and new low power hardware, all of which are sensitive to the needs of the growing embedded market are constantly altering the mix of options available to the designers. A severe limitation today, maybe gone tomorrow. Middleware&rsquo;s role is to absorb change and mask the developers from underlying systems&rsquo; turbulence, at both the hardware and O/S level. This benefit should not be denied lightly. TAO&rsquo;s layer of abstraction provides a level of protection to the savvy designer.</p>
+        <h4>Size Considerations</h4>
+        <p>When reviewing TAO, or in fact any ORB, for footprint size with regards to your application please consider the following:</p>
+        <ol><li>A zero footprint means zero functionality. CORBA performs a service, which you must replace with your code, if CORBA is not there to do it for you. </li>
+        <li>Even if you save memory with your own code replacing that of the ORB, remember you are now assuming a maintenance burden for the future, which might have been avoided. </li>
+        <li>A short cut in your code today may eventually result in more (and complex) code as you extend across additional platforms in the future. TAO efficiently manages platform extensions by means of its ACE layer. </li>
+        <li>If you have a choice of compilers on the platform bear in mind that compiler selection can affect memory size dramatically. Ensure you are aware of the compiler characteristics and its biases towards sharing code or performance optimizations (in-lining) for example. </li>
+        <li>What is your target chip? What is its instruction set? CISC chips have up to half the footprint size of the RISC architectures. </li>
+        <li>Do not confuse a rich (and large) development environment of source code, examples, test cases, and large memory and disk requirements for builds etc with footprint size. The two are separate and distinct issues. TAO&rsquo;s open source environment is comprehensive and can be overwhelming initially. </li>
+        <li>Do not be misled by the size of the TAO library file. It is not the amount of memory consumed for code and data. </li>
+        <li>What ORB services are you including? The OMG Minimum CORBA Spec. is a good reference point for what constitutes a minimum level of functionality and inter-operability. What really matters is what you need. Ensure you building only what you need. </li>
+        <li>Are you looking at size for a debugging version of TAO? This will not be representative of run time size. </li>
+        <li>Do you need logging? This also provides valuable service while consuming more space. </li>
+        <li>Are you using the Unix command "size" for estimating memory usage, in a consistent manner, during your evaluation? Measurement techniques must be consistent between environments and products. The TAO team uses the "size" command. </li>
+        <li>Are you able to set up TAO for "client only", or "server only" builds? If so you can eliminate extraneous code, such as POA code in the client application. </li>
+        <li>In some instances you may choose to employ ACE only, and still derive the benefits from an abstraction and platform portability standpoint. ACE is approximately one third the size of the ACE/TAO combination. </li>
+        <li>TAO is open source. If you are confident that your environment is static and bounded, that you know exactly what you need, that the benefits of CORBA are meaningful to you, then you may take advantage of TAO being open source and tailor TAO specifically to meet your needs. Through testing you can identify those files that are not being exercised, and remove potentially 20 to 30% of TAO&rsquo;s code base. OCI can help you implement such a strategy. </li>
+        <li>Remember the IDL you generate also takes up memory space. It can be influenced heavily by the number of objects in your code. Before compiling IDL be sure to check <a href="/faq/index.html#155">
+        <font color="#660000">this FAQ</font>
+        </a> to ensure the settings are correct to compile as small as possible. </li>
+        <li>Look at the OCI tool "SOreduce" (an abbreviation for Shared Object reduction) found in $ACE_ROOT/apps/soreduce/. This tool is described below and enables further footprint reduction as the design concludes.</li>
+        </ol>
+        <h4>Shared Library Reduction Tool</h4>
+        <p>The motivation for this tool was the understanding that the ACE &amp; TAO libraries were to be linked with the VxWorks kernel to allow multiple applications to be run simultaneously with a minimum of footprint consumed. Ordinarily a choice is made between static linking applications, where each application gets only the object modules needed, and shared object linkage, where multiple applications share access to full libraries. Frequently a shared library will contain code and data which is not used by any of the applications in a particular configuration. The Shared Library Reduction Tool builds libraries that include only the modules needed to support a specified set of applications.</p>
+        <p>The analysis is performed very late in the application implementation, allowing the system implementers the freedom to use whatever TAO &amp; ACE components are needed. Once an application is built and running, its shared object need may be evaluated. The evaluation is straight forward. Run the soreduce program, passing the path to all of the applications that will share the libraries. The soreduce program uses the following steps to generate its results.</p>
+        <ol><li>A list of undefined symbols and shared libraries is built by invoking the ldd and nm commands on each application. For now, soreduce assumes the GNU variant of these tools. </li>
+        <li>For each shared library, soreduce tries to invoke nm on each of the intermediate object files used to build the library. It is important that target library directory has a current .shobj subdirectory. </li>
+        <li>The list of undefined symbols is traversed. For each entry in the list, the modules loaded from step 2 are examined to look for a matching symbol. When one is found, the target symbol, and any others satisfied by the module are removed from the list, and any undefined symbols in the module are added to the list. This process is repeated until the entire list of undefined symbols is traversed without change. </li>
+        <li>Makefiles are generated. Rather than invoking the linker directly, a make file is generated that may be used to build the libs. With these makefiles, the actual library will be named lib(orig)_subset.so.</li>
+        </ol>
+        <p>For more information go to the $ACE_ROOT/apps/soreduce/README file.</p>
+        <h4>Conclusion</h4>
+        <p>In evaluating middleware, with regards to memory footprint, one must exercise care and good judgment.</p>
+        <p>Although the actual numbers are constantly changing (see the above URL) you may require a rule of thumb as to memory sizing. The LibACE size for Linux on X86 is about 700 kilobytes. On Vxworks for the PowerPC the size is around 850 kilobytes. LibTAO is just over a megabyte for the Linux/X86 combination and just under 1.4 megabytes for the VxWorks/PowerPC combination. Both are required for TAO. These numbers should help you obtain a general feel for the size of TAO on CISC and RISC environments.</p>
+        <p>Contact OCI if you are concerned about footprint and want to fairly evaluate TAO and ACE for your small footprint project.</p>
+
+	</div>
+    </div>

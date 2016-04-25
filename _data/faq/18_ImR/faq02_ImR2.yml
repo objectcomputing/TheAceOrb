@@ -1,0 +1,5 @@
+Q: How can I avoid losing my tagged components when I use the ImR and indirect object references?
+
+A: >
+ While we don't have an example to showcase this problem, it should be possible to register a direct object reference with the IORTable, as discussed above, to work around this problem.
+ 

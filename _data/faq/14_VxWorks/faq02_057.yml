@@ -1,0 +1,30 @@
+Q: How do I create shared libraries?
+
+A: >
+ Shared
+ libraries on VxWorks aren't really shared libraries.  If you ever worked
+ on Unix in the days before shared libraries, you might remember "relocatable
+ object files", i.e., object files created by the linker with many of their
+ symbols resolved, but also permitted to have unresolved symbols. <p>
+ When you see <b>libACE.so</b> on VxWorks, they're simply relocatable object files.
+ Once you realize that, and all it entails, your life will get easier :-)
+ </p><p>
+ Some implications of this are:
+ </p><ul>
+ <li>You should <b>not</b> use "-lACE" when linking libTAO.so, then try to
+ load both libACE.so and libTAO.so.  This will lead to duplicate symbols because
+ the creation of libTAO.so will resolve all the ACE symbols.  Thus, when you
+ load libTAO.so after having loaded libACE.so, you will, effectively, load
+ all the symbols in libACE.so again (they're in libTAO.so, too). </li><li>Similar to the previous point, you should not link libACE.so or libTAO.so into your application.
+ </li></ul>
+ 
+ A command line to create a shared library on VxWorks might look like:
+ <pre>  $ make shared_libs_only=1 ACE_SHLIBS=
+ </pre> The ACE_SHLIBS make macro usually contains the names of shared libraries
+ to link in, such as "-lTAO -lACE", etc.  By making it empty, these do not
+ get linked.  <br>
+ 
+ 
+ 
+ 
+ 

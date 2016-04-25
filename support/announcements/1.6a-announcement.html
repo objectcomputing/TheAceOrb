@@ -1,0 +1,112 @@
+---
+layout: page
+title: TAO 1.6a
+order: 66
+categories: [ocitao]
+---
+<div id="contenttext">
+    <div class="bodytext" align="justify">
+
+
+
+	<p>OCI's TAO 1.6a release is based on the DOC (see<a href="http://www.cs.wustl.edu/%7Eschmidt/doc-group.html"><font color="#660000">
+http://www.cs.wustl.edu/~schmidt/doc-group.html</font></a>) group's TAO&nbsp;1.6.7
+beta kit. OCI has performed extensive testing of TAO across a wide variety of
+platforms and added several enhancements, some of which were funded by our
+customers.<br /><br />TAO 1.6a includes many new features and improvements over the
+previous commercially supported (TAO 1.5a) release and has been extensively
+tested across a wide variety of platforms (over 14,000 tests run on over 30
+hardware/os/compiler combinations) to increase availability and stability. Some
+of the more important and visible new features of TAO 1.6a include:</p><p><b>These features were added subsequent to TAO 1.6.7 </b><br /></p><ul><li>
+                          Added support for filter persistence to the Notification Service.
+                        </li><li>
+Added a client validation (and cleanup) feature to the Notification
+Service. A number of related options to control this feature were
+introduced. </li><li>
+			  Changed default linking behavior on Sun OS platforms to avoid setting an RPATH (distrib=1).
+                     </li></ul><p><b>These features were added subsequent to TAO 1.5a as part of TAO 1.6.7 </b></p><ul><li>
+                          Removed exception specifications from many member functions.
+                        </li><li>
+                          New diffserv library to specify diffserv priorities independent of RTCORBA.
+                        </li><li>
+                          Added support for using AMI with DII and AMH with DSI.
+                        </li><li>
+                          Improved wide character compilation support.
+                        </li><li>
+                          Added support for IPv6 to RT Event Service federations
+                        </li><li>
+The TAO_IORManip library now has a filter that allows users to create
+new references by filtering profiles from multi-profile object
+refences. </li><li>
+                          Added support for IPv6 to MIOP and DIOP.
+                        </li><li>
+                          Added support for forward declared unions and structs to the Interface Repository Loader.
+                        </li><li>
+A new security option was added that allows mixed security levels in
+servers, where some objects grant unrestricted access and others
+require secure connections. </li><li>
+                          Added -Gos option to the IDL compiler to generate ostream operators for IDL declarations.
+                        </li><li>
+                          Various footprint improvements (mainly moving code to optional libraries).
+                        </li><li>
+                          Added the -RTORBDynamicThreadRunTime option to control the lifetime of dynamic RTCORBA threads.
+                        </li><li>
+TAO now conforms to the OMG's C++ Language Mapping V1.2. Among other
+changes, CORBA::LocalObject is now reference counted by default. </li><li>
+                          Added wildcard support for pools and lanes in the -ORBLaneListenEndpoints option.
+                        </li><li>
+                          TAO now supports ZIOP which compresses ORB messages.
+                        </li><li>
+Added the -m option to the Implementation Repository's Activator. This
+option allows the user to override the value for the number of
+environment variables passes to child processes. The current default is
+512. </li><li>
+                          New <code>ORB_init()</code> options (see $TAO_ROOT/docs/Options.html in the source)
+                          <ul><li>
+                              <code>-ORBAMICollocation</code>: disables collocation for AMI calls.
+                            </li><li>
+                              <code>-ORBAcceptErrorDelay</code>:
+Controls the amount of time to wait before attempting to accept new
+connections when a possibly transient error occurs during accepting a
+new connection. </li><li>
+                              <code>-ORBIPHopLimit</code>: Controls the number of hops an IPv4/IPv6 packet can outlive.
+                            </li><li>
+                              <code>-ORBIPMulticastLoop</code>: MIOP-specific option that controls whether multicast packets are looped to the originating host.
+                          </li></ul>
+                        </li><li>
+                          Notification Service changes:
+                          <ul><li>
+                              New monitoring capabilities were added.
+                            </li><li>
+The Monitor and Control interface can now be used to remove consumer
+and supplier proxies and admins. </li><li>
+                              Added a -Timeout option to specify a roundtrip timeout for client communication.
+                            </li><li>
+Add -DefaultConsumerAdminFilterOp and -DefaultSupplierAdminFilterOp to
+allow setting of the default filter operators. </li></ul>
+                     </li></ul><p>&nbsp;<b>Important Bug Fixes since 1.5a </b></p><ul><li>
+                         Several problems with AMI support and collocated AMI support have been fixed.
+                       </li><li>
+                         Some problems with Location Forward were corrected.
+                       </li><li>
+                         Round trip timeouts are now honored consistently.
+                       </li><li>
+                         A number of IDL compiler defects have been fixed, many in areas related to valuetypes and typedefs.
+                     </li></ul><br /><p>TAO 1.6a is available for immediate download, in source-code form, from <a href="/"><font color="#660000">{{site.baseurl}}</font></a>. The new, updateded edition of the TAO Developer's Guide is currently under development.</p>
+<p align="center"><a href="/downloads/1.6a/index.html" target="_self"><font color="#660000" /></a><font color="#660000"><a target="_self">Downloads for TAO 1.6a</a></font></p>
+<p align="center"><font color="#660000">All Patches for TAO 1.6a (none at this
+time)</font></p>
+<p align="center"><a href="http://download.ociweb.com/TAO-1.6a/OCIReleaseNotes.html" target="_self"><font color="#660000" /></a><font color="#660000"><a target="_self">TAO
+1.5a Release Notes</a></font></p><p>&nbsp;</p><p>TAO is a truly open-source project with literally thousands of contributors. In particular, OCI would like to acknowledge and thank
+the Distributed Object Computing team for all their hard work and
+commitment to TAO.<br /><br />OCI offers a wide array of CORBA technical support
+options for TAO and the Java-based ORB, JacORB and OpalORB the Perl based ORB. Our service areas
+include systems architecture, large-scale distributed application
+architecture and object-oriented design and development. We specialize
+in architecting solutions with middleware technologies such as
+CORBA,&nbsp;J2EE, XML and wireless. For more information, please see <a href="http://www.ociweb.com/"><font color="#660000">http://www.ociweb.com</font></a> or contact <a href="mailto:sales@ociweb.com"><font color="#660000">sales</font></a> for more information.</p><p align="center"><b>The OCI TAO Team</b></p><b /><p>&nbsp;</p>
+
+
+
+    </div>
+</div>

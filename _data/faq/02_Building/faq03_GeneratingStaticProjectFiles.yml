@@ -1,0 +1,38 @@
+Q: How do I generate static project files?
+
+A: >
+ If you have Perl installed, you can use the <i>Makefile, Project,
+ and Workspace Creator</i> (MPC) to generate them yourself. The
+ steps below, while they assume a UNIX platform, can be used (with minor
+ modifications) on any general purpose platform.<br/><br/>
+ 
+ <ol>
+ <li>Set the MPC_ROOT environment variable to point to the MPC package location. OCI's
+ TAO release contains the MPC package at $ACE_ROOT/MPC.<br/><br/>
+ 
+ <code>% export MPC_ROOT=&lt;complete path to MPC package&gt;</code><br/><br/>
+ </li>
+ 
+ <li>Set the ACE_ROOT environment variable to the root of your ACE+TAO code base and execute the
+ following commands to generate static project files:<br/><br/>
+ 
+ <code>% cd $ACE_ROOT/TAO</code><br/>
+ <code>% $ACE_ROOT/bin/mwc.pl -type gnuace -static -name_modifier *_Static TAO_ACE.mwc</code><br/><br/>
+ 
+ Substitute your build tool's type for <code>gnuace</code>
+ (e.g., use <code>-type vc71</code> for Visual C++ 7.1).
+ </li>
+ </ol>
+ 
+ The default configuration can be modified by customising the
+ <code>$ACE_ROOT/bin/MakeProjectCreator/config/default.features</code> file.
+ Use the <code>$ACE_ROOT/bin/MakeProjectCreator/config/global.features</code> file as a template.<br/><br/>
+ 
+ Example: The following will generate static project files for the Visual C++ 7.1 compiler on Windows:<br/><br/>
+ 
+ <code>% $ACE_ROOT/bin/mwc.pl -type vc71 -static -name_modifier *_Static TAO_ACE.mwc</code><br/><br/>
+ 
+ On UNIX machines you will need to turn on the static_libs_only
+ flag in <code>$ACE_ROOT/include/makeinclude/platform_macros.GNU</code>
+ to build static libraries.
+ 

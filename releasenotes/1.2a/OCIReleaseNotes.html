@@ -1,0 +1,538 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<!-- $Id: relnotes.html,v 1.13 2002/03/01 23:37:09 totten_s Exp $ -->
+<html>
+  <head>
+    <title>Release Notes for OCI's Distribution of TAO 1.2a</title>
+      <script LANGUAGE="JavaScript" type="text/javascript">
+
+
+function SendMail(Login, Server) {
+ location=("mailto:" + Login + "@" + Server);}
+
+</script>
+    <style>
+      h1 { font-family: Arial,Helvetica; font-size: 24pt; }
+      pre { margin-left: 0.5in }
+      dt { font-style: italic; }
+      div.out { font-family: fixed; margin-bottom: 2em; font-size: 12pt;}
+      .l1 { font-weight: bold; font-family: Arial,Helvetica; font-size: 12pt;}
+      .l2 { font-weight: bold; font-family: Arial,Helvetica; font-size: 10pt;}
+      .l3 { font-weight: normal; font-family: Arial,Helvetica; font-size: 9pt;}
+    </style>
+
+  </head>
+
+  <body>
+    <h1 align="center">
+      Release Notes for OCI's Distribution of TAO 1.2a<br>
+      Copyright 2000-2002 by Object Computing, Inc.
+    </h1>
+
+    <hr>
+    <center>
+    <table width="75%">
+      <tr>
+	<th align="left" valign="top">NOTE:</th>
+	<td>&nbsp;</td>
+	<td>
+	  These release notes are current as of TAO 1.2a (which corresponds to OCI part
+	  number <em>TBD</em>).  The latest version of these release notes
+	  can be viewed or downloaded from OCI's web site at <a
+	  href="{{site.baseurl}}/releasenotes">{{site.baseurl}}/releasenotes</a>.
+	</td>
+      </tr>
+    </table>
+    </center>
+    <hr>
+
+    <!-- Table of Contents -->
+
+    <p class="l1">Table of Contents</p>
+    <ol type="1">
+      <li><a href="#general_notes">General Notes</a>
+	<ol type="a">
+	  <li><a href="#heritage">Heritage--Relationship to DOC Releases</a>
+<!-- Commented out for now by Steve Totten.
+	  <li><a href="#cdformat">CD Format Notes</a>
+-->
+	  <li><a href="#gnumake">Building Requires GNU Make</a>
+<!-- Commented out for now by Steve Totten.
+	  <li><a href="#install_nt_on_nt">Installing on Windows vs. UNIX</a>
+          <li><a href="#event_svc_clarification">Clarification of Event Service
+              Installation Nomenclature</a>
+-->
+	</ol>
+      <li><a href="#updates">New Features Since TAO 1.1a</a>
+	<ol type="a">
+          <li><a href="#corba25">Major feature-compliance with OMG's CORBA 2.5
+              specification</a>
+          <li><a href="#security1">Support for OMG CORBA Security Level 1
+              specification</a>
+          <li><a href="#improved_idl">Improved IDL compiler</a>
+          <li><a href="#realtime_emulation">Availability of Real-time
+              Emulation</a>
+          <li><a href="#additional_platforms">Additional configuration options
+              and support for additional platforms</a>
+          <li><a href="#footprint_reduction">Options for Footprint Reduction
+              and improved modularization</a>
+          <li><a href="#improved_pp">Improved Pluggable Protocol
+              framework with additional pluggable protocols</a>
+          <li><a href="#interoperable_naming">Complete support for Interoperable
+              Naming Service</a>
+          <li><a href="#improved_notification">Improvements in the
+              Notification Service</a>
+          <li><a href="#improved_mcast">Improved Multicast Service Discovery</a>
+          <li><a href="#interface_repo">Implementation of OMG Interface
+              Repository</a>
+          <li><a href="#improved_implrepo">Improved Implementation
+              Repository</a>
+	</ol>
+      <li><a href="#platform_notes">Platform-specific Notes</a>
+        <ol type="a">
+          <li><a href="version_info.html">Version Information & Platform/Version-specific Known Problems</a>
+          <li><a href="#known_problems">Known Problems Across Platforms</a>
+        </ol>
+
+<!-- Commented out for now by Steve Totten.
+      <li><a href="#building_apps">Quickstart for Building with TAO</a>
+        <ol type="a">
+	  <li><a href="#building_unix">TAO on UNIX</a>
+	  <li><a href="#building_nt">TAO on Win32 with Visual C++</a>
+        </ol>
+      <li><a href="#sample_app">Sample Application</a>
+-->
+
+    </ol>
+
+    <hr width="50%">
+
+    <ol type="1">
+      <li class="l1"><a name="general_notes"></a><span class="l1">General Notes</span>
+        <p>
+	<ol type="a">
+	  <li class="l2"><a name="heritage"></a><span class="l2">Heritage--Relationship to
+	  DOC Releases</span>
+	    <p>
+	      TAO 1.2a derives from the DOC TAO 1.2.1 beta kit with bugfix-related patches
+	      selectively applied to enhance stability.  A record of applied patches can
+	      be found in <strong>OCIChangeLog</strong> files
+	      installed with the distribution.  At the time of this release, the current
+	      DOC beta kit was TAO 1.2.2.
+	    <p>
+
+<!-- Commented out for now by Steve Totten.
+
+	  <li class="l2"><a name="cdformat"></a><span class="l2">CD Format</span>
+	    <p>
+	      This CD's format is ISO-9660 with Rock Ridge and Joliet extensions.  Thus, it
+	      should be readable on nearly every Unix platform (Rock Ridge extensions) as
+	      well as Windows (Joliet extensions).  We mastered it using the freely-available <a
+	      href="http://www.ps.ucl.ac.uk/~jcpearso/mkhybrid.html">mkhybrid</a> tool, and
+	      recorded it using the freely-available <a
+	      href="ftp://ftp.fokus.gmd.de/pub/unix/cdrecord/">cdrecord</a>.
+	    <p>
+-->
+
+	  <li class="l2"><a name="gnumake"></a><span class="l2">GNU Make Required on Unix</span>
+	    <p>
+	      With the exception of Windows operating systems,
+	      building ACE and TAO from source code requires GNU Make.  While you can use
+	      other tools to build applications using ACE &amp; TAO, using GNU Make lets
+	      you leverage the existing build system distributed with ACE &amp; TAO.  If
+	      you need GNU Make, you can get a source distribution through <a
+	      href="{{site.baseurl}}/gnumake">{{site.baseurl}}/gnumake</a>
+	      as well as other places.
+	    <p>
+
+<!-- Commented out for now by Steve Totten.
+
+	  <li class="l2"><a name="install_nt_on_nt"></a><span class="l2">Installing on Windows vs. UNIX</span>
+	    <p>
+              To install a Windows build of TAO 1.2a from CD, run
+              setup on a Windows platform.  Likewise, to install for
+              a UNIX or UNIX-like platform, run setup on a UNIX or
+              UNIX-like platform.
+	    <p>
+
+          <li class="l2"><a name="event_svc_clarification"></a><span class="l2">Clarification of Event Service Installation Nomenclature</span></li>
+            <p>
+              During installation, a dialog will ask you to select the
+              service executables you wish to install.  The dialog
+              lists two event service executables, and does not
+              provide much help in discerning the difference.
+            <p>
+              Select <b>CosEvent</b> to install the service executable
+              for the OMG's CosEvent service; select <b>Event</b> to
+              install the service executable for TAO's Real-Time Event
+              service (RTEC).
+        <p>
+-->
+
+	</ol>
+
+      <li class="l1"><a name="updates"></a><span class="l1">New Features Since TAO 1.1a</span>
+        <p>
+	<ol type="a">
+
+	  <li class="l2"><a name="corba25"></a><span class="l2">Major
+          feature-compliance with OMG's CORBA 2.5 specification</span>
+	    <p>
+            TAO 1.2a complies with most features of the CORBA 2.5
+            specification, including the following specific features:<p>
+            <ul>
+              <li class="l2"><span class="l2">OMG Real-time (RT) CORBA
+              specification</span>
+              <p>TAO 1.2a includes support for the OMG RT CORBA
+              specification.  RT CORBA, an optional part of the CORBA
+              2.5 specification, is designed to give developers a high
+              degree of control over the allocation and management of
+              run-time resources to improve quality of service (QoS) and
+              end-to-end predictability in time-critical applications.</p>
+              <li class="l2"><span class="l2">Portable
+              Interceptors</span>
+              <p>TAO 1.2a adds complete support for CORBA-compliant
+              Portable Interceptors. Portable Interceptors in CORBA are
+              objects that the ORB invokes at predefined points in the
+              request and reply paths of an operation invocation or
+              during the generation of an interoperable object reference
+              (IOR). Developers can define their own code to be executed
+              at each interception point to perform application-specific
+              tasks such as logging, debugging, or security and
+              authentication.</p>
+              <li class="l2"><span class="l2">Bi-directional
+              GIOP/IIOP</span>
+              <p>TAO 1.2a includes full support for bi-directional
+              GIOP/IIOP. Bi-directional GIOP provides a solution to the
+              problem of invoking methods on clients behind a firewall.</p>
+              <li class="l2"><span class="l2">Dynamic Anys</span>
+              <p>TAO 1.2a includes full support for CORBA-compliant
+              Dynamic Anys. Previously (in TAO 1.1a), Dynamic Anys were
+              based on the earlier CORBA 2.2 specification.</p>
+              <li class="l2"><span class="l2">Locality-constrained
+              interfaces ("local")</span>
+              <p>TAO 1.2a adds support for <em>local</em> interfaces
+              from CORBA 3 and includes local implementations of several
+              standard interfaces, such as the Portable Object Adapter
+              (POA) and servant managers. Local interfaces obviate the
+              need to define special pseudo-objects and pseudo IDL
+              (PIDL) for objects that are never called remotely, such as
+              the POA and ORB interfaces.</p>
+            </ul>
+	    <p>
+
+	  <li class="l2"><a name="security1"></a><span class="l2">Support for OMG CORBA Security Level 1 specification</span>
+	    <p>
+            TAO 1.2a adds support for the OMG CORBA Security Level 1
+            specification. OMG's Security Service specification is a
+            comprehensive treatment of security as it relates to
+            distributed object systems and applications.
+	    <p>
+
+	  <li class="l2"><a name="improved_idl"></a><span class="l2">Improved
+          IDL compiler</span>
+	    <p>
+            TAO 1.2a introduces many IDL compiler enhancements and bug
+            fixes, including support for re-opened modules and forward
+            declaration of an interface that is defined in a separate
+            IDL file.
+	    <p>
+
+          <li class="l2"><a name="realtime_emulation"></a><span class="l2">
+          Availability of Real-time Emulation</span>
+	    <p>
+            TAO 1.2a adds a <em>virtual real-time emulator</em> to
+            enable real-time performance analysis on non-real-time
+            platforms.
+	    <p>
+
+	  <li class="l2"><a name="additional_platforms"></a><span class="l2">
+          Additional configuration options and support for additional
+          platforms</span>
+	    <p>
+            In TAO 1.2a, support has been extended to new platforms,
+            operating systems, and C++ compilers, including several
+            64-bit and real-time operating systems. Supported operating
+            systems include Windows, Linux, Solaris, HP-UX, AIX, Tru64,
+            IRIX, VxWorks, LynxOS, ChorusOS, ReliantUNIX, UnixWare, and
+            OS/9.  TAO 1.2a also introduces changes to configuration
+            options to allow developers and administrators complete
+            control over their application's run-time environment.
+	    <p>
+
+	  <li class="l2"><a name="footprint_reduction"></a><span class="l2">
+          Options for Footprint Reduction and improved modularization</span>
+	    <p>
+            In TAO 1.2a, the core TAO library has been divided into many
+            smaller libraries so applications only need to link in the
+            features they need.  In addition, TAO 1.2a includes an
+            application development tool that you can use to build
+            minimal libraries containing only those features that your
+            application actually uses.
+	    <p>
+
+	  <li class="l2"><a name="improved_pp"></a><span class="l2">
+          Improved Pluggable Protocol framework with additional
+          pluggable protocols
+          </span>
+	    <p>
+            TAO 1.2a comes with an improved open pluggable protocols
+            framework so developers can create their own transports that
+            seamlessly integrate with the rest of the TAO ORB. Custom
+            protocols can be developed to improve performance, reduce
+            bandwidth consumption, enforce security, or allow the ORB to
+            operate over proprietary transport protocols. Applications
+            need not be aware of the existence of these custom
+            protocols.
+	    <p>
+            In addition to OMG-standard IIOP, TAO 1.2a includes
+            implementations of the following pluggable protocols: UIOP
+            (uses UNIX-domain sockets), SHMIOP (shared memory
+            transport), DIOP (UDP-based transport), and SSLIOP (uses the
+            OpenSSL implementation of the Secure Sockets Layer).
+            <p>
+
+	  <li class="l2"><a name="interoperable_naming"></a><span class="l2">
+          Complete support for Interoperable Naming Service
+          </span>
+	    <p>
+            TAO 1.2a provides complete support for the OMG Interoperable
+            Naming Service specification, including
+            <code>corbaloc</code> and <code>corbaname</code> object URLs
+            and support for the <code>CosNaming::NamingContextExt</code>
+            interface.
+            <p>
+
+	  <li class="l2"><a name="improved_notification"></a><span class="l2">
+          Improvements in the Notification Service
+          </span>
+	    <p>
+            TAO 1.2a includes many enhancements to TAO's implementation
+            of the OMG Notification Service, including multithreaded
+            event dispatching and filter evaluation, full ETCL filtering
+            constraint grammar, support for the
+            <code>SequencePushConsumer</code> interface, and support for
+            most of the standard quality of service (QoS) properties.
+            <p>
+
+	  <li class="l2"><a name="improved_mcast"></a><span class="l2">
+          Improved Multicast Service Discovery
+          </span>
+	    <p>
+            TAO 1.2a provides developers and administrators with better
+            control over multicast discovery of TAO's CORBA services
+            (such as the Naming and Object Trader services) and the
+            addition of a new <code>mcast:</code> object URL scheme.
+            <p>
+
+	  <li class="l2"><a name="interface_repo"></a><span class="l2">
+          Implementation of OMG Interface Repository
+          </span>
+	    <p>
+            TAO 1.2a adds an implementation of the OMG Interface
+            Repository specification for dynamic discovery of IDL types
+            and interfaces.
+            <p>
+
+	  <li class="l2"><a name="improved_implrepo"></a><span class="l2">
+          Improved Implementation Repository
+          </span>
+	    <p>
+            TAO 1.2a includes several improvements and bug fixes to the
+            Implementation Repository.
+            <p>
+	</ol>
+
+	<p>
+	Details on these, and many other features of TAO 1.2a, will be
+        detailed in the forthcoming <a
+	href="{{site.baseurl}}/product/index.html">
+        OCI's TAO Developer's Guide, Version 1.2a</a>, available separately.
+        <p>
+
+      <li class="l1"><a name="platform_notes"></a><span class="l1">Platform-specific Notes</span>
+        <p>
+          <ol type="a">
+          <li class="l2"><span class="l2"><a
+          href="version_info.html">Version Information and Known
+          Problems on Specific Platforms</a></span>
+            <p>
+          </li>
+
+          <li class="l2"><span class="l2"><a name="known_problems">Known Problems Across Platforms</a></span>
+              <p>
+              <dl>
+                <dt>Problems using GNU Make Parallel Builds</dt>
+              <p>
+              <dd>
+                Using the <code>-j</code> for GNU Make can cause
+                strange build errors when building code generated by
+                the IDL compiler if dependencies are not correctly
+                specified in the Makefile.
+              </dd>
+            <p>
+                <dt>Test Failures Across Platforms</dt>
+              <p>
+              <dd>
+                The following tests fail on most platforms:
+	         <ul>
+	           <li>$TAO_ROOT/tests/MT_Timeout</li>
+	           <li>$TAO_ROOT/tests/Oneway_Buffering</li>
+	           <li>$TAO_ROOT/tests/AMI_Buffering</li>
+	         </ul>
+              </dd>
+	      <p>
+	      <dd>
+		  For platform/version-specific test failures and known problems,
+		  please review the
+		  <a href="version_info.html">release notes for each version/platform.</a>
+              </dd>
+            <p>
+
+            </dl>
+          </li>
+        </ol>
+
+
+
+<!-- Commented out for now by Steve Totten.
+
+      <li class="l1"><a name="building_apps"></a><span class="l1">Quickstart for Building with TAO</span>
+
+	<p>
+	  This section contains a few things you will need to know to build applications
+	  which use the TAO and ACE libraries distributed on this CD.  You can find more
+	  detailed information in <a href="bldgapps.html">bldgapps.html</a>, adapted
+          from the <a
+	  href="http://theaceorb.com/TAO/About/product_descriptions.html"><em>TAO
+	  Developer's Guide</em> (OCI part number tbd)</a>, <a
+	  href="http://theaceorb.com/TAO/Purchase_TAO/purchase_tao.html">available
+	  for purchase online</a>.
+	<p>
+
+        <ol type="a">
+	  <li class="l2"><a name="building_unix"></a><span class="l2">TAO on UNIX</span>
+
+	    <p>
+              On UNIX and UNIX-like systems, you should use GNU Make to build applications
+              with TAO.  The document <a
+              href="bldgapps.html#UNIX_Section">bldgapps.html</a> shows
+              an <a href="bldgapps.html#makefileexample">example Makefile</a>.
+            <p>
+              Briefly, you will need to set the following environment variables:
+            <p>
+
+            <dl>
+              <dt><code>ACE_ROOT</code></dt>
+              <dd>The base of your ACE and TAO installation</dd>
+
+              <dt><code>TAO_ROOT</code></dt>
+              <dd><code>$ACE_ROOT/TAO</code></dd>
+
+              <dt><code>LD_LIBRARY_PATH (SHLIB_PATH on HP-UX)</code></dt>
+              <dd>Must include <code>$ACE_ROOT/ace</code></dd>
+            </dl>
+
+            <p>
+              These can all be set by "sourcing" the environment script located
+              in your ACE_wrappers directory.
+              For example, assuming the base of your installation of TAO is in
+              <code>/usr/local/ACE_wrappers</code>, and assuming you are using the
+              C-shell (csh):
+            <p>
+	      <div class="out">
+source /usr/local/ACE_wrappers/ace_env.csh<br>
+              </div>
+              <em>Note: <code>ace_env.sh</code> is also supplied for Bourne-like Shell users</em>
+            <p>
+
+	  <li class="l2"><a name="building_nt"></a><span class="l2">TAO on Win32 with Visual C++</span>
+            <p>
+              To build applications with ACE/TAO the following environment variables need to be set:
+            <p>
+
+            <dl>
+              <dt><code>ACE_ROOT</code></dt>
+              <dd>The base of your ACE and TAO installation</dd>
+
+              <dt><code>TAO_ROOT</code></dt>
+              <dd><code>%ACE_ROOT%\TAO</code></dd>
+
+              <dt><code>PATH</code></dt>
+              <dd>Must include <code>%ACE_ROOT%\bin</code></dd>
+            </dl>
+            <p>
+              See <a href="bldgapps.html#Setting_UNIX_Env_Vars">bldgapps.html</a> for detailed instructions on setting the environment variables for the various Unix OSs.  On Windows NT, 2000 and XP, the installer script sets the ACE_ROOT and TAO_ROOT environment variables, but you need to explicitly add the specified directory to the PATH variable.    You may need to log out and back in to actually see these variables propagated to all running processes.  On Windows 98, you need to explictly set all the variables listed above.
+            <p>
+              You also need to add various directories to the global Visual C++ settings so that VC++ can properly locate the ACE/TAO header files and libraries.  This is described in <a href="bldgapps.html#Setting_Visual_CPP_Options">bldgapps.html</a>.
+            <p>
+              Any existing Visual C++ projects that need to use TAO should be modified as described in <a href="bldgapps.html#createproject">bldgapps.html</a>.  Briefly, you need to:
+            <ul>
+              <li> Modify the default compiler settings to use
+                   multi-threaded DLLs;
+              <li> Modify the Input Object/Library modules to use the
+                   debug or release versions of the ACE, TAO, and
+                   orbsvcs libraries, as appropriate for your
+                   development environment;
+              <li> Set up a custom build configuration to invoke the TAO
+                   IDL compiler to generate C++ header and source files
+                   from OMG IDL files.
+              </ul>
+
+        </ol>
+	<p>
+
+      <li class="l1"><a name="sample_app"></a><span class="l1">Sample Application</span>
+            <p>
+              The CD includes a sample application which you can build and run to verify
+              that your installation of TAO was successful.  The application consists of a
+              simple message server and client.  The client sends a message to the
+              server by invoking an operation on a Messenger object.
+            <p>
+              Source code for this application is found on the CD in the file
+              <code>example.tgz</code>.  We have also included a Makefile for building the
+              application on UNIX and UNIX-like systems, and a Visual C++ project file
+              for building it on Windows.
+            <p>
+              On UNIX and UNIX-like platforms, use <code>gunzip</code> and
+              <code>tar</code> to uncompress and unpack this file.  Then, run GNU Make in the
+              example directory to build the MessengerServer and MessengerClient.  You can
+              then run them after they are successfully built.
+            <p>
+              On Windows, use <code>WinZip</code> or another zip utility to unpack the file.  You will find a
+              Visual C++ workspace called <code>GettingStartedVC</code> in the
+              <code>example\GettingStartedVC</code> subdirectory which you can use to compile the
+              interfaces and build the MessengerServer and MessengerClient programs.
+            <p>
+              The server creates a Messenger object and prints its IOR as a string to a file,
+              then waits for client requests.  The client reads the IOR string from
+              the file and sends a message using the Messenger object.  The server then prints
+              the contents of the message to stdout.
+            <p>
+              Here is sample output from running the server and client on Linux:
+            <p>
+
+            <div class="out">
+$ MessengerServer &<br>
+[1] 25291<br>
+IOR written to file Messenger.ior<br>
+<br>
+$ MessengerClient<br>
+Message from: rick<br>
+Subject:      Test<br>
+Message:      Howdy!<br>
+message was sent<br>
+            </div>
+
+-->
+
+    </ol>
+
+    <hr>
+    <p>
+    <address>OCI provides commercial support for TAO 1.2a.  Contact
+    <a href="javascript:SendMail('sales', 'ociweb.com')">sales</a> for more
+    information.</address>
+    </p>
+
+  </body>
+</html>

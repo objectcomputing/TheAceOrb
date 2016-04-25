@@ -1,0 +1,14 @@
+Q: I'm building a statically linked application and want to statically link the codeset library.
+
+A: >
+ This may be done via MPC. Edit
+ <code>$ACE_ROOT/bin/MakeProjectCreator/config/default.features</code> file to add the line:
+ <br>
+ <code>negotiate_codesets = 1</code>
+ <p>
+ This will explicitly add TAO_Codeset to the link line of your application.
+ Somewhere within the body of your code, you must also add
+ <code>#include "tao/Codeset/Codeset_Factory.h"</code>
+ 
+ 
+ 

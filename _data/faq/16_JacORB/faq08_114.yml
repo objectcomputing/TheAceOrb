@@ -1,0 +1,14 @@
+Q: JacORB-only Naming Service example
+
+A: >
+ A JacORB-only
+ Naming Service example.  A JacORB client uses the Naming Service to find
+ its target object.  Please see the README and the PDF file in the attached
+ .tgz file (Windows users can use WinZip to open it).<br>
+ <a href="jacorb-ns-example.tgz">jacorb-ns-example.tgz (3.8 K)</a><br>
+ <a href="ns-example-presentation.pdf">ns-example-presentation.pdf (259.6 K)</a>
+ <br>
+ 
+ 
+ 
+ 

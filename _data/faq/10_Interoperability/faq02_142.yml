@@ -1,0 +1,31 @@
+Q: What ORBs does TAO interoperate with?
+
+A: >
+ There
+ are many different interpretations of the word "interoperate".   In general,
+ TAO works with any ORB that adheres to the relevant OMG CORBA standards.
+  If it doesn't work, then there is a bug in one of the ORB implementations.
+  If it is with TAO it is usually corrected quickly (even quicker if you help
+ document and debug the problem).  Other ORB implementors also fix these problems
+ quite quickly when they are brought to their attention. <p> There is no definitive list of ORBs that a particular version of TAO
+ works with.  Here are some ORBs that users have reported successfully using
+ with TAO in the past:<br>
+ </p>
+ <ul>
+ <li> Orbix (3.x, 2000)
+ <li> Visibroker
+ <li> JacORB
+ <li> OpenORB
+ <li> Sun JDK ORB
+ <li> ORBExpress
+ <li> INTERSTAGE
+ <li> CorbaScript
+ <li> Orbacus
+ <li> ZEN
+ <li> MICO
+ <li> OmniORB<br>
+ </ul>
+ There are probably others.<br>
+ <br>
+ 
+ 

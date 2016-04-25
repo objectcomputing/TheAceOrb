@@ -1,0 +1,81 @@
+Q: How can I minimize the sizes of the ACE and TAO libraries?
+
+A: >
+ There
+ are several ways to minimize the sizes of the ACE and TAO libraries, at least
+ in UNIX.  They are described briefly here.  More details can be found in
+ the <a href="{{site.baseurl}}/purchase/index.html"><em>TAO Developer's Guide</em></a>.
+ <p> Note that all of these solutions are applied at compile time, so if you
+ obtained OCI's Distribution of TAO as pre-built binaries on
+ CD, you will need to re-compile. </p>
+ <ol>
+ <li> Turn off debugging.
+ <p> To turn off the generation of extra debugging information in the
+ libraries, use the <code>debug=0</code> make flag when building the ACE, TAO, and orbsvcs
+ libraries.  You can do this in your
+ <code>$ACE_ROOT/include/makeinclude/platform_macros.GNU</code> file by putting
+ <code>debug=0</code> in the file or when you invoke the make
+ command (e.g., <code>make debug=0</code>). </p>
+ <li> Build only the ACE components needed for TAO.
+ <p> By default, all the ACE components are compiled and included in the
+ ACE library.  But, TAO depends upon only a subset of ACE.  To build only
+ those components needed for TAO, set
+ <code>ACE_COMPONENTS=FOR_TAO</code> either as an
+ environment variable or in your
+ <code>platform_macros.GNU</code> file. </p>
+ <li> Build only the "Minimum CORBA" features.
+ <p> The TAO library can be built according to the "Minimum CORBA" specification
+ by excluding support for certain features such as DII, DSI, DynAny, and Servant
+ Managers.  To select the Minimum CORBA subset of TAO, define
+ the <code>TAO_HAS_MINIMUM_CORBA</code>
+ preprocessor macro in <code>$ACE_ROOT/ace/config.h</code>, or
+ set <code>minimum_corba=1</code> in your
+ <code>platform_macros.GNU</code> file, or pass
+ <code>minimum_corba=1</code> on the GNU <code>make</code> command
+ line.  </p>
+ <li>Use the "soreduce" tool to build a minimal set of shared libraries
+ for your application.
+ <p>"soreduce" allows you to reduce the sizes of the
+ ACE and TAO libraries by including only the object files that contain
+ symbols used by the relevant executables.  "soreduce" generates MPC files
+ that can be used to build subsetted versions of the ACE/TAO libraries.
+ <p>For more information on soreduce, see
+ <code>$ACE_ROOT/apps/soreduce/README</code>.
+ </ol>
+ <p>
+ <strong>IMPORTANT</strong>
+ </p><p> You should use the <code>size</code> command instead of measuring the size of
+ each library file on disk (e.g., with <code>ls -l</code>) to get a more accurate measure
+ of the true size of the code in the library.  The <code>ls -l</code>
+ command reports the size of the library file on
+ disk (which can be very large) while the <code>size</code> command
+ ("dec" column, which is the total of the "text", "data", and "bss" columns,
+ in decimal) reports the run-time size, which will be much
+ smaller.  (The
+ "bss" section is unitialized data, according to the Solaris size(1) man page.) 
+ </p><p>
+ You can also use the <code>size</code> command to measure the size of an executable.
+ </p><p> The size of each library's file on disk, as reported
+ by <code>ls -l</code>,
+ is actually somewhat irrelevant to the run-time size of your executable, for
+ the following reasons: </p>
+ <ul>
+ <li> If you are linking statically, most linkers will link into the
+ executable only those parts of the library (the .o's) that you are
+ actually using in your application.<br>
+ <li> If you are linking dynamically, the entire shared library will be
+ loaded into memory, but it will be shared across all processes running
+ on that host that are using the library.  So, you only take the memory
+ hit for the library once.<br>
+ <li> Also, even in a shared library situation, you are not likely to have
+ the entire library resident at once.  Most modern operating systems
+ will page portions of the library file in and out of memory as needed
+ by processes.
+ </ul>
+ <p>
+ Depending upon your linker and operating system, your mileage may vary.<br>
+ <br></p>
+ 
+ 
+ 
+ 

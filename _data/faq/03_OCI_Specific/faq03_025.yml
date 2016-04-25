@@ -1,0 +1,28 @@
+Q: If I install TAO from the OCI CD set, do I need to build it?
+
+A: >
+ In addition to the full source code for ACE and TAO, the OCI CD set includes
+ <em>pre-built</em> libraries for ACE, TAO, and TAO's CORBA
+ services, plus executables for TAO's IDL compiler, gperf, and servers for the
+ various services.
+ <p>
+ The CD set contains these pre-built components for many popular platforms,
+ operating systems, and C++ compilers.
+ </p><p>
+ In addition, the builds on the CD set include more than one build configuration
+ (i.e., debug on or off, native C++ exception support on or off).
+ </p><p>
+ Note that the CD set does <em>not</em> include pre-built binaries of the various tests,
+ performance tests, and examples that come with ACE and TAO, but the full source
+ code for them is there.
+ </p><p>
+ So, if you install TAO from the OCI CD set for one of the existing platform / 
+ operating system / compiler combinations, you can get started writing, building,
+ and running your own applications that use TAO right away.
+ </p><p>
+ Of course, since you have the full source code, you can custom build it yourself
+ (e.g., for a particular platform, operating system, compiler, or configuration
+ which is not present on the CD).
+ <br>
+ 
+ 

@@ -1,0 +1,35 @@
+Q: What are these CORBA::Environment parameters?  Why do I get errors about pure virtual functions?
+
+A: >
+ The <code>CORBA::Environment</code> parameters are part of
+ the alternate exception mapping defined by the OMG's IDL to
+ C++ language mapping specification.  Normally, CORBA
+ exceptions are mapped to C++ exceptions.  The mapping also
+ allows CORBA to be used when C++ exceptions are unavailable or
+ undesirable by passing exception information via an extra
+ parameter of type <code>CORBA::Environment</code>.  TAO
+ versions up to 1.5.1 support both mappings and you can build
+ ACE/TAO to support either mapping by passing
+ <code>exceptions=0</code> or <code>exceptions=1</code> to GNU
+ make or by defining the macro <code>ACE_HAS_EXCEPTIONS</code>.
+ 
+ <p>
+ If you build TAO to use native C++ exceptions, the IDL
+ compiler, by default, does not include the
+ <code>CORBA::Environment</code> parameters.  If you build with
+ the alternate mapping, the IDL compiler includes the
+ <code>CORBA::Environment</code> parameter by default.  You can
+ explicitly tell the IDL compiler what to do with the
+ <code>-Ge</code> option (<code>-Ge 1</code> includes the extra
+ parameter, <code>-Ge 0</code> omits it).  You need to generate
+ the skeleton classes in a manner that is compatible with your
+ servant classes or you will receive compiler errors about
+ abstract classes or pure virtual functions.
+ </p>
+ 
+ <p>
+ For more information about Exceptions and TAO, see the Error
+ Handling chapter of the <a href="{{site.baseurl}}/purchase/index.html"><em>TAO Developer's Guide</em></a>.
+ <br>
+ 
+ 

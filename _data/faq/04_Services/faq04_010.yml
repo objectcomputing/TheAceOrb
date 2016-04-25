@@ -1,0 +1,23 @@
+Q: Is the Naming Service server's object reference &quot;persistent?&quot;
+
+A: >
+ Yes, TAO's
+ implementation of the OMG Naming Service always creates a persistent IOR
+ for the root Naming Context.  That is to say, it creates the object reference
+ in a POA that has the PERSISTENT life span policy.  Thus, you can use the
+ IOR across invocations of the Naming Service provided that the service always
+ starts up on the endpoint used when creating the original reference. <p>
+ Use the <code>-ORBListenEndpoints</code> option to specify that the server
+ should start on a specific endpoint, e.g.,<br>
+ </p><pre>  Naming_Service -ORBListenEndpoints iiop://bart:2809<br></pre>
+ The general form is:<br>
+ <pre>  Naming_Service -ORBListenEndpoints iiop://name_server_host:name_server_port<br></pre>
+ For more detailed information on using the
+ <code>-ORBListenEndpoints</code> option, see the <a
+ href="{{site.baseurl}}/purchase/index.html"><em>TAO Developer's Guide</em></a>
+ <p>
+ For more information on direct binding of persistent object
+ references, see Henning's and Vinoski's <em>Advanced CORBA Programming with C++</em>, 14.3.2.
+ </p>
+ 
+ 

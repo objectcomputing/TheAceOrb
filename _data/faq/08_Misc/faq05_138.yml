@@ -1,0 +1,29 @@
+Q: What is involved with using std library (inc stl) with ACE/TAO?
+
+A: >
+ There are several conditional directives that are relevant:<br>
+ <ul>
+ <li> ACE_HAS_STANDARD_CPP_LIBRARY -- Causes ACE to #include the standard libraries
+ where appropriate instead of older style runtime libraries, or defining its 
+ own equivalent. (ie &lt;cstdio&gt; instead of &lt;stdio.h&gt; or &lt;memory&gt; instead of 
+ creating its own auto_ptr)<br>
+ <li> ACE_USES_STD_NAMESPACE_FOR_STDCPP_LIB -- This causes ACE to define "using 
+ std::xxx" for all the std classes it uses. I've never messed with this one, 
+ so I'm not sure of all the ramifications. I notice that it is defined by 
+ default for most (all?) windows compilers. <br>
+ <li> ACE_HAS_STDCPP_STL_INCLUDES -- This seems to be used only in ace/IOStream.h.
+ It  causes ACE to use &lt;string&gt; instead of &lt;String.h&gt;. It's not defined for 
+ VC++, but is for some other win32 compilers. I've never used this one either.
+ </ul>
+ In practice, I typically define ACE_HAS_STANDARD_CPP_LIBRARY, and use stl and
+ other std objects in my code. You can still use std library functions and 
+ objects without defining ACE_HAS_STANDARD_CPP_LIBRARY, but it can be a hassle
+ because of duplicate definitions. (e.g. std::cout &amp; cout are different, so 
+ you have to explicitly use std:: most places, and you can't use them 
+ interchangeably)<br>
+  In practice it is fairly common to use ACE_HAS_STANDARD_CPP_LIBRARY. I always
+ use this, and prefer the standard library to ACE where there is overlap.
+ (ie std::map or hash_map over ACE_Hash_Map_Manager_Ex)  Of course this can
+ be a portability issue. <br>
+ 
+ 

@@ -1,0 +1,16 @@
+Q: I'm not interested in using Codeset Negotiation, how can I disable it?
+A: >
+ You may disable the codeset negotiation feature completely by passing
+ -ORBNegotiateCodesets 0 to ORB_init. When this is done, the TAO_Codeset library
+ is not loaded, thus saving the memory and messaging overhead of codeset
+ negotiation.
+ <p>
+ TAO may also be built with codeset negotiation off by default. This is done by
+ editing ACE_wrappers/ace/config.h and adding
+ <br>
+ <code>#define TAO_NEGOTIATE_CODESETS 0</code>
+ <p>
+ This will set the internal default to not load the codeset library, but this
+ can be overridden by supplying -ORBNegotiateCodesets 1 to ORB_init.
+ 
+ 

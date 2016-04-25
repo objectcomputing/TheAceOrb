@@ -1,0 +1,24 @@
+Q: How do I locate the Naming Service without resorting to multicast discovery?
+
+A: >
+ Here are some common ways to use the <code>-ORBInitRef</code> option to locate the Naming
+ Service (where <code>bart</code> is just an <em>example</em> host name):
+ <p>
+ # Store the IOR of the Naming Service's root Naming Context in a file:<br>
+ </p><pre>   Naming_Service -m 0 -o /tmp/ns.ior
+    client -ORBInitRef NameService=file:///tmp/ns.ior<br></pre>
+ # Specify an IIOP endpoint when you start the Naming Service:<br>
+ <pre>   Naming_Service -m 0 -ORBListenEndpoints iiop://bart:2809
+    client -ORBInitRef NameService=corbaloc:iiop:bart:2809/NameService<br></pre>
+ <p> You can also use the <code>NameServiceIOR</code> environment variable to achieve the
+ same effect.  Here, we show what it might look like on a UNIX or UNIX-like
+ system using the <code>bash</code> shell:<br>
+ </p><pre>  Naming_Service -m 0 -ORBListenEndpoints iiop://bart:2809
+   export NameServiceIOR=corbaloc:iiop:bart:2809/NameService<br></pre>
+  Now, when your client calls
+  <code>resolve_initial_references("NameService")</code>, no
+ multicast will be performed.  The <code>-m 0</code> option turns multicast off in the
+ Naming_Service server.  This is the default in TAO versions 1.1.17 and later.
+ Earlier versions defaulted to multicast enabled in the server. <br>
+ 
+ 

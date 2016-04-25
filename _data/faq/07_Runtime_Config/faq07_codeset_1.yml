@@ -1,0 +1,7 @@
+Q: Will TAO run without linking TAO_Codeset?
+A: >
+ Yes. However it will not participate in Codeset negotiate with other ORBs.
+ If you are in a mixed environment where you are mixing, say, Unicode, UTF-8,
+ or various Asian codesets, you will have problems with character interchange.
+ 
+ 

@@ -1,0 +1,11 @@
+Q: Why is multicast discovery of the Naming Service failing?
+
+A: >
+ There
+ can be a myriad of reasons, many related to network or OS-level issues rather
+ than TAO.  Try turning on -ORBDebugLevel 5 to get some sense of what might
+ be happening internally. <p>
+ If you're using Windows, check out LINK:107: and see if it applies.
+ <br>
+ 
+ 

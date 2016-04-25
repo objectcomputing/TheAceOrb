@@ -1,0 +1,21 @@
+Q: Which thread does TAO use to dispatch a request?
+
+A: >
+ The answer to this depends on a number of conditions:
+ <ul>
+ <li> If the client is collocated with the servant and collocation is enabled,
+ then the request is serviced on the client's thread.  Collocation can be
+ disabled via the option: <code>-ORBCollocation no</code><br>
+ <li> If the client is not in the same process as the servant (or collocation
+ is disabled), then the concurrency strategy of the servant's ORB determines
+ the servicing thread.  By default, this is the same thread where <code>orb-&gt;run()</code>
+ or <code>orb-&gt;perform_work()</code> is called.  You can also specify a thread-per-connection
+ model via the <code>-ORBConcurrency</code> option and a threadpool model by using the
+ thread pool reactor.
+ </ul><p>
+ See <a href="https://svn.dre.vanderbilt.edu/viewvc/Middleware/trunk/TAO/docs/Options.html?view=co">https://svn.dre.vanderbilt.edu/viewvc/Middleware/trunk/TAO/docs/Options.html?view=co</a> for more details on these options.
+ </p><p>
+ See <a href="http://www.cs.wustl.edu/%7Eschmidt/PDF/C++-report-col18.pdf">http://www.cs.wustl.edu/~schmidt/PDF/C++-report-col18.pdf</a> for a discussion of TAO's collocation optimizations.
+ <br>
+ 
+ 

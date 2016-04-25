@@ -1,0 +1,13 @@
+Q: Why does my TAO application leak memory when using Windows threads? 
+A: >
+ On Windows, if one spawns a thread with, for example
+ <code>_beginthreadex</code>, and makes CORBA calls from that thread,
+ TAO will leak memory.  TAO uses TSS (<em>thread specific storage</em>)
+ for handling requests along the output data paths.  With Win32
+ threads, the underlying type system does not invoke destructors on
+ TSS and the application will leak memory.
+ 
+ To get around this problem, please use ACE threads wherever possible. 
+ 
+ Thanks to &lt;alexander.jasper@gmx.net&gt; for supplying this FAQ!
+ 
