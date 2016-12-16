@@ -1,3 +1,49 @@
+
+#oci_logo {
+  float: left;
+  padding: 50px 50px 50px 50px;
+  background: transparent url('../images/OCI-new-130x130w.png') left top no-repeat;
+  background-size: 100%;
+  border:none;
+}
+
+#big_oci_logo {
+  float: left;
+  padding: 120px 120px 120px 120px;
+  background: url('../images/oci-new.png') left top no-repeat;
+
+  background-size: 100%;
+  border:none;
+}
+
+#product_logo {
+  float: left;
+  padding: 100px 150px 100px 150px;
+  background: url('../images/TAO-logo-1.png') left top no-repeat;
+  background-size: 100%;
+  border:none;
+}
+
+#forkme_banner {
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 10px;
+  z-index: 10;
+  padding: 10px 50px 10px 10px;
+  color: #fff;
+  background: url('../images/blacktocat.png') #0090ff no-repeat 95% 50%;
+  background: -moz-linear-gradient(top, #7b5b20, #cfa146);
+  background: -webkit-linear-gradient(top, #7b5b20, #cfa146);
+  background: -ms-linear-gradient(top, #7b5b20, #cfa146);
+  background: -o-linear-gradient(top, #7b5b20, #cfa146);
+  background: linear-gradient(top, #7b5b20, #cfa146);
+  font-weight: 700;
+  box-shadow: 0 0 10px rgba(0,0,0,.5);
+  border-bottom-left-radius: 2px;
+  border-bottom-right-radius: 2px;
+}
+
 .site-header {
     font-weight: bold;
     background-color: hsl(205, 100%, 32%);
