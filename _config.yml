@@ -6,7 +6,7 @@
 # 'jekyll serve'. If you change this file, please restart the server process.
 
 # Site settings
-title: OCITAO - theaceorb.com
+title: OCITAO - OCI's commercial version of The ACE ORB
 email: info@ociweb.com
 description: > # this means to ignore newlines until "baseurl:"
   OCITAO is OCI's commercial release of the ACE ORB. OCITAO is freely available, both in terms
@@ -23,7 +23,7 @@ markdown: kramdown
 
 # github-metadata
 repository: objectcomputing/OCITAO
-gems: ['jekyll-github-metadata', 'jekyll-redirect-from', 'octopress-debugger' ]
+gems: ['jekyll-github-metadata', 'octopress-debugger' ]
 
 #OCI web metadata
 product_logo_url: ../images/TAO-logo-1.png
