@@ -13,7 +13,7 @@ description: > # this means to ignore newlines until "baseurl:"
   of spirit and cost. OCI provides fee based, commercial support for TAO including older versions
   thereby facilitating support for the duration of long-lifespan product. For more information
   about OCI's support offering contact mailto://info@ociweb.com
-baseurl: "http://objectcomputing.github.io/OCITAO" # the subpath of your site, e.g. /blog
+baseurl: "https://objectcomputing.github.io/OCITAO" # the subpath of your site, e.g. /blog
 #url: "/OCITAO" # the base hostname & protocol for your site
 twitter_username: ObjectComputing
 github_username:  objectcomputing
@@ -27,4 +27,4 @@ gems: ['jekyll-github-metadata', 'octopress-debugger' ]
 
 #OCI web metadata
 product_logo_url: ../images/TAO-logo-1.png
-ociweb_product_page: http://www.ociweb.com/products/tao/
+ociweb_product_page: https://www.ociweb.com/products/tao/
