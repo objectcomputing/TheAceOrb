@@ -6,7 +6,7 @@
 # 'jekyll serve'. If you change this file, please restart the server process.
 
 # Site settings
-title: OCITAO - OCI's commercial version of The ACE ORB
+title: OCITAO
 email: info@ociweb.com
 description: > # this means to ignore newlines until "baseurl:"
   OCITAO is OCI's commercial release of the ACE ORB. OCITAO is freely available, both in terms
