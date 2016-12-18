@@ -29,7 +29,7 @@ The ACE ORB (TAO) is an open source C++ implementation of the Object Management 
     {% assign latest_rel = sorted_rel | first %}
 {% endif %}
 
-{% include ./tobeincluded %}
+{% include tobeincluded %}
 ### Downloading OCI TAO - 2.2a and older releases
 
 TAO 2.2a and older releases are [available for download here](http://theaceorb.com/downloads)
