@@ -23,7 +23,7 @@
 {% unless slash == empty or slash[2] == 'main.css' or p.sitemap == false %}
 {% assign indent = slash.size %}
 {% assign level_m1 = level | minus: 1 %}
-{% for i in (indent..level_m1) %}</ul></li>{% endfor %}
+{% for i in (indent..level_m1) %} unindent {{i}} </ul></li>{% endfor %}
 {% assign last = p.url | slice: -1, 1 %}
 {% if last == '/' %}
 <li>
