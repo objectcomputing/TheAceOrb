@@ -1,19 +1,11 @@
-# Welcome to Jekyll!
-#
-# This config file is meant for settings that affect your whole blog, values
-# which you are expected to set up once and rarely need to edit after that.
-# For technical reasons, this file is *NOT* reloaded automatically when you use
-# 'jekyll serve'. If you change this file, please restart the server process.
-
-# Site settings
 title: OCITAO
 email: info@ociweb.com
-description: > # this means to ignore newlines until "baseurl:"
+description: >
   OCITAO is OCI's commercial release of the ACE ORB. OCITAO is freely available, both in terms
   of spirit and cost. OCI provides fee based, commercial support for TAO including older versions
   thereby facilitating support for the duration of long-lifespan product. For more information
   about OCI's support offering contact mailto://info@ociweb.com
-baseurl: "https://objectcomputing.github.io/OCITAO" # the subpath of your site, e.g. /blog
+baseurl: "https://objectcomputing.github.io/OCITAO"
 #url: "/OCITAO" # the base hostname & protocol for your site
 twitter_username: ObjectComputing
 github_username:  objectcomputing
