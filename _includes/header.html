@@ -19,11 +19,14 @@
 {% assign level = 2 %}
 {% assign counter = 0 %}
 {% for p in sorted_pages %}
+        {{ p.url }} &nbsp;
 {% assign slash = p.url | split: '/' %}
 {% unless slash == empty or slash[2] == 'main.css' or p.sitemap == false %}
 {% assign indent = slash.size %}
+        indent = {{ indent }} &nbsp;
 {% assign level_m1 = level | minus: 1 %}
-{% for i in (indent..level_m1) %}</ul></li>{% endfor %}
+        level_m1 = {{ level_m1 }} &nbsp;
+{% for i in (indent..level_m1) %} interior unindent {{ i }} </ul></li>{% endfor %}
 {% assign last = p.url | slice: -1, 1 %}
 {% if last == '/' %}
 <li>
