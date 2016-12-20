@@ -21,7 +21,7 @@
 {% for p in sorted_pages %}
         {{ p.url }} &nbsp;
 {% assign slash = p.url | split: '/' %}
-{% unless slash == empty or slash[2] == 'main.css' or p.sitemap == false %}
+{% unless slash == empty or slash[3] == 'style.css' or slash[2] == 'main.css' or p.sitemap == false %}
 {% assign indent = slash.size %}
         indent = {{ indent }} &nbsp;
 {% assign level_m1 = level | minus: 1 %}
@@ -33,7 +33,7 @@
 <input type="checkbox" id="drop-{{counter}}"/>
 <label for="drop-{{counter}}" class="toggle">{{p.title}} <span class="arrow">&#9660;</span></label>
 <a class="page-link" href="{{p.url | prepend: site.baseurl}}">{{p.title}} <span class="arrow">&#96{% if indent > 2 %}54{% else %}60{% endif %};</span></a>
-{% assign counter = counter | plus: 1 %}
+{% assign counter = counter | plu≈: 1 %}
 <ul class="sub-menu">
 <li class="mobile"><a class="page-link" href="{{p.url | prepend: site.baseurl}}">Index</a></li>
 {% else %}
