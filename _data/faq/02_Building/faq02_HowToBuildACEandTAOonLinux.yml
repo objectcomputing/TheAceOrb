@@ -7,26 +7,26 @@ A: >
  AIX, and HP-UX, and some real-time and embedded
  operating systems, such as VxWorks, LynxOS, Timesys Linux, and
  Windows CE.
- 
+
  <pre>
  Hardware Requirements
- 
+
    - CPU: ACE+TAO can be configured to build on a variety of 32
      and 64 bit processors (Intel, AMD, PowerPC)
    - Memory: 512 MB (more memory improves compile speed)
    - Hard Drive Space: 256MB swap + 500 MB up to several GB
      free (depending upon how much you build)
- 
+
  Operating System Requirements
- 
+
    - Linux 2.6.x kernel
- 
+
  C++ Compiler Requirements
- 
+
    - gcc 3.3.x (or later)
- 
+
  Other Software Requirements
- 
+
    - OCI's Distribution of TAO version 1.6a latest patch
      release or the latest release or micro release of ACE+TAO
      (see instructions below for obtaining and installing
@@ -34,48 +34,48 @@ A: >
    - GNU gunzip and GNU tar for extracting software archives
    - GNU make
    - Perl v5.6.1 or newer (recommended, but not required)
- 
+
  Obtaining and Installing OCI TAO
- 
+
    1. Download the latest release of OCI TAO 1.6a from:
- 
-      <a href="http://download.ociweb.com/TAO-1.6a/">http://download.ociweb.com/TAO-1.6a/</a>
- 
+
+      <a href="http://download.objectcomputing.com/TAO-1.6a/">http://download.objectcomputing.com/TAO-1.6a/</a>
+
       or download the latest release or micro release of ACE+TAO from:
- 
+
       <a href="http://download.dre.vanderbilt.edu/">http://download.dre.vanderbilt.edu/</a>
- 
+
    2. Extract the archive into a path with no spaces in the path
       name (e.g., /opt/ACE_wrappers)
- 
+
    3. Set ACE_ROOT, TAO_ROOT, PATH, and LD_LIBRARY_PATH environment
       variables.
- 
+
       For example, if ACE+TAO are installed in /opt/ACE_wrappers,
       the variables will look like this:
- 
+
       ACE_ROOT=/opt/ACE_wrappers
       TAO_ROOT=$ACE_ROOT/TAO
       PATH will include the directory $ACE_ROOT/bin
       LD_LIBRARY_PATH will include the directory $ACE_ROOT/lib
- 
+
    4. Create a file named config.h in $ACE_ROOT/ace with the following
       contents:
- 
+
       #include "ace/config-linux.h"
- 
+
    5. Create a file named platform_macros.GNU in
       $ACE_ROOT/include/makeinclude with the following contents:
- 
+
       debug=1     # (or debug=0)
       optimize=0  # (or optimize=1)
       include $(ACE_ROOT)/include/makeinclude/platform_linux.GNU
- 
+
    6. Build ACE+TAO using the following commands:
- 
+
       cd $TAO_ROOT
       make
- 
+
       The above commands will build the ACE and TAO libraries,
       TAO IDL compiler, gperf, ORB services libraries and
       executables, and some common utilities.  They will not
@@ -85,23 +85,23 @@ A: >
       executables will be installed in $ACE_ROOT/bin, others
       (the ORB services executables) will be installed in their
       source directories.
- 
+
       Note that it is possible to distinguish builds by architecture
       using the $ARCH environment variable. if $ARCH is set, the libs
       will be installed in $ACE_ROOT/lib/$ARCH. If you are using $ARCH
-      to control the target, the value must not contain spaces. For 
+      to control the target, the value must not contain spaces. For
       example, "Linux" or "x86_64" are acceptible but "Linux x86_64"
       is not.
- 
+
    7. If there are no GNUmakefiles, you will need to generate them
       using MakeProjectCreator (MPC) (requires Perl as listed above)
       with the following commands:
- 
+
       cd $TAO_ROOT
       $ACE_ROOT/bin/mwc.pl -type gnuace TAO_ACE.mwc
- 
+
       More information on MPC is available here:
- 
-      <a href="http://www.ociweb.com/products/mpc">http://www.ociweb.com/products/mpc</a>
+
+      <a href="http://www.objectcomputing.com/products/mpc">http://www.objectcomputing.com/products/mpc</a>
  </pre>
- 
+

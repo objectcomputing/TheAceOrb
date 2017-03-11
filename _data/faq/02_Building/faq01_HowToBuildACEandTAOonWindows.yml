@@ -7,70 +7,70 @@ A: >
  Linux, Solaris, AIX, and HP-UX, and some real-time and
  embedded operating systems, such as VxWorks, LynxOS, Timesys
  Linux, and Windows CE.
- 
+
  <pre>
  Hardware Requirements
- 
+
    - CPU: ACE+TAO can be configured to build on a variety of 32
      and 64 bit processors (Intel, AMD)
    - Memory: 512 MB (more memory improves compile speed)
    - Hard Drive Space: 256MB swap + 500 MB up to several GB
      free (depending upon how much you build)
- 
+
  Operating System Requirements
- 
+
    - Windows 2000, 2003, XP, or Vista
- 
+
  C++ Compiler Requirements
- 
+
    - Microsoft Visual C++ 7.1, 8, or 9
- 
+
  Other Software Requirements
- 
+
    - OCI's Distribution of TAO version 1.6a latest patch
      release or the latest release or micro release of ACE+TAO
      (see instructions below for obtaining and installing
      ACE+TAO)
    - WinZIP or similar tool for extracting software archives
    - ActiveState Perl v5.6.1 or newer (recommended, but not required)
- 
+
  Obtaining and Installing ACE+TAO
- 
+
    1. Download the latest release of OCI TAO 1.6a (with latest
       patches, if available) from:
- 
-      <a href="http://download.ociweb.com/TAO-1.6a/">http://download.ociweb.com/TAO-1.6a/</a>
- 
+
+      <a href="http://download.objectcomputing.com/TAO-1.6a/">http://download.objectcomputing.com/TAO-1.6a/</a>
+
       or download the latest release or micro release of ACE+TAO from:
- 
+
       <a href="http://download.dre.vanderbilt.edu/">http://download.dre.vanderbilt.edu/</a>
- 
+
    2. Extract the archive into a path with no spaces in the path
       name (e.g., C:\ACE_wrappers).
- 
+
    3. Set ACE_ROOT, TAO_ROOT, and PATH environment variables.
- 
+
       For example, if ACE+TAO are installed in C:\ACE_wrappers, the
       variables will look like this:
- 
+
       ACE_ROOT=C:\ACE_wrappers
       TAO_ROOT=%ACE_ROOT%\TAO
       The PATH variable should contain these directories: %ACE_ROOT%\bin;%ACE_ROOT%\lib
- 
+
    4. Create a file named config.h in %ACE_ROOT%\ace with the following
       contents:
- 
+
       #include "ace/config-win32.h"
- 
+
    5. Build the Debug or Release configuration of ACE+TAO using
       the solution file that matches your version of Visual
       C++.  For example, in OCI TAO 1.6a you will see the
       following solution files:
- 
+
       %TAO_ROOT%\TAO_ACE.sln      (Visual C++ 7.1)
       %TAO_ROOT%\TAO_ACE_vc8.sln  (Visual C++ 8)
       %TAO_ROOT%\TAO_ACE_vc9.sln  (Visual C++ 9)
- 
+
       The projects in the TAO_ACE solution build the ACE and
       TAO libraries, TAO IDL compiler, gperf, ORB services
       libraries and executables, and some common utilities.
@@ -80,27 +80,27 @@ A: >
       Some executables will be installed in %ACE_ROOT%\bin,
       others (the ORB services executables) will be installed
       in their source directories.
- 
+
    6. If you don't want to build all of the libraries and
       executables from the TAO_ACE solution, we recommend just
       building the <strong>Naming_Service</strong> project.
       It, and the projects on which it depends, includes most
       of the common ACE+TAO libraries that you need for
       developing your applications.
- 
+
    7. If the solution file you need does not exist, you will need
       to generate it using MakeProjectCreator (MPC) (requires
       Perl as listed above) with the following commands:
- 
+
       cd %TAO_ROOT%
       %ACE_ROOT%\bin\mwc.pl -type vc[version] TAO_ACE.mwc
- 
+
       where [version] is "71", "8", or "9" for Visual C++ 7.1,
       8, or 9, respectively.
- 
+
       More information on MPC is available here:
- 
-      <a href="http://www.ociweb.com/products/mpc">http://www.ociweb.com/products/mpc</a>
+
+      <a href="http://www.objectcomputing.com/products/mpc">http://www.objectcomputing.com/products/mpc</a>
  </pre>
- 
- 
+
+

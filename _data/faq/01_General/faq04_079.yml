@@ -8,19 +8,19 @@ A: >
  patch level (e.g., TAO 1.4a_p12), whereas DOC Group beta kits
  indicate the beta number after a major release (e.g., TAO
  1.5.4).
- 
+
  <p>
  Each OCI release is derived from a DOC Group version (for
  example, TAO 1.4a was derived from TAO 1.4.3), but
  an OCI release does not correspond exactly to any DOC Group release.
  </p>
- 
+
  <p>
  OCI seeks to maintain extremely stable, fully-tested, open
  source products backed by
  <a href="{{site.baseurl}}/support/index.html">commercial support</a>,
  <a href="{{site.baseurl}}/training/index.html">training</a>,
- <a href="http://www.ociweb.com/consulting">consulting</a>, and
+ <a href="http://www.objectcomputing.com/consulting">consulting</a>, and
  accompanied by
  <a
  href="{{site.baseurl}}/purchase/index.html">extensive
@@ -29,7 +29,7 @@ A: >
  desire a commercially-supported release of TAO as a basis for
  their mission critical applications.
  </p>
- 
+
  <p>
  The <a href="http://www.dre.vanderbilt.edu/">DOC Group's</a>
  primary focus is <a
@@ -42,7 +42,7 @@ A: >
  <a href="{{site.baseurl}}">OCI</a> and
  <a href="http://www.cs.wustl.edu/~schmidt/commercial-support.html">other organizations</a>.
  </p>
- 
+
  <p>
  OCI selects a reasonably stable DOC Group release as the basis
  for each OCI distribution.  OCI then builds and tests across
@@ -53,10 +53,10 @@ A: >
  and the degree of entanglement), or documented (if a fix is
  too involved to be accomplished without sponsorship).
  </p>
- 
+
  <p> In addition, OCI applies various enhancements, sponsored by our customers.
   We also integrate these back into the DOC group repository. </p>
-  
+
  <p>
  OCI also packages select binaries (custom builds are also
  available -- see <a
@@ -65,11 +65,11 @@ A: >
  distribution of TAO is still open source, OCI also distributes
  the source code and all patches free of charge (see <a href="{{site.baseurl}}/downloads">{{site.baseurl}}/downloads</a>).
  </p>
- 
+
  <p>
  In OCI distributions, the original DOC Group <code>ChangeLog</code>s are preserved;
  OCI changes are documented in <code>OCIChangeLog</code> and <code>OCIReleaseNotes.html</code>
  files, included in the source code distribution.  See, for example, the latest
  <a href="{{site.baseurl}}/1.4a/OCIReleaseNotes.html">OCI TAO 1.4a Release Notes</a>.
  </p>
- 
+

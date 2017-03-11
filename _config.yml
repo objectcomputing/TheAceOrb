@@ -1,10 +1,10 @@
 title: OCITAO
-email: info@ociweb.com
+email: info@objectcomputing.com
 description: >
   OCITAO is OCI's commercial release of the ACE ORB. OCITAO is freely available, both in terms
   of spirit and cost. OCI provides fee based, commercial support for TAO including older versions
   thereby facilitating support for the duration of long-lifespan product. For more information
-  about OCI's support offering contact mailto://info@ociweb.com
+  about OCI's support offering contact mailto://info@objectcomputing.com
 baseurl: "https://objectcomputing.github.io/OCITAO"
 #url: "/OCITAO" # the base hostname & protocol for your site
 twitter_username: ObjectComputing
@@ -19,4 +19,4 @@ gems: ['jekyll-github-metadata', 'octopress-debugger' ]
 
 #OCI web metadata
 product_logo_url: ../images/TAO-logo-1.png
-ociweb_product_page: https://www.ociweb.com/products/tao/
+objectcomputing_product_page: https://www.objectcomputing.com/products/tao/

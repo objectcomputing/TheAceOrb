@@ -5,48 +5,48 @@ A: >
  any errors are in the original text. -->
  <h3>Books</h3>
  <blockquote>
- 
- <em>Advanced CORBA Programming with C++</em> book by Henning and Vinoski. 
+
+ <em>Advanced CORBA Programming with C++</em> book by Henning and Vinoski.
  It's the equivalent of the ACE tutorial (except it's much more complete).
-  This is a general C++ CORBA book and covers the standard way of doing things. 
+  This is a general C++ CORBA book and covers the standard way of doing things.
  <p>
  The OCI <em>TAO Developer's Guide</em>, which you can purchase via
  <a href="{{site.baseurl}}/purchase/index.html">{{site.baseurl}}/purchase/index.html</a>
  .  This book picks up where the Henning and Vinoski book stops, covering
  TAO specific topics as well as CORBA standard features omitted from the Henning
  and Vinoski book. </p></blockquote>
- 
- 
+
+
  <h3>Online</h3>
  <blockquote>
- 
+
  The C++ Report and CUJ columns that Vinoski and Schmidt wrote over the past 4 years.  They are all online at <a href="http://www.cs.wustl.edu/%7Eschmidt/report-doc.html">http://www.cs.wustl.edu/~schmidt/report-doc.html</a>.
  <p>
  You may surf and search <a href="http://groups.yahoo.com/group/tao-users">the tao-users mailing list archives</a>.
  </p></blockquote>
- 
+
  <h3>Training</h3>
  <blockquote>
-  
+
  Doug Schmidt teaches a course at UCLA Extension.  See <a href="http://www.cs.wustl.edu/%7Eschmidt/UCLA.html">http://www.cs.wustl.edu/~schmidt/UCLA.html</a> for more details.
  <p>
- 
+
  OCI offers courses on CORBA programming with C++, CORBA
  programming with Java, Advanced CORBA programming using TAO,
- and programming with ACE.  See <a href="http://www.ociweb.com/education/services/descrip/dist">http://www.ociweb.com/education/services/descrip/dist</a> for more details on these and related courses.
- 
+ and programming with ACE.  See <a href="http://www.objectcomputing.com/education/services/descrip/dist">http://www.objectcomputing.com/education/services/descrip/dist</a> for more details on these and related courses.
+
  </p></blockquote>
- 
- 
+
+
  <h3>Tutorials</h3>
  <blockquote>
- 
+
  You can build TAO and work through the online tutorials in <code>$TAO_ROOT/docs</code>.
- 
+
  </blockquote>
- 
- 
+
+
  <br>
- 
- 
- 
+
+
+

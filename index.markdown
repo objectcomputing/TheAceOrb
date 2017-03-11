@@ -3,7 +3,7 @@ layout: page
 categories: [ocitao]
 ---
 
-The ACE ORB (TAO) is an open source C++ implementation of the Object Management Group (OMG) Common Object Request Broker Architecture (CORBA) version 3.0. TAO is supported by [OCI](http://www.ociweb.com) and the source code is hosted on [GitHub]({{site.github.repository_url}}).
+The ACE ORB (TAO) is an open source C++ implementation of the Object Management Group (OMG) Common Object Request Broker Architecture (CORBA) version 3.0. TAO is supported by [OCI](http://www.objectcomputing.com) and the source code is hosted on [GitHub]({{site.github.repository_url}}).
 
 ### Highlights of TAO
 
