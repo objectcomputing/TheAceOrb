@@ -12,24 +12,21 @@ A: >
  If you need to stay abreast of new research directions or want to try
  out the latest features, you can still obtain TAO beta kits in source
  code form by visiting <a href="http://download.dre.vanderbilt.edu/">http://download.dre.vanderbilt.edu/</a>.<br>
- <li> <b>Time Savings</b>: Buying and installing a prebuilt binary distribution of TAO, rather
- than downloading source code and building it yourself, can save you
- hours of work.  In addition, you can be sure that it has been built
- correctly and tested across several platforms, operating systems, and
- compilers, and in several different configurations.<br>
- <li> <b>Installation Support</b>: OCI provides 90 days of installation support for registered purchasers
- of prebuilt binary distributions of TAO.  We want to make sure
- you are up and running with TAO as quickly as possible.<br>
- <li> <b>Documentation</b>: Using OCI's Distribution of TAO is easy with OCI's <em>TAO Developer's Guide</em> (available for purchase at
- <a href="{{site.baseurl}}/purchase/index.html">{{site.baseurl}}/purchase/index.html</a>).
- In addition to the documentation set, you can view the latest TAO
- release notes at <a href="{{site.baseurl}}/releasenotes/index.html">{{site.baseurl}}/releasenotes/index.html</a>.<br>
+ <li> <b>Time Savings</b>: Rather
+ than downloading source code and building it yourself, OCI can provide prebuilt binaries for your specific platform,
+ as part of our professional services.  This can save you
+ many hours of work.  We regularly build and test across several platforms, operating systems, and
+ compilers, in several different configurations, so we are well positioned to help you with your specific build.<br>
+ <li> <b>Documentation</b>: Using OCI's Distribution of TAO is easy with OCI's <em>TAO Developer's Guide</em>, available for
+ complimentary download from  <a href="https://objectcomputing.com/products/tao">https://objectcomputing.com/products/tao</a>.
+ In addition to the documentation set, the latest release notes are available directly in the source code distribution
+ in $ACE_ROOT/OCIReleaseNotes.html.<br>
  <li> <b>Frequently Asked Questions</b>: OCI maintains a list of frequently asked questions about TAO.  This
  list is updated regularly by our staff of distributed object computing
  technology engineers to provide answers to common questions about
  using TAO.  Anyone in the TAO user community can contribute questions
  (and answers) to the FAQ.  Check it first to see if your question has
- been asked before.  The FAQ is located at <a href="{{site.baseurl}}/faq/">{{site.baseurl}}/faq/</a><br>
+ been asked before.  The FAQ is located at <a href="https://objectcomputing.github.io/OCITAO/support/faq.html">https://objectcomputing.github.io/OCITAO/support/faq.html</a><br>
  <li> <b>Professional Support</b>: If you need further support, beyond installation issues or frequently
  asked questions, such as object technology training, consulting,
  mentoring, or application development, OCI has several service
