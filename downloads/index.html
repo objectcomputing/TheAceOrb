@@ -7,42 +7,14 @@ order: 30
 ---
 <div id="contenttext">
   <div class="bodytext" align="justify">
-    <span class="headertext">Latest Release</span>
-      <p>The latest OCI TAO along with the older versions are available using <a href="http://localhost:9090/product/3">OCI's Download Portal</a> </p>
-
-      {% assign releases = site.github.releases %}
-      {% if releases != null %}
-        {% assign sorted_rel = site.github.releases | sort: "created_at" | reverse %}
-        {% assign latest_rel = sorted_rel | first %}
-        {% if latest_rel.assets != null %}
-            {% assign assets = latest_rel.assets | sort: "name" | reverse %}
-            <ul>
-            {% for a in assets %}{% capture tn %}Open{{latest_rel.tag_name}}{% endcapture %}
-                {% assign ext = a.name | remove: tn %}
-                {% if ext == '.zip' %}
-                  {% assign note = 'Windows' %}
-                {% else %}
-                  {% assign note = 'Linux/Solaris/MacOSX' %}
-                {% endif %}
-                <li> <a href="{{a.browser_download_url}}">{{a.name}}</a> ({{note}})</li>
-            {% endfor %}
-            </ul>
-        {% endif %}
-      {% endif %}
+    <span class="headertext">OCI TAO 2.2a</span>
+    <p><a href="2.2aDownloadNotes.html">Downloading OCI TAO 2.2a</a>.</p>
 
     <span class="headertext">Previous Releases</span>
-    <p style="text-align: left;">Previous releases are available via the <a href="http://localhost:9090/product/3">OCI Download Portal</a> or on the <a href="{{site.github.releases_url}}">GitHub releases page</a>. </p>
+    <p>Select a version from the "Download links" menu at the top of this page.</p>
 
     <span class="headertext">Support</span>
-    <p>See <a href="http://theaceorb.com/support/index.html">the OCITAO support page</a> for support options.</p>
+    <p>See <a href="../support">the OCITAO support page</a> for support options.</p>
 
   </div>
-
-  <div class="panel" align="justify">
-    <span class="headertext">Current Development Code</span>
-    <span class="bodytext"><br />
-      <p>Use the <a href="{{site.github.repository_url}}">GitHub repository</a> to find the latest in-development version, but note that the code in the repository is changing and can be unstable at any given time. GitHub can also be used to contribute via <a href="{{site.github.issues_url}}">Issues</a> and <a href="{{site.github.repository_url}}/pulls">Pull Requests</a>.</p>
-    </span>
-  </div>
-
 </div>
