@@ -31,7 +31,7 @@ The ACE ORB (TAO) is an open source C++ implementation of the Object Management 
 
 ### Downloading OCI TAO 2.2a
 
-OCI TAO 2.2a source code is [available for download](downloads/2.2aDownloadNotes.html).  Source code archives contain ACE and MPC along with TAO itself.
+OCI TAO 2.2a source code is [available for download]({{site.baseurl}}/downloads/2.2aDownloadNotes.html).  Source code archives contain ACE and MPC along with TAO itself.
 
 ### Downloading older releases
 
