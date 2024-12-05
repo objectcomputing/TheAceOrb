@@ -1,10 +1,13 @@
 Q: What's the recommended configuration when using thread-per-connection?
 
 A: >
- If you wish to use the thread-per-connection server-side concurrency model, a few other settings should also be present in your svc.conf file.  Below is an example of this  (each directive should appear on one line):<br/><pre>
+ If you wish to use the thread-per-connection server-side concurrency model, a few other settings should also be present in your svc.conf file.  Below is an example of this  (each directive should appear on one line):<br/>
+ <pre>
  static Server_Strategy_Factory "-ORBConcurrency thread-per-connection"
+
  static Client_Strategy_Factory "-ORBWaitStrategy rw -ORBTransportMuxStrategy exclusive
-                                 -ORBConnectStrategy blocked -ORBConnectionHandlerCleanup 1"
+                                -ORBConnectStrategy blocked -ORBConnectionHandlerCleanup 1"
+
  static Resource_Factory "-ORBFlushingStrategy blocking"
  </pre><br/>
  Note that -ORBConnectionHandlerCleanup is not available in versions of TAO prior to 1.4a_p11.<br/>
